@@ -21,7 +21,7 @@ Credits
 Run
 ---
 
-No fancy scrcipts, pure rebar and Erlang releases
+No fancy scripts, pure rebar and Erlang releases
 
     $ rebar get-deps
     $ rebar compile
@@ -29,4 +29,4 @@ No fancy scrcipts, pure rebar and Erlang releases
     $ node/bin/node console
 
 And open in browser http://localhost:8000
-NOTE: All bundled *.sh script only for N2O developers.
+NOTE: All bundled *.sh scripts only for N2O developers.
