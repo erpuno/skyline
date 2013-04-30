@@ -6,19 +6,16 @@ main() -> #template { file= code:priv_dir(web) ++ "/templates/index.html" }.
 title() -> <<"N2O">>.
 
 body() -> %spawn(fun() -> chat_loop() end),
-  [
-    #span { text= <<"Your chatroom name: ">> }, 
-    #textbox { id=userNameTextBox, text= <<"Anonymous">>, style= <<"width: 100px;">>, next=messageTextBox },
+  [ #span { text= <<"Your chatroom name: ">> }, 
+    #textbox { id=userName, text= <<"Anonymous">>, style= <<"width: 100px;">>, next=messageTextBox },
     #panel { id=chatHistory, class=chat_history },
-    #textbox { id=messageTextBox, style= <<"width: 70%;">>, next=sendButton },
-    #button { id=sendButton, text= <<"Send">>, postback=chat },
+    #textbox { id=message, style= <<"width: 70%;">>, next=sendButton },
+    #button { id=sendButton, text= <<"Send">>, postback=chat, source=[userName,message] },
     #panel { id=status } ].
 
 event(chat) ->
-    error_logger:info_msg("Button Pressed"),
-%    Username = wf:q(userNameTextBox),
-%    Message = wf:q(messageTextBox),
-%    wf:push({message, Username, Message}),
+    Username = wf:q(userName),
+    Message = wf:q(message),
             Terms = [
                 #p{},
                 #span { text="You are the only person in the chat room.", class=message }
