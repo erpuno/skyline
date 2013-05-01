@@ -13,7 +13,7 @@ body() -> %% area of http handler
     #button{id=but,text="Click Me!",postback=replace},
     #textbox { id=message },
     #button { id=sendButton, text= <<"Send">>, postback={chat,Pid}, source=[userName,message] },
-    #panel { id=status } ].
+    #panel { id=n2ostatus } ].
 
 event(replace) ->
     wf:replace(but,
