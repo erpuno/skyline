@@ -5,6 +5,8 @@
 main() -> #template { file= code:priv_dir(web) ++ "/templates/index.html" }.
 title() -> <<"N2O">>.
 
+masha() -> "маша".
+
 body() -> %% area of http handler
     {ok,Pid} = wf:comet(fun() -> chat_loop() end),
   [ #span { text= <<"Your chatroom name: ">> }, 
@@ -27,7 +29,7 @@ event(replace) ->
 event({chat,Pid}) -> %% area of websocket handler
     Username = wf:q(userName),
     Message = wf:q(message),
-    Terms = [ #span { text="Message sent" }, #br{} ],
+    Terms = [ #span { text= <<"Message sent">> }, #br{} ],
     wf:insert_bottom(chatHistory, Terms),
     wf:wire("$('#message').focus(); $('#message').select(); "),
     wf:reg_pool(room),
