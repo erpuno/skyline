@@ -5,8 +5,6 @@
 main() -> #template { file= code:priv_dir(web) ++ "/templates/index.html" }.
 title() -> <<"N2O">>.
 
-masha() -> "маша".
-
 body() -> %% area of http handler
     {ok,Pid} = wf:comet(fun() -> chat_loop() end),
   [ #span { text= <<"Your chatroom name: ">> }, 
