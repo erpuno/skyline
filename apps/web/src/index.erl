@@ -10,12 +10,13 @@ body() -> %% area of http handler
   [ #span { text= <<"Your chatroom name: ">> }, 
     #textbox { id=userName, text= <<"Anonymous">> },
     #panel { id=chatHistory, class=chat_history },
-    #button{id=but,text="Click Me!",postback=replace},
+    #button{id=but,text="Click Me!",postback=change_me},
+    #button{text="Replace Body",postback=replace},
     #textbox { id=message },
-    #button { id=sendButton, text= <<"Send">>, postback={chat,Pid}, source=[userName,message] },
+    #button { id=sendButton, text= <<"Chat">>, postback={chat,Pid}, source=[userName,message] },
     #panel { id=n2ostatus } ].
 
-event(replace) ->
+event(change_me) ->
     wf:replace(but,
         #link{
             url="http://erlang.org",
@@ -23,6 +24,9 @@ event(replace) ->
             actions=#show{effect=fade}
         }
     );
+
+event(replace) ->
+    action_redirect:redirect_nodrop("hello.html");
 
 event({chat,Pid}) -> %% area of websocket handler
     Username = wf:q(userName),
