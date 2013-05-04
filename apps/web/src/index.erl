@@ -30,7 +30,7 @@ event({chat,Pid}) -> %% area of websocket handler
     Terms = [ #span { text= <<"Message sent">> }, #br{} ],
     wf:insert_bottom(chatHistory, Terms),
     wf:wire("$('#message').focus(); $('#message').select(); "),
-    wf:reg_pool(room),
+    wf:reg(room),
     Pid ! {message, Username, Message};
 
 event(Event) -> error_logger:info_msg("Event: ~p", [Event]).

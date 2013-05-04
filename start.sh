@@ -1,4 +1,4 @@
 #!/bin/bash
 
-rels/web/node/bin/node console
+rels/web/node/bin/node start
 
