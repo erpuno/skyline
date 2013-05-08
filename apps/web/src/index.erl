@@ -5,6 +5,7 @@
 main() -> #template { file= code:priv_dir(web) ++ "/templates/index.html" }.
 title() -> <<"N2O">>.
 
+
 body() -> %% area of http handler
     {ok,Pid} = wf:comet(fun() -> chat_loop() end),
   [ #span { text= <<"Your chatroom name: ">> }, 
@@ -15,6 +16,13 @@ body() -> %% area of http handler
     #textbox { id=message },
     #button { id=sendButton, text= <<"Chat">>, postback={chat,Pid}, source=[userName,message] },
     #panel { id=n2ostatus } ].
+
+event(init) ->
+  [ begin
+          Terms = [ #span { text="System" }, ": ",
+                      #span { text=integer_to_list(N) }, #br{} ],
+            wf:insert_bottom(chatHistory, Terms)
+            end || N <- lists:seq(1,3) ];
 
 event(change_me) ->
     wf:replace(but,
