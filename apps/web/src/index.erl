@@ -7,15 +7,19 @@ title() -> <<"N2O">>.
 
 
 body() -> %% area of http handler
-    {ok,Pid} = wf:comet(fun() -> chat_loop() end),
+    {ok,Pid} = wf:comet(fun() -> chat_loop() end), 
+    wf:wire(#api{name=apiOne,tag=d1}),
   [ #span { text= <<"Your chatroom name: ">> }, 
     #textbox { id=userName, text= <<"Anonymous">> },
     #panel { id=chatHistory, class=chat_history },
     #button{id=but,text="Click Me!",postback=change_me},
     #button{text="Replace Body",postback=replace},
+    "<a onclick=\"document.apiOne('Hello')\" name='1'>API</a>",
     #textbox { id=message },
     #button { id=sendButton, text= <<"Chat">>, postback={chat,Pid}, source=[userName,message] },
     #panel { id=n2ostatus } ].
+
+api_event(Name,Tag,Term) -> error_logger:info_msg("Name ~p, Tag ~p, Term ~p",[Name,Tag,Term]), event(change_me).
 
 event(init) ->
   [ begin
