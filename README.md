@@ -1,16 +1,8 @@
-Synrc Web Framework for Erlang
-==============================
+Skyline: N2O Based Example Web Application
+==========================================
 
-Nitrogen 2 Optimized
---------------------
-
-* Page construction from binaries
-* Do all Actions through WebSocket channel
-* Work within Cowboy processes
-* Bert/jQuery only w/o JSON, urlencode, pickling and nitrogen.js
-* Compatible enough to transfer Nitrogen sites
-* Clean codebase
-* Separate Advanced Nitrogen elements
+This Nitrogen Site is based on N2O
+----------------------------------
 
 Credits
 -------
@@ -28,5 +20,16 @@ No fancy scripts, pure rebar and Erlang releases
     $ cd rels/web && rebar -f generate
     $ node/bin/node console
 
-And open in browser http://localhost:8000
-NOTE: All bundled *.sh scripts only for N2O developers.
+And open in browser [http://localhost:8000](http://localhost:8000)
+
+Developers
+----------
+
+For developing we use some script which is needed for linking source
+directories with release lib directories and also link BERT, N2O and
+jQuery javascript. After making release you should perform:
+
+    $ ./nitrogen_static.sh
+    $ ./release_sync.sh
+
+OM A HUM
