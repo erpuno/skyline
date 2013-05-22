@@ -1,0 +1,40 @@
+<html>
+<head>
+<title>{{title}}</title>
+<link rel="stylesheet" href="/static/nitrogen/textboxlist.css" type="text/css" media="screen" charset="utf-8" />
+</head>
+<body>
+{{body}}
+<script>{{script}}</script>
+<div id="n2ostatus"></div>
+<script>
+  function element_script(src){
+    var elscript = document.createElement("script");
+    elscript.type = "text/javascript";
+    elscript.src = src;
+    document.getElementsByTagName("head")[0].appendChild(elscript);
+  };
+
+  window.onload=function(){
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+
+    if (script.readyState){  //IE
+      script.onreadystatechange = function(){
+        if (script.readyState == "loaded" || script.readyState == "complete"){
+          element_script('/static/nitrogen/textboxlist.js');
+          script.onreadystatechange = null;
+        }
+      };
+    } else {  //Others
+      script.onload = function(){
+        element_script('/static/nitrogen/textboxlist.js');
+        // page script ?
+      };
+    }
+    script.src = '/static/nitrogen/all.js';
+    document.getElementsByTagName("head")[0].appendChild(script);
+  };
+  </script>
+</body>
+</html>
