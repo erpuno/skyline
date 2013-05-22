@@ -13,7 +13,7 @@ body() -> [
     #p{body=[
         #label{text="Enter tags" },
         #textboxlist{id=first, autocomplete=false},
-        #button{id=submit, text="Submit", postback=submit, source=[first]}
+        #button{id=submit, class=btn, text="Submit", postback=submit, source=[first]}
     ]},
     #p{body=[
       #label{text="What's your favorite programming language?"},
