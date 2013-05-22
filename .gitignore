@@ -1,0 +1,7 @@
+node
+ebin
+deps
+*.dets
+*.gz
+*.dump
+
