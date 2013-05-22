@@ -5,8 +5,8 @@
 title() -> [<<"TBL">>].
 
 main() ->
-  Title = wf_render_elements:render_elements(title()),
-  Body = wf_render_elements:render_elements(body()),
+  Title = wf:render(title()),
+  Body = wf:render(body()),
   [#dtl{file="tblist", bindings=[{title,Title},{body, Body}]}].
 
 body() -> [

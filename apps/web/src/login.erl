@@ -5,14 +5,24 @@
 title() -> [ <<"Login">> ].
 
 main() ->
-    Title = wf_render_elements:render_elements(title()),
-    Body = wf_render_elements:render_elements(body()),
-  [ #dtl{file = "login", bindings=[{title,Title},{body,Body}]} ].
+    Title = wf:render(title()),
+    Body = wf:render(body()),
+  [ #dtl{file = "tblist", bindings=[{title,Title},{body,Body}]} ].
 
-body() -> [ #span{id=display}, #br{},
-            #span{text="Login: "}, #textbox{id=user}, #br{},
-            #span{text="Password: "}, #password{id=pass},
-            #button{text="Login",postback=login,source=[user,pass]} ].
+body() -> [ #span{id=display},
+            #panel{class=["login-screen"],body=[
+              #panel{class=["login-form"],body=[ 
+                 #panel{class=["control-group"],body=[
+                     #label{class=["login-field-icon","fui-lock"],text="Login: ",for=user},
+                     #textbox{id=user,class=["login-field"]}
+                 ]},
+                 #panel{class=["control-group"],body=[ 
+                     #label{class=["login-field-icon","fui-lock"],text="Password: ",for=pass},
+                     #password{id=pass,class=["login-field"]}
+                 ]},
+               #button{class=["btn","btn-primary","btn-large","btn-block"],text="Login",postback=login,source=[user,pass]}
+
+               ]} ]} ].
 
 event(init) -> [];
 
