@@ -8,7 +8,7 @@ body() -> store2:header() ++ [
 
     #panel{class=["login-icon"],body=[#image{image="static/flatui/images/illustrations/retina.png"}]},
 
-    #panel{class=["login-screen"], body=[
+    #panel{class=["login-screen"], style="width: 600px;",body=[
         #panel{class=["modal-body"], style="overflow: hidden;",body=[
             #panel{class=["well"],body=[
                 #list{class=["nav nav-tabs"],body=[
@@ -32,6 +32,7 @@ body() -> store2:header() ++ [
                                  #textbox{id=user,class=["login-field"],style="width:425px;"},
                                  #label{class=["fui-user login-field-icon"],text="",for=user} ]},
                             #button{id=restore,style=["width: 215px;"],class=["btn","btn-primary","btn-large","btn-block"],text="Send Password",postback=login,source=[user,pass]} ]} ]} ]} ]} ]} ]}
+
     ].
 
 event(init) -> [];
