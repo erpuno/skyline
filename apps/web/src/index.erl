@@ -4,7 +4,7 @@
 
 main() -> 
     case wf:user() of
-         undefined -> timer:sleep(500), wf:redirect("login");
+         undefined -> wf:redirect("login");
          _ -> 
 %    Title = "Title",
 %    Body = "Body",
