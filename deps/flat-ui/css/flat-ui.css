@@ -745,6 +745,7 @@ h6 {
 }
 .navbar .nav {
   margin-right: 0;
+  margin-top: 0;
 }
 .navbar .nav > li {
   position: relative;
@@ -828,7 +829,7 @@ h6 {
   border-radius: 0 0 0 6px;
 }
 .navbar .nav ul {
-  border-radius: 4px;
+  border-radius: 6px;
   left: 0;
   list-style-type: none;
   margin-left: 0;
@@ -852,6 +853,8 @@ h6 {
 }
 .navbar .nav ul li {
   background-color: #34495e;
+  margin-top: -13px;
+  margin-bottom: 13px;
   padding: 0 3px 3px;
   position: relative;
 }
@@ -861,6 +864,8 @@ h6 {
 }
 .navbar .nav ul li:last-child {
   border-radius: 0 0 6px 6px;
+  margin-top: -13px;
+  margin-bottom: 0px;
 }
 .navbar .nav ul li.active > a,
 .navbar .nav ul li.active > a:hover,
@@ -1077,7 +1082,7 @@ h6 {
   border-bottom: none;
   margin: 2px 0 5px;
   padding: 0;
-  height: 2px;
+  height: 3px;
 }
 .select {
   display: inline-block;
