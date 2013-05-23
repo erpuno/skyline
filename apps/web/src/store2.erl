@@ -13,7 +13,7 @@ body() -> [
   #panel{class=[navbar, "navbar-inverse", "navbar-fixed-top"], body=[
     #panel{class=["navbar-inner"], body=[
       #panel{class=[container], body=[
-        #link{class=[brand], url="#", text="iGratch.com" }
+        #link{class=[brand], url="#", text="Synrc App Store" }
       ]}
     ]}
   ]}
