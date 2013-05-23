@@ -11,7 +11,8 @@ main() ->
 
 body() -> [ #span{id=display},
             #panel{class=["container"], body=[
-            #panel{class=["login-screen"],body=[
+            #panel{style=["padding: 38px 38px 267px;"], body=[
+            #panel{class=["login-screen"], body=[
               #panel{class=["login-form"],body=[
                  #panel{class=["control-group"],body=[
                      #label{class=["fui-lock"],text="Login: ",for=user},
@@ -23,7 +24,7 @@ body() -> [ #span{id=display},
                  ]},
                #button{class=["btn","btn-primary","btn-large","btn-block"],text="Login",postback=login,source=[user,pass]}
 
-               ]} ]} ]}
+               ]} ]} ]} ]}
   ].
 
 event(init) -> [];
