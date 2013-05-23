@@ -9,14 +9,14 @@ Feel free to use it in your projects.
 CSS
 ---
 
-    -- Twitter Bootstrap
-    -- Flat UI
+* Twitter Bootstrap
+* Flat UI
 
 Credits
 -------
 
-    -- Maxim Sokhatsky
-    -- Andrew Zadorozhny
+* Maxim Sokhatsky
+* Andrew Zadorozhny
 
 Run
 ---
