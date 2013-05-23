@@ -1,13 +1,21 @@
-Skyline: N2O Based Example Web Application
-==========================================
+Skyline: N2O Promo Example
+==========================
 
-This Nitrogen Site is based on N2O
-----------------------------------
+This is App Store demo website.
+It is made with Nitrogen DSL and based on [N2O](https://github.com/5HT/n2o).
+It is a demo how to use N2O in real-life applications.
+Feel free to use it in your projects.
+
+CSS
+---
+
+    -- Twitter Bootstrap
+    -- Flat UI
 
 Credits
 -------
 
-    -- Maxim Sohatsky
+    -- Maxim Sokhatsky
     -- Andrew Zadorozhny
 
 Run
