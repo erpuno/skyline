@@ -20,8 +20,8 @@ body() -> [
         #panel{class=["modal-body"], style="overflow: hidden;",body=[
             #panel{class=["well"],body=[
                 #list{class=["nav nav-tabs"],body=[
-                    #li{class=["active"],body=[#link{url="#login_me",data_fields=[{<<"data-toggle">>,"tab"}],text="Login"}]},
-                    #li{class=[],        body=[#link{url="#restore_me",data_fields=[{<<"data-toggle">>,"tab"}],text="Restore Pass"}]}
+                    #li{class=["active"],body=[#link{url="#login_me",data_fields=[{<<"data-toggle">>,<<"tab">>}],text="Login"}]},
+                    #li{class=[],        body=[#link{url="#restore_me",data_fields=[{<<"data-toggle">>,<<"tab">>}],text="Restore Pass"}]}
                 ]},
                 #panel{class=["tab-content"],body=[
                     #panel{class=[active,"tab-pane",in],id="login_me", body=[
