@@ -2,12 +2,7 @@
 -compile(export_all).
 -include_lib("n2o/include/wf.hrl").
 
-title() -> [ <<"Login">> ].
-
-main() ->
-    Title = wf:render(title()),
-    Body = wf:render(body()),
-  [ #dtl{file = "tblist", bindings=[{title,Title},{body,Body}]} ].
+main() -> [ #dtl{file = "tblist", bindings=[{title,<<"Login">>},{body,wf:render(body())}]} ].
 
 body() -> [ #span{id=display},
             #panel{class=["container"], body=[
@@ -24,7 +19,7 @@ body() -> [ #span{id=display},
                  ]},
                #label{class=["checkbox"],for=remember,text="Remember me",body=[
                #checkbox{id=remember,checked=checked},"1"]},
-               #button{class=["btn","btn-primary","btn-large","btn-block"],text="Login",postback=login,source=[user,pass]}
+               #button{id=go,class=["btn","btn-primary","btn-large","btn-block"],text="Login",postback=login,source=[user,pass]}
 
                ]} ]} ]} ]}
   ].

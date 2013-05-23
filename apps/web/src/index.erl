@@ -8,11 +8,7 @@ main() ->
          _ -> 
 %    Title = "Title",
 %    Body = "Body",
-    Title = wf:render(title()),
-    Body = wf:render(body()),
-    [ #dtl{file = "index", bindings=[{title,Title},{body,Body}]} ] end.
-
-title() -> [ <<"N2O">> ].
+    [ #dtl{file = "index", bindings=[{title,<<"N2O">>},{body,wf:render(body())}]} ] end.
 
 body() -> %% area of http handler
     {ok,Pid} = wf:comet(fun() -> chat_loop() end), 
