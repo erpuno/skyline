@@ -26,14 +26,10 @@ body() -> [
                   #b{class=["caret"]}
                 ]},
                 #list{class=["dropdown-menu"], body=[
-                ]}
-              ]}
-            ]}
-          ]}
-        ]}
-      ]}
-    ]}
-  ]}
+                  #li{body=#link{body=[#i{class=["icon-cog", "fui-gear"]},  " Preferences"]}},
+                  #li{body=#link{body=[#i{class=["icon-off"]}, " Logout" ]}}
+                ]} ]} ]} ]} ]} ]} ]} ]},
+    #panel{body=["Content"]}
   ].
 
 event(init) -> [];
