@@ -398,6 +398,29 @@ you can use the generic selector below, but it's slower:
   -moz-border-radius: 0 0 6px;
   border-radius: 0 0 6px;
 }
+
+.media {
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+
+.media-object:first-child {
+  margin-top: 10px;
+}
+
+.media-body:first-child {
+  margin-top: 10px;
+}
+
+.media-body {
+  margin-left: 10px;
+}
+
+.media-object {
+  margin-left: 10px;
+  background-color: darkblue;
+}
+
 .demo-browser-content > img {
   border: 6px solid #ffffff;
   float: left;
