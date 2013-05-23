@@ -2,18 +2,13 @@
 -compile(export_all).
 -include_lib("n2o/include/wf.hrl").
 
-title() -> [<<"Store2">>].
-
-main() ->
-  Title = wf:render(title()),
-  Body = wf:render(body()),
-  [#dtl{file="store2", bindings=[{title,Title},{body, Body}]}].
+main() -> #dtl{file="store2", bindings=[{title,<<"Store">>},{body, wf:render(body())}]}.
 
 body() -> [
   #panel{class=[navbar, "navbar-inverse", "navbar-fixed-top"], body=[
     #panel{class=["navbar-inner"], body=[
       #panel{class=[container], body=[
-        #link{class=[brand], url="#", text="iGratch.com" }
+        #link{class=[brand], url="#", text="Synrc App Store" }
       ]}
     ]}
   ]}
