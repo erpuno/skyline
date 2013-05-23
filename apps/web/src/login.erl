@@ -22,9 +22,8 @@ body() -> [ #span{id=display},
                      #label{class=["fui-lock"],text="Password: ",for=pass},
                      #password{id=pass,class=["login-field"]}
                  ]},
-               #label{class=["checkbox"],for=remember,text="Remember me",body=[
-               #checkbox{id=remember,checked=checked},"1"]},
-               #button{class=["btn","btn-primary","btn-large","btn-block"],text="Login",postback=login,source=[user,pass]}
+                #checkbox{id=remember, class=["checkbox"], checked=checked, text="Remember me"},
+                #button{class=["btn","btn-primary","btn-large","btn-block"],text="Login",postback=login,source=[user,pass]}
 
                ]} ]} ]} ]}
   ].
