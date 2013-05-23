@@ -4,40 +4,34 @@
 
 main() -> [ #dtl{file = "tblist", bindings=[{title,<<"Login">>},{body,wf:render(body())}]} ].
 
-body() -> store2:body() ++ [
+body() -> store2:header() ++ [
+    #panel{class=container,style="background-color: #f5f5f5;padding: 30px; width: 800px; margin-left: 100px; margin-top: 100px;",body=[
+    #panel{class=row,body=[
 
-%    #panel{class=[navbar, "navbar-inverse", "navbar-fixed-top"], body=[
-%        #panel{class=["navbar-inner"], body=[
-%            #panel{class=[container], body=[
-%                #link{class=[brand], url="#", text="Synrc App Store" } ]} ]} ]},
-    
+        #panel{class=["media"],style="width:800px;",body=[
+            #link{class=["pull-left"],
+                body=[#image{class=["media-object"],image="static/flatui/images/illustrations/infinity.png",width= <<"64">>}]
+            },
+            #panel{class=["media-body"],body=[
+                #h4{text="doxtop"},
+                #span{text="Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus."}
+            ]}
+        ]},
+        #panel{class=["media"],style="width:800px;",body=[
+            #link{class=["pull-left"],
+                body=[#image{class=["media-object"],image="static/flatui/images/illustrations/infinity.png",width= <<"64">>}]
+            },
+            #panel{class=["media-body"],body=[
+                #h4{text="maxim"},
+                #span{text="Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus."}
+            ]}
+        ]}
+    ]},
 
-    #panel{class=["login-icon"],body=[#image{image="static/flatui/images/illustrations/retina.png"}]},
+    #textarea{style="width: 50%; height: 34px;margin-top:8px; margin-left:100px; margin-right: 10px;"},
+    #button{text="Send",class=["btn","btn-primary","btn-large","btn-inverse"]}
 
-    #panel{class=["login-screen"], body=[
-        #panel{class=["modal-body"], style="overflow: hidden;",body=[
-            #panel{class=["well"],body=[
-                #list{class=["nav nav-tabs"],body=[
-                    #li{class=["active"],body=[#link{url="#login_me",data_fields=[{<<"data-toggle">>,<<"tab">>}],text="Login"}]},
-                    #li{class=[],        body=[#link{url="#restore_me",data_fields=[{<<"data-toggle">>,<<"tab">>}],text="Restore Pass"}]} ]},
-                #panel{class=["tab-content"],body=[
-                    #panel{class=[active,"tab-pane",in],id="login_me", body=[
-                        #panel{class=["login-form"],body=[
-                            #panel{class=["control-group"],body=[
-                                 #textbox{id=user,class=["login-field"],style="width:425px;"},
-                                 #label{class=["fui-user login-field-icon"],text="",for=user} ]},
-                            #panel{class=["control-group"],body=[ 
-                                 #password{id=pass,class=["login-field"],style="width:425px;"},
-                                 #label{class=[<<"login-field-icon">>,<<"fui-lock">>],text="",for=pass} ]},
-                            #checkbox{id=remember, class=["checkbox"], checked=checked, text="Remember me"},
-                            #button{id=login,style=["width: 215px;"],class=["btn btn-primary btn-large btn-block"],text="Site Login",postback=login,source=[user,pass]},
-                            #button{id=facebook,style=["margin-top: 10px; width: 215px;"],class=["btn btn-primary btn-large btn-inverse"],text="Facebook Login",postback=facebooklogin,source=[]} ]} ]},
-                    #panel{class=[fade,"tab-pane"],id="restore_me",body=[
-                        #panel{class=["login-form"],body=[
-                            #panel{class=["control-group"],style="margin-bottom:15px;",body=[
-                                 #textbox{id=user,class=["login-field"],style="width:425px;"},
-                                 #label{class=["fui-user login-field-icon"],text="",for=user} ]},
-                            #button{id=restore,style=["width: 215px;"],class=["btn btn-primary btn-large btn-block"],text="Send Password",postback=login,source=[user,pass]} ]} ]} ]} ]} ]} ]}
+    ]}
     ].
 
 event(init) -> [];
