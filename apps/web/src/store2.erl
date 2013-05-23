@@ -80,8 +80,26 @@ body() -> [
         #li{class=["next"],body=#link{class=["fui-arrow-right"],text="Next"}}
       ]}
     ]},
-    #hr{},
-    #footer{class=["text-center"],body=#panel{body=["&copy; synrc.com"]}}
+    #footer{style="background:white;", class=["text-center"],body=
+      #panel{body=[
+        #hr{},
+        #panel{class=["row-fluid"], body=[
+          #panel{class=[span12], body=[
+            #panel{class=["span8"], body=[
+              #link{class=["btn btn-link"],text="About"},
+              #link{class=["btn btn-link"],text="Help"},
+              #link{class=["btn btn-link"],text="Terms of Use"},
+              #link{class=["btn btn-link"],text="Privacy"},
+              #link{class=["btn btn-link"],text="RSS"}
+            ]},
+            #panel{class=["span4"], style="margin-top:10px;margin-bottom:10px;",body=[
+              #span{style="margin-right:2px;vertical-align:middle;",body="&copy;"},
+              #link{class=[""],url="http://synrc.com", text="synrc.com"}
+            ]}
+          ]}
+        ]}
+      ]}
+    }
   ]} ].
 
 event(init) -> [];
