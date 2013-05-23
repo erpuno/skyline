@@ -15,13 +15,15 @@ body() -> [ #span{id=display},
             #panel{class=["login-screen"], body=[
               #panel{class=["login-form"],body=[
                  #panel{class=["control-group"],body=[
-                     #label{class=["fui-lock"],text="Login: ",for=user},
+                     #label{class=["fui-user"],text="Login: ",for=user},
                      #textbox{id=user,class=["login-field"]}
                  ]},
                  #panel{class=["control-group"],body=[ 
                      #label{class=["fui-lock"],text="Password: ",for=pass},
                      #password{id=pass,class=["login-field"]}
                  ]},
+               #label{class=["checkbox"],for=remember,text="Remember me",body=[
+               #checkbox{id=remember,checked=checked},"1"]},
                #button{class=["btn","btn-primary","btn-large","btn-block"],text="Login",postback=login,source=[user,pass]}
 
                ]} ]} ]} ]}
