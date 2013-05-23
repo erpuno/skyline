@@ -70,14 +70,14 @@ body() -> [
 
     #panel{class=["pagination pagination-large pagination-centered"],body=[
       #list{body=[
-        #li{class=["disabled"],body=#link{text="Prev"}},
+        #li{class=["disabled previous"],body=#link{class=["fui-arrow-left"], text="Prev"}},
         #li{class=["active"], body=#link{text="1"}},
         #li{body=#link{text="2"}},
         #li{body=#link{text="3"}},
         #li{body=#link{text="4"}},
         #li{body=#link{text="5"}},
         #li{body=#link{text="6"}},
-        #li{body=#link{text="Next"}}
+        #li{class=["next"],body=#link{class=["fui-arrow-right"],text="Next"}}
       ]}
     ]},
     #hr{},
