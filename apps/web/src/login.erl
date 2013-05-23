@@ -10,19 +10,21 @@ main() ->
   [ #dtl{file = "tblist", bindings=[{title,Title},{body,Body}]} ].
 
 body() -> [ #span{id=display},
+            #panel{class=["container"], body=[
             #panel{class=["login-screen"],body=[
-              #panel{class=["login-form"],body=[ 
+              #panel{class=["login-form"],body=[
                  #panel{class=["control-group"],body=[
-                     #label{class=["login-field-icon","fui-lock"],text="Login: ",for=user},
+                     #label{class=["fui-lock"],text="Login: ",for=user},
                      #textbox{id=user,class=["login-field"]}
                  ]},
                  #panel{class=["control-group"],body=[ 
-                     #label{class=["login-field-icon","fui-lock"],text="Password: ",for=pass},
+                     #label{class=["fui-lock"],text="Password: ",for=pass},
                      #password{id=pass,class=["login-field"]}
                  ]},
                #button{class=["btn","btn-primary","btn-large","btn-block"],text="Login",postback=login,source=[user,pass]}
 
-               ]} ]} ].
+               ]} ]} ]}
+  ].
 
 event(init) -> [];
 
