@@ -4,13 +4,7 @@
 
 main() -> [ #dtl{file = "tblist", bindings=[{title,<<"Login">>},{body,wf:render(body())}]} ].
 
-body() -> store2:body() ++ [
-
-%    #panel{class=[navbar, "navbar-inverse", "navbar-fixed-top"], body=[
-%        #panel{class=["navbar-inner"], body=[
-%            #panel{class=[container], body=[
-%                #link{class=[brand], url="#", text="Synrc App Store" } ]} ]} ]},
-    
+body() -> store2:header() ++ [
 
     #panel{class=["login-icon"],body=[#image{image="static/flatui/images/illustrations/retina.png"}]},
 
@@ -42,4 +36,4 @@ body() -> store2:body() ++ [
 
 event(init) -> [];
 
-event(login) -> User = wf:q(user), wf:update(display,User), wf:user(User), wf:redirect("index").
+event(login) -> User = wf:q(user), wf:update(display,User), wf:user(User), wf:redirect("chat").
