@@ -18,14 +18,14 @@ route(<<"/tblist">>) -> {tblist, []};
 route(<<"/store2">>) -> {store2, []};
 route(<<"/grid">>) -> {grid, []};
 route(<<"/chat">>) -> {chat, []};
-route(<<"/websocket/">>) -> {index, []};
-route(<<"/websocket/index">>) -> {index, []};
-route(<<"/websocket/login">>) -> {login, []};
-route(<<"/websocket/store2">>) -> {store2, []};
-route(<<"/websocket/hello">>) -> {hello, []};
-route(<<"/websocket/tblist">>) -> {tblist, []};
-route(<<"/websocket/grid">>) -> {grid, []};
-route(<<"/websocket/chat">>) -> {chat, []};
+route(<<"/ws/">>) -> {index, []};
+route(<<"/ws/index">>) -> {index, []};
+route(<<"/ws/login">>) -> {login, []};
+route(<<"/ws/store2">>) -> {store2, []};
+route(<<"/ws/hello">>) -> {hello, []};
+route(<<"/ws/tblist">>) -> {tblist, []};
+route(<<"/ws/grid">>) -> {grid, []};
+route(<<"/ws/chat">>) -> {chat, []};
 route(<<"/favicon.ico">>) -> {static_file, []};
 route(_) -> {index, []}.
 

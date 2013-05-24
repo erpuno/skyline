@@ -33,6 +33,6 @@ dispatch_rules() ->
             {"/rest/:bucket", n2o_rest, []},
             {"/rest/:bucket/:key", n2o_rest, []},
             {"/rest/:bucket/:key/[...]", n2o_rest, []},
-            {"/websocket/[...]", bullet_handler, [{handler, n2o_bullet}]},
+            {"/ws/[...]", bullet_handler, [{handler, n2o_bullet}]},
             {'_', n2o_cowboy, []}
     ]}]).
