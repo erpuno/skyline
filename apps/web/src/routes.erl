@@ -10,7 +10,7 @@ init(State, Ctx) ->
     {Module, PathInfo} = route(Path),
     {ok, State, Ctx#context{path=PathInfo,module=Module}}.
 
-route(<<"/">>) -> {index, []};
+route(<<"/">>) -> {login, []};
 route(<<"/index">>) -> {index, []};
 route(<<"/hello">>) -> {hello, []};
 route(<<"/login">>) -> {login, []};

@@ -11,10 +11,10 @@ header() -> [
         #link{class=[brand], url="/login", text="Synrc App Store", name="top" },
         #panel{class=["nav-collapse collapse"],body=[
           #list{class=[nav], body=[
-            #li{body=#link{body=[ #i{class=["fui-chat", "icon-comment"]}, #span{class=["badge badge-info"], text="10"} ]}},
-            #li{body=#link{body=[ #i{class=["fui-mail", "icon-envelope"]}, #span{class=["badge badge-info"], text="21"} ]} },
+            #li{body=#link{url="/chat",body=[ #i{class=["fui-chat", "icon-comment"]}, #span{class=["badge badge-info"], text="10"} ]}},
+            #li{body=#link{url="/chat?mode=mail",body=[ #i{class=["fui-mail", "icon-envelope"]}, #span{class=["badge badge-info"], text="21"} ]} },
             #li{body=#link{body=[ #i{class=["fui-search", "icon-search"]} ]}},
-            #li{body=#link{body=["Home"],url="/chat"}},
+            #li{body=#link{body=["Home"],url="#"}},
             #li{body=#link{body=["Games"],url="/store2"}},
             #li{body=#link{body=["Review"]}}
           ]},
@@ -22,12 +22,17 @@ header() -> [
             #list{class="nav pull-right", body=[
               #li{body=[
                 #link{class=["dropdown-toggle"], data_fields=[{<<"data-toggle">>, <<"dropdown">>}], body=[
-                  "My Account",
+                  case wf:user() of
+                       undefined -> "Log in";
+                       A -> A end,
                   #b{class=["caret"]}
                 ]},
                 #list{class=["dropdown-menu"], body=[
                   #li{body=#link{body=[#i{class=["icon-cog", "fui-gear"]},  " Preferences"]}},
-                  #li{body=#link{body=[#i{class=["icon-off"]}, " Logout" ]}}
+                  #li{body=#link{postback=chat,body=[#i{class=["icon-cog", "fui-gear"]},  " Notifications"]}},
+                  case wf:user() of
+                       undefined -> #li{body=#link{postback=to_login,body=[#i{class=["icon-off"]}, " Login" ]}};
+                       A -> #li{body=#link{postback=logout,body=[#i{class=["icon-off"]}, " Logout" ]}} end
                 ]} ]} ]} ]} ]} ]} ]} ]}
    ].
 
@@ -44,10 +49,10 @@ display_item(Image,Developer,Title,Genre) ->
                 #h3{style="display:inline-block;",text="Developer: &nbsp;"},
                 #link{style="font-size:24px;", text=Developer, url="#"},
                 #p{class=lead,body=["The award-winning developer Crytek is back with Crysis 3, the first blockbuster shooter of 2013!"]},
-                #panel{class=["row offset4"], body=[
+                #panel{class=["row offset4"], style="margin-bottom: 15px;",body=[
                   #panel{class=["btn-group"], style="margin-right: 10px;",body=#button{class=["btn btn-warning btn-large"], text="Buy It!"}},
                   #panel{class=["btn-group"], body=#button{class=["btn btn-info btn-large"], text="Review"}}
-                ]}, #br{}
+                ]}
             ]}
         ]}
     ]}.
@@ -74,9 +79,8 @@ body() -> header() ++ [
         #li{class=["next"],body=#link{class=["fui-arrow-right"],text="Next"}}
       ]}
     ]},
-    #footer{style="background:white;", class=["text-center"],body=
+    #footer{style="background:white;", class=[thumbnail,"text-center"],body=
       #panel{body=[
-        #hr{},
         #panel{class=["row-fluid"], body=[
           #panel{class=[span12], body=[
             #panel{class=["span8"], body=[
@@ -97,4 +101,7 @@ body() -> header() ++ [
   ]} ].
 
 event(init) -> [];
+event(to_login) -> wf:redirect("login");
+event(logout) -> wf:user(undefined), wf:redirect("login");
+event(chat) -> wf:redirect("chat");
 event(Event) -> error_logger:info_msg("Page event: ~p", [Event]),ok.

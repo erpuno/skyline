@@ -50,14 +50,14 @@ event(replace) ->
     wf:wire(#redirect{url="hello",nodrop=false});
 
 event(logout) -> wf:user(undefined), wf:redirect("login");
-
+event(login) -> login:event(login);
 event({chat,Pid}) -> %% area of websocket handler
     error_logger:info_msg("Chat Pid: ~p",[Pid]),
     Username = wf:q(userName),
     Message = wf:q(message),
     Terms = [ #span { text= <<"Message sent">> }, #br{} ],
     wf:insert_bottom(chatHistory, Terms),
-    wf:wire("$('#message').focus(); $('#message').select(); "),
+%    wf:wire("$('#message').focus(); $('#message').select(); "),
     wf:reg(room),
     Pid ! {message, Username, Message};
 
@@ -69,7 +69,7 @@ chat_loop() -> %% background worker ala comet
             Terms = [ #span { text=Username }, ": ",
                       #span { text=Message }, #br{} ],
             wf:insert_bottom(chatHistory, Terms),
-            wf:wire("$('#chatHistory').scrollTop = $('#chatHistory').scrollHeight;"),
+%            wf:wire("$('#chatHistory').scrollTop = $('#chatHistory').scrollHeight;"),
             wf:flush(room); %% we flush to websocket process by key
         Unknown -> error_logger:info_msg("Unknown Looper Message ~p",[Unknown])
     end,

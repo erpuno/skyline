@@ -36,5 +36,6 @@ body() -> store2:header() ++ [
     ].
 
 event(init) -> [];
-
+event(chat) -> wf:redirect("chat");
+event(to_login) -> wf:redirect("login");
 event(login) -> User = wf:q(user), wf:update(display,User), wf:user(User), wf:redirect("chat").
