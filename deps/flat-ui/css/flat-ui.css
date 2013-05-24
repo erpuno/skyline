@@ -399,38 +399,6 @@ you can use the generic selector below, but it's slower:
   border-radius: 0 0 6px;
 }
 
-
-.media {
-  border-top: 1px dashed #454;
-  margin-left: 20px;
-  margin-bottom: 12px;
-  margin-top: 10px;
-}
-
-.media:first-child {
-//  border-top: 0px;
-  margin-left: 20px;
-  margin-bottom: 12px;
-  margin-top: 0px;
-}
-
-.media-object:first-child {
-  margin-top: 10px;
-}
-
-.media-body:first-child {
-  margin-top: 10px;
-}
-
-.media-body {
-  margin-left: 10px;
-}
-
-.media-object {
-  margin-left: 10px;
-  background-color: darkblue;
-}
-
 .demo-browser-content > img {
   border: 6px solid #ffffff;
   float: left;
