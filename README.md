@@ -11,8 +11,8 @@ Feel free to use it in your projects.
 CSS
 ---
 
-* Twitter Bootstrap
-* Flat UI
+* Twitter Bootstrap (LESS)
+* Flat UI (SASS)
 
 Credits
 -------
