@@ -2,7 +2,7 @@
 -compile(export_all).
 -include_lib("n2o/include/wf.hrl").
 
-main() -> [#dtl{file="store2", bindings=[{title,<<"Grid2.psd">>},{body, wf:render(body())}]}].
+main() -> [#dtl{file="dev", bindings=[{title,<<"Grid2.psd">>},{body, wf:render(body())}]}].
 
 body() -> store2:header() ++ [
   #panel{class=[container],body=[

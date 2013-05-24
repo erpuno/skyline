@@ -2,7 +2,7 @@
 -compile(export_all).
 -include_lib("n2o/include/wf.hrl").
 
-main() -> #dtl{file="tblist", bindings=[{title,<<"Store">>},{body, wf:render(body())}]}.
+main() -> #dtl{file="prod", bindings=[{title,<<"Store">>},{body, wf:render(body())}]}.
 
 header() -> [
   #panel{class=[navbar, "navbar-inverse", "navbar-fixed-top"], body=[
