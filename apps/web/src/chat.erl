@@ -2,7 +2,7 @@
 -compile(export_all).
 -include_lib("n2o/include/wf.hrl").
 
-main() -> [ #dtl{file = "dev", bindings=[{title,<<"Login">>},{body,wf:render(body())}]} ].
+main() -> [ #dtl{file = "prod", bindings=[{title,<<"Login">>},{body,wf:render(body())}]} ].
 
 message(Who,What) ->
     #panel{class=["row"],body=[
