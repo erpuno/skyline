@@ -7,7 +7,7 @@ title() -> [<<"TBL">>].
 main() ->
   Title = wf:render(title()),
   Body = wf:render(body()),
-  [#dtl{file="prod", bindings=[{title,Title},{body, Body}]}].
+  [#dtl{file="dev", bindings=[{title,Title},{body, Body}]}].
 
 body() -> [
     #p{body=[
