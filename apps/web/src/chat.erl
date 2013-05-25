@@ -10,8 +10,8 @@ message(Who,What) ->
             #link{class=["pull-left"], body=[
                 #image{class=["media-object"],image="static/flatui/images/illustrations/infinity.png",width= <<"63">>} ]},
             #panel{class=["media-body"],body=[
-                #h4{text=Who},
-                #span{text=What} ]} ]} ]}.
+                #h4{body=Who},
+                #span{body=What} ]} ]} ]}.
 
 body() ->
     {ok,Pid} = wf:comet(fun() -> chat_loop() end),
@@ -20,15 +20,15 @@ body() ->
         #panel{class=[container,thumbnail],style="background-color: #f5f5f5; margin-top: 100px;",body=[
             #panel{class=row,body=[
                 #panel{class=["media"],style="",body=[
-                    #panel{class=["media-body"],body=[#b{text="doxtop"}]} ]},
+                    #panel{class=["media-body"],body=[#b{body="doxtop"}]} ]},
                 #panel{class=["media"],style="",body=[
-                    #panel{class=["media-body"],body=[#b{text="maxim"}]}  ]} ]} ]} ]},
+                    #panel{class=["media-body"],body=[#b{body="maxim"}]}  ]} ]} ]} ]},
     #panel{class=span3,body=[
         #panel{id=history,class=[container,thumbnail],style="background-color: #f5f5f5; margin-top: 100px;",body=[
             case wf:user() of undefined -> message("System","You are not logged in. Anonymous mode!");
                               _ -> message("System","Hello, " ++ wf:user() ++ "! Here you can chat, please go on!") end ]},
         #textarea{id=message,style="display: inline-block; margin-top: 20px;"},
-        #button{id=send,text="Send",class=["btn","btn-primary","btn-large","btn-inverse"],postback={chat,Pid},source=[message]} ]} ].
+        #button{id=send,body="Send",class=["btn","btn-primary","btn-large","btn-inverse"],postback={chat,Pid},source=[message]} ]} ].
 
 event(init) -> [];
 event(logout) -> store2:event(logout);
