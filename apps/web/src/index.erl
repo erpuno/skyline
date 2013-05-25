@@ -32,7 +32,7 @@ event(init) ->
   User = wf:user(),
    error_logger:info_msg("User: ~p",[User]),
   [ begin
-          Terms = [ #span { body= User }, ": ",
+          Terms = [ #span { body= "System" }, ": ",
                       #span { body=integer_to_list(N) }, #br{} ],
             wf:insert_bottom(chatHistory, Terms)
             end || N <- lists:seq(1,3) ];
