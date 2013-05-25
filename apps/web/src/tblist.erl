@@ -11,14 +11,14 @@ main() ->
 
 body() -> [
     #p{body=[
-        #label{text="Enter tags" },
+        #label{body="Enter tags" },
         #textboxlist{id=first, autocomplete=false},
-        #button{id=submit, class=btn, text="Submit", postback=submit, source=[first]}
+        #button{id=submit, class=[btn], body="Submit", postback=submit, source=[first]}
     ]},
     #p{body=[
-      #label{text="What's your favorite programming language?"},
+      #label{body="What's your favorite programming language?"},
       #textboxlist{id=second},
-      #button{id=submit2, text="Submit", postback={submit, second}}
+      #button{id=submit2, class=[btn], body="Submit", postback={submit, second}}
     ]}
   ].
 

@@ -8,15 +8,15 @@ header() -> [
   #panel{class=[navbar, "navbar-inverse", "navbar-fixed-top"], body=[
     #panel{class=["navbar-inner"], body=[
       #panel{class=[container], body=[
-        #link{class=[brand], url="/login", text="Synrc App Store", name="top" },
+        #link{class=[brand], url="/login", body="Synrc App Store", name="top" },
         #panel{class=["nav-collapse collapse"],body=[
           #list{class=[nav], body=[
-            #li{body=#link{url="/chat",body=[ #i{class=["fui-chat", "icon-comment"]}, #span{class=["badge badge-info"], text="10"} ]}},
-            #li{body=#link{url="/chat?mode=mail",body=[ #i{class=["fui-mail", "icon-envelope"]}, #span{class=["badge badge-info"], text="21"} ]} },
+            #li{body=#link{url="/chat",body=[ #i{class=["fui-chat", "icon-comment"]}, #span{class=["badge badge-info"], body="10"} ]}},
+            #li{body=#link{url="/chat?mode=mail",body=[ #i{class=["fui-mail", "icon-envelope"]}, #span{class=["badge badge-info"], body="21"} ]} },
             #li{body=#link{body=[ #i{class=["fui-search", "icon-search"]} ]}},
-            #li{body=#link{body=["Home"],url="#"}},
-            #li{body=#link{body=["Games"],url="/store2"}},
-            #li{body=#link{body=["Review"]}}
+            #li{body=#link{body="Home",url="#"}},
+            #li{body=#link{body="Games",url="/store2"}},
+            #li{body=#link{body="Review"}}
           ]},
           #panel{class=["pull-right"], body=[
             #list{class="nav pull-right", body=[
@@ -41,17 +41,17 @@ display_item(Image,Developer,Title,Genre) ->
     #li{style="width: 840px;margin-left:60px;", body=[
         #panel{style="background-color: #f5f5f5;", class=thumbnail, body=[
             #list{class=breadcrumb, style="margin-top: 20px;",body=[
-                #li{style="font-size:24px; font-weight:bold;", body=[#link{text=Genre}, #span{class=["divider"], body=["/"]}]},
-                #li{style="font-size:24px", body=#link{text=Title}}
+                #li{style="font-size:24px; font-weight:bold;", body=[#link{body=Genre}, #span{class=["divider"], body=[<<"/">>]}]},
+                #li{style="font-size:24px", body=#link{body=Title}}
             ]},
             #image{image=Image,style="margin: 40 40 40 40;", width="800px"},
             #panel{style="margin-left: 15px; margin-top: 10px;", body=[
-                #h3{style="display:inline-block;",text="Developer: &nbsp;"},
-                #link{style="font-size:24px;", text=Developer, url="#"},
+                #h3{style="display:inline-block;",body="Developer: &nbsp;"},
+                #link{style="font-size:24px;", body=Developer, url="#"},
                 #p{class=lead,body=["The award-winning developer Crytek is back with Crysis 3, the first blockbuster shooter of 2013!"]},
                 #panel{class=["row offset4"], style="margin-bottom: 15px;",body=[
-                  #panel{class=["btn-group"], style="margin-right: 10px;",body=#button{class=["btn btn-warning btn-large"], text="Buy It!"}},
-                  #panel{class=["btn-group"], body=#button{class=["btn btn-info btn-large"], text="Review"}}
+                  #panel{class=["btn-group"], style="margin-right: 10px;",body=#button{class=["btn btn-warning btn-large"], body="Buy It!"}},
+                  #panel{class=["btn-group"], body=#button{class=["btn btn-info btn-large"], body="Review"}}
                 ]}
             ]}
         ]}
@@ -69,14 +69,14 @@ body() -> header() ++ [
 
     #panel{class=["pagination pagination-large pagination-centered"],body=[
       #list{body=[
-        #li{class=["disabled previous"],body=#link{class=["fui-arrow-left"], text="Prev"}},
-        #li{class=["active"], body=#link{text="1"}},
-        #li{body=#link{text="2"}},
-        #li{body=#link{text="3"}},
-        #li{body=#link{text="4"}},
-        #li{body=#link{text="5"}},
-        #li{body=#link{text="6"}},
-        #li{class=["next"],body=#link{class=["fui-arrow-right"],text="Next"}}
+        #li{class=["disabled previous"],body=#link{class=["fui-arrow-left"], body="Prev"}},
+        #li{class=["active"], body=#link{body="1"}},
+        #li{body=#link{body="2"}},
+        #li{body=#link{body="3"}},
+        #li{body=#link{body="4"}},
+        #li{body=#link{body="5"}},
+        #li{body=#link{body="6"}},
+        #li{class=["next"],body=#link{class=["fui-arrow-right"],body=[<<"Next">>]}}
       ]}
     ]},
     #footer{style="background:white;", class=[thumbnail,"text-center"],body=
@@ -84,21 +84,22 @@ body() -> header() ++ [
         #panel{class=["row-fluid"], body=[
           #panel{class=[span12], body=[
             #panel{class=["span8"], body=[
-              #link{class=["btn btn-link"],text="About"},
-              #link{class=["btn btn-link"],text="Help"},
-              #link{class=["btn btn-link"],text="Terms of Use"},
-              #link{class=["btn btn-link"],text="Privacy"},
-              #link{class=["btn btn-link"],text="RSS"}
+              #link{class=["btn btn-link"],body="About"},
+              #link{class=["btn btn-link"],body="Help"},
+              #link{class=["btn btn-link"],body="Terms of Use"},
+              #link{class=["btn btn-link"],body="Privacy"},
+              #link{class=["btn btn-link"],body="RSS"}
             ]},
             #panel{class=["span4"], style="margin-top:10px;margin-bottom:10px;",body=[
               #span{style="margin-right:2px;vertical-align:middle;",body="&copy;"},
-              #link{class=[""],url="http://synrc.com", text="synrc.com"}
+              #link{class=[""],url="http://synrc.com", body="synrc.com"}
             ]}
           ]}
         ]}
       ]}
     }
-  ]} ].
+  ]} 
+  ].
 
 event(init) -> [];
 event(to_login) -> wf:redirect("login");

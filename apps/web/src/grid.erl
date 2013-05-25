@@ -6,7 +6,7 @@ main() -> [#dtl{file="dev", bindings=[{title,<<"Grid2.psd">>},{body, wf:render(b
 
 body() -> store2:header() ++ [
   #panel{class=[container],body=[
-  #panel{id=myCarousel, class=["carousel", "slide"], data_fields=[{<<"data-interval">>, <<"5000">>}],body=[
+  #panel{id=myCarousel, class=["carousel", "slide", "top"], data_fields=[{<<"data-interval">>, <<"5000">>}],body=[
     #list{numbered=true, class=["carousel-indicators"], body=[
       #li{data_fields=[{<<"data-target">>, <<"#myCarousel">>}, {<<"data-slide-to">>, <<"0">>}], class=[active]},
       #li{data_fields=[{<<"data-target">>, <<"#myCarousel">>}, {<<"data-slide-to">>, <<"1">>}]},
@@ -14,30 +14,31 @@ body() -> store2:header() ++ [
     ]},
     #panel{class=["carousel-inner"], body=[
       #panel{class=[active, item], data_fields=[{<<"data-slide-number">>,<<"0">>}], body=[
-        #image{image="/static/img/bootstrap-mdo-sfmoma-01.jpg"},
+        #image{image="/static/img/item-bg.png"},
         #panel{class=["carousel-caption"], body=[
-          #h4{text="First image label"},
+          #h4{body="First image label&copy;"},
           #p{body=[
             "Cras justo odio, dapibus ac facilisis in, egestas eget quam. 
             Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit."]} ]} ]},
       #panel{class=[item], data_fields=[{<<"data-slide-number">>, <<"1">>}], body=[
         #image{image="/static/img/bootstrap-mdo-sfmoma-02.jpg"},
         #panel{class=["carousel-caption"], body=[
-          #h4{text="Second image label"},
+          #h4{body="Second image label"},
           #p{body=[
             "Cras justo odio, dapibus ac facilisis in, egestas eget quam. 
             Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit."]} ]} ]},
       #panel{class=[item], data_fields=[{<<"data-slide-number">>, <<"2">>}], body=[
         #image{image="/static/img/bootstrap-mdo-sfmoma-01.jpg"},
         #panel{class=["carousel-caption"], body=[
-          #h4{text="Third image label"},
+          #h4{body="Third image label"},
           #p{body=[
             "Cras justo odio, dapibus ac facilisis in, egestas eget quam. 
             Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit."]} ]} ]}
     ]},
-    #link{class=["carousel-control", left], url="#myCarousel", data_fields=[{<<"data-slide">>, <<"prev">>}], text="&lsaquo;"},
-    #link{class=["carousel-control", right], url="#myCarousel", data_fields=[{<<"data-slide">>, <<"next">>}], text="&rsaquo;"}
+    #link{class=["carousel-control", left], url="#myCarousel", data_fields=[{<<"data-slide">>, <<"prev">>}], body="&lsaquo;"},
+    #link{class=["carousel-control", right], url="#myCarousel", data_fields=[{<<"data-slide">>, <<"next">>}], body="&rsaquo;"}
   ]}
+
   ]}
 ].
 
