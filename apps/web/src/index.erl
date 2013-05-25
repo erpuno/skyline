@@ -3,19 +3,19 @@
 -include_lib("n2o/include/wf.hrl").
 
 main() -> 
-    case wf:user() of
-         undefined -> wf:redirect("login");
-         _ -> 
+%    case wf:user() of
+%         undefined -> wf:redirect("login");
+%         _ -> 
 %    Title = "Title",
 %    Body = "Body",
-    [ #dtl{file = "index", bindings=[{title,<<"N2O">>},{body,wf:render(body())}]} ] end.
+    [ #dtl{file = "index", bindings=[{title,<<"N2O">>},{body,wf:render(body())}]} ].
 
 body() -> %% area of http handler
     {ok,Pid} = wf:comet(fun() -> chat_loop() end), 
     wf:wire(#api{name=apiOne,tag=d1}),
   [
     #span { body= <<"Your chatroom name: ">> }, 
-    #textbox { id=userName, body= <<"Anonymous">> }, #button{body="Logout",postback=logout}, #br{},
+    #textbox { id=userName, body= wf:user() }, #button{body="Logout",postback=logout}, #br{},
     #panel { id=chatHistory },
     #button{id=but,body= <<"Click Me!">>,postback=change_me},
     #button{id=replace,body= <<"Replace Body">>,postback=replace},
@@ -32,7 +32,7 @@ event(init) ->
   User = wf:user(),
    error_logger:info_msg("User: ~p",[User]),
   [ begin
-          Terms = [ #span { body= "System" }, ": ",
+          Terms = [ #span { body= [[208,188,208,176,208,186,209,129,208,184,208,188]] }, ": ",
                       #span { body=integer_to_list(N) }, #br{} ],
             wf:insert_bottom(chatHistory, Terms)
             end || N <- lists:seq(1,3) ];
@@ -53,11 +53,11 @@ event(logout) -> wf:user(undefined), wf:redirect("login");
 event(login) -> login:event(login);
 event({chat,Pid}) -> %% area of websocket handler
     error_logger:info_msg("Chat Pid: ~p",[Pid]),
-    Username = wf:q(userName),
+    Username = wf:user(),
     Message = wf:q(message),
     Terms = [ #span { body= <<"Message sent">> }, #br{} ],
     wf:insert_bottom(chatHistory, Terms),
-%    wf:wire("$('#message').focus(); $('#message').select(); "),
+    wf:wire("$('#message').focus(); $('#message').select(); "),
     wf:reg(room),
     Pid ! {message, Username, Message};
 
@@ -69,7 +69,7 @@ chat_loop() -> %% background worker ala comet
             Terms = [ #span { body=Username }, ": ",
                       #span { body=Message }, #br{} ],
             wf:insert_bottom(chatHistory, Terms),
-%            wf:wire("$('#chatHistory').scrollTop = $('#chatHistory').scrollHeight;"),
+            wf:wire("$('#chatHistory').scrollTop = $('#chatHistory').scrollHeight;"),
             wf:flush(room); %% we flush to websocket process by key
         Unknown -> error_logger:info_msg("Unknown Looper Message ~p",[Unknown])
     end,
