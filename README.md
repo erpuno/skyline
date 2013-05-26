@@ -12,7 +12,17 @@ CSS
 ---
 
 * Twitter Bootstrap (LESS)
-* Flat UI (SASS)
+* Flat UI (Compiled from SASS)
+* Skyline (LESS)
+
+JavaScript
+----------
+
+* Node 0.8 minimal
+* Uglify.js tool
+* Less.js tool
+* BERT.js
+* Bullet.js
 
 Credits
 -------
