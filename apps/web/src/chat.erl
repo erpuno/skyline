@@ -16,21 +16,30 @@ message(Who,What) ->
 body() ->
     {ok,Pid} = wf:comet(fun() -> chat_loop() end),
     store2:header() ++ [
+    #panel{class=["row-fluid"],body=[
+    #h1{body=["N2O based WebSocket Chat"],class=[offset3],style="padding-left: 34px;"},
     #panel{class=span3,body=[
-        #panel{class=[container,thumbnail],style="background-color: #f5f5f5; margin-top: 100px;",body=[
+        #panel{class=thumbnail,style="background-color: #f5f5f5;",body=[
             #panel{class=row,body=[
                 #panel{class=["media"],style="",body=[
                     #panel{class=["media-body"],body=[#b{body="doxtop"}]} ]},
                 #panel{class=["media"],style="",body=[
                     #panel{class=["media-body"],body=[#b{body="maxim"}]}  ]} ]} ]} ]},
-    #panel{class=span3,body=[
-        #panel{id=history,class=[container,thumbnail],style="background-color: #f5f5f5; margin-top: 100px;",body=[
+    #panel{class=span8,body=[
+
+        #panel{id=history,class=thumbnail,style="background-color: #f5f5f5;",body=[
             case wf:user() of undefined -> message("System","You are not logged in. Anonymous mode!");
                               _ -> message("System","Hello, " ++ wf:user() ++ "! Here you can chat, please go on!") end ]},
-        #textarea{id=message,style="display: inline-block; margin-top: 20px;"},
-        #button{id=send,body="Send",class=["btn","btn-primary","btn-large","btn-inverse"],postback={chat,Pid},source=[message]} ]} ].
+        #textarea{id=message,style="display: inline-block; width: 200px; margin-top: 20px; margin-right: 20px;"},
+        #button{id=send,body="Send",class=["btn","btn-primary","btn-large","btn-inverse"],postback={chat,Pid},source=[message]} ]} ]} ].
 
-event(init) -> [];
+event(init) ->
+    Self = self(),
+    wf:send(lobby,{top,5,Self}),
+    Terms = receive Top -> [ message(U,M) || {U,M} <- Top] end,
+    error_logger:info_msg("Top 10: ~p",[Terms]),
+    wf:insert_top(<<"history">>, Terms),
+    wf:wire("$('#history').scrollTop = $('#history').scrollHeight;");
 event(logout) -> store2:event(logout);
 event(to_login) -> wf:redirect("login");
 event(login) -> User = wf:q(user), wf:user(User), wf:redirect("index");
@@ -47,10 +56,11 @@ event({chat,Pid}) ->
 chat_loop() ->
    receive
          {message, Username, Message} ->
-             error_logger:info_msg("Comet received : ~p",[{Username,Message}]),
+            error_logger:info_msg("Comet received : ~p",[{Username,Message}]),
             Terms = message(Username,Message),
-            wf:insert_bottom(<<"history">>, Terms),
+            wf:insert_top(<<"history">>, Terms),
             wf:wire("$('#history').scrollTop = $('#history').scrollHeight;"),
+            wf:send(lobby,{add,{Username,Message}}),
             wf:flush(room);
         Unknown -> error_logger:info_msg("Unknown Looper Message ~p",[Unknown])
     end, chat_loop().

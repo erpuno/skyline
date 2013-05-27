@@ -6,9 +6,9 @@ main() ->
 %    case wf:user() of
 %         undefined -> wf:redirect("login");
 %         _ -> 
-%    Title = "Title",
-%    Body = "Body",
-    [ #dtl{file = "index", bindings=[{title,<<"N2O">>},{body,wf:render(body())}]} ].
+    Title = "Title",
+    Body = "Body",
+    [ #dtl{file = "index", bindings=[{title,Title},{body,Body}]} ].
 
 body() -> %% area of http handler
     {ok,Pid} = wf:comet(fun() -> chat_loop() end), 

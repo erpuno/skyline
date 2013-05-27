@@ -1698,7 +1698,7 @@ textarea {
 }
 .row-fluid textarea {
   height: auto;
-  width: 100% !important;
+//  width: 100% !important;
 }
 textarea[class*="span"] {
   width: 100% !important;
