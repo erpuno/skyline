@@ -15,9 +15,6 @@ message(Who,What) ->
 
 body() ->
     {ok,Pid} = wf:comet(fun() -> chat_loop() end),
-    Self = self(),
-    wf:send(lobby,{top,5,Self}),
-    Terms = receive Top -> [ message(U,M) || {U,M} <- Top] end,
     store2:header() ++ [
     #panel{class=["row-fluid"],body=[
     #h1{body=["N2O based WebSocket Chat"],class=[offset3],style="padding-left: 34px;"},
@@ -32,16 +29,16 @@ body() ->
 
         #panel{id=history,class=thumbnail,style="background-color: #f5f5f5;",body=[
             case wf:user() of undefined -> message("System","You are not logged in. Anonymous mode!");
-                              _ -> message("System","Hello, " ++ wf:user() ++ "! Here you can chat, please go on!") end | Terms ]},
+                              _ -> message("System","Hello, " ++ wf:user() ++ "! Here you can chat, please go on!") end ]},
         #textarea{id=message,style="display: inline-block; width: 200px; margin-top: 20px; margin-right: 20px;"},
         #button{id=send,body="Send",class=["btn","btn-primary","btn-large","btn-inverse"],postback={chat,Pid},source=[message]} ]} ]} ].
 
 event(init) ->
-%    Self = self(),
-%    wf:send(lobby,{top,5,Self}),
-%    Terms = receive Top -> [ message(U,M) || {U,M} <- Top] end,
-%    error_logger:info_msg("Top 10: ~p",[Terms]),
-%    wf:insert_top(<<"history">>, Terms),
+    Self = self(),
+    wf:send(lobby,{top,5,Self}),
+    Terms = receive Top -> [ message(U,M) || {U,M} <- Top] end,
+    error_logger:info_msg("Top 10: ~p",[Terms]),
+    wf:insert_top(<<"history">>, Terms),
     wf:wire("$('#history').scrollTop = $('#history').scrollHeight;");
 event(logout) -> store2:event(logout);
 event(to_login) -> wf:redirect("login");
