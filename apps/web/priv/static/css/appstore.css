@@ -857,6 +857,7 @@ a.label:hover,a.label:focus,a.badge:hover,a.badge:focus{color:#fff;text-decorati
 .invisible{visibility:hidden}
 .affix{position:fixed}
 body{padding-top:60px;padding-bottom:40px;background-color:#ecf0f1}
+.n2o-modal-body{position:relative;padding:15px;overflow-y:auto}
 .carousel-inner .item img{margin:0 auto;width:100%}
 .carousel.top{margin-top:-20px}
 .media{border-top:1px dashed #454;margin-left:20px;margin-bottom:12px;margin-top:10px}

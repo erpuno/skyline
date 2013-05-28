@@ -18,20 +18,22 @@ body() ->
     store2:header() ++ [
     #panel{class=["row-fluid"],body=[
     #h1{body=["N2O based WebSocket Chat"],class=[offset3],style="padding-left: 34px;"},
-    #panel{class=span3,body=[
-        #panel{class=thumbnail,style="background-color: #f5f5f5;",body=[
+    #panel{class=[span3],body=[#h4{body= <<"Your Chats:">>},
+        #panel{style="background-color: #f5f5f5;",body=[
             #panel{class=row,body=[
                 #panel{class=["media"],style="",body=[
                     #panel{class=["media-body"],body=[#b{body="doxtop"}]} ]},
                 #panel{class=["media"],style="",body=[
-                    #panel{class=["media-body"],body=[#b{body="maxim"}]}  ]} ]} ]} ]},
-    #panel{class=span8,body=[
-
-        #panel{id=history,class=thumbnail,style="background-color: #f5f5f5;",body=[
+                    #panel{class=["media-body"],body=[#b{body="maxim"}]} ]},
+                #panel{class=["media"],style="",body=[
+                    #panel{class=["media-body"],body=[#b{body="Lobby Conference"}]}  ]} ]} ]} ]},
+    #panel{class=[span8],body=[
+        #panel{id=history,style="background-color: #f5f5f5;",body=[
             case wf:user() of undefined -> message("System","You are not logged in. Anonymous mode!");
                               _ -> message("System","Hello, " ++ wf:user() ++ "! Here you can chat, please go on!") end ]},
         #textarea{id=message,style="display: inline-block; width: 200px; margin-top: 20px; margin-right: 20px;"},
-        #button{id=send,body="Send",class=["btn","btn-primary","btn-large","btn-inverse"],postback={chat,Pid},source=[message]} ]} ]} ].
+        #button{id=send,body="Send",class=["btn","btn-primary","btn-large","btn-inverse"],postback={chat,Pid},source=[message]} ]} ]}
+    ].
 
 event(init) ->
     Self = self(),
