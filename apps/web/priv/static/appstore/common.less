@@ -8,3 +8,23 @@ body{
   padding: 15px;
   overflow-y: auto;
 }
+
+.tag(@size, @color){
+  @fontSize: @baseFontSize * @size;
+  font-size: @fontSize;
+  line-height: @fontSize + 4;
+  color: @color;
+
+  a {
+    color:@color;
+
+    &:hover{
+      color: @linkColorHover;
+    }
+  }
+}
+
+.tag-mini {.tag(1,   @grayLight);}
+.tag-small{.tag(1.2, @grayLight);}
+.tag-large{.tag(2.3, @grayLight);}
+.tag-huge {.tag(3.7, @grayLight);}
