@@ -13,12 +13,12 @@ body() -> [
     #p{style="width:500px", body=[
         #label{body="Enter tags" },
         #textboxlist{id=first, autocomplete=false},
-        #button{id=submit, class=[btn], body= <<"Submit">>, postback=submit, source=[first]}
+        #button{id=submit, class=[btn], body= <<"Submit">>, postback={submit, first}, source=[first]}
     ]},
     #p{body=[
       #label{body="What's your favorite programming language?"},
       #textboxlist{id=second},
-      #button{id=submit2, class=[btn], body= <<"Submit">>, postback=submit, source= [second]}
+      #button{id=submit2, class=[btn], body= <<"Submit">>, postback={submit, second}, source= [second]}
     ]}
   ].
 
@@ -35,6 +35,6 @@ control_event("second", _) ->
   element_textboxlist:process_autocomplete("second", List, SearchTerm).
 
 event(init) -> ok;
-event(submit) -> 
-  error_logger:info_msg("Textboxlist value: ~p", [wf:q(first)]);
+event({submit, Id}) ->
+  error_logger:info_msg("Textboxlist value: ~p", [wf:q(Id)]);
 event(Event) -> error_logger:info_msg("Page event: ~p", [Event]),ok.
