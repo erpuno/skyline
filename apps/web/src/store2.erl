@@ -2,7 +2,7 @@
 -compile(export_all).
 -include_lib("n2o/include/wf.hrl").
 
-main() -> #dtl{file="prod", bindings=[{title,<<"Store">>},{body, wf:render(body())}]}.
+main() -> #dtl{file="prod", bindings=[{title,<<"Store">>},{body, body()}]}.
 
 header() -> [
   #panel{class=[navbar, "navbar-inverse", "navbar-fixed-top"], body=[
@@ -78,8 +78,12 @@ body() -> header() ++ [
         #li{body=#link{body="6"}},
         #li{class=["next"],body=#link{class=["fui-arrow-right"],body=[<<"Next">>]}}
       ]}
-    ]},
-    #footer{style="background:white;", class=[thumbnail,"text-center"],body=
+    ]}
+  ]}
+  ] ++ footer().
+
+footer()-> [
+  #footer{class=[thumbnail,"text-center"],body=
       #panel{body=[
         #panel{class=["row-fluid"], body=[
           #panel{class=[span12], body=[
@@ -97,9 +101,7 @@ body() -> header() ++ [
           ]}
         ]}
       ]}
-    }
-  ]} 
-  ].
+  }].
 
 event(init) -> [];
 event(to_login) -> wf:redirect("login");

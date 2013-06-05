@@ -5,15 +5,13 @@
 title() -> [<<"TBL">>].
 
 main() ->
-  Title = wf:render(title()),
-  Body = wf:render(body()),
-  [#dtl{file="dev", bindings=[{title,Title},{body, Body}]}].
+  [#dtl{file="dev", bindings=[{title, title()},{body, body()}]}].
 
 body() -> [
     #p{style="width:500px", body=[
-        #label{body="Enter tags" },
-        #textboxlist{id=first, autocomplete=false},
-        #button{id=submit, class=[btn], body= <<"Submit">>, postback={submit, first}, source=[first]}
+%        #label{body="Enter tags" },
+%        #textboxlist{id=first, autocomplete=false},
+%        #button{id=submit, class=[btn], body= <<"Submit">>, postback={submit, first}, source=[first]}
     ]},
     #p{body=[
       #label{body="What's your favorite programming language?"},
