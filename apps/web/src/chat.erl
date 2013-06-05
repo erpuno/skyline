@@ -46,14 +46,18 @@ event(logout) -> store2:event(logout);
 event(to_login) -> wf:redirect("login");
 event(login) -> User = wf:q(user), wf:user(User), wf:redirect("index");
 event(chat) -> wf:redirect("chat");
+event(hello) -> wf:redirect("login");
 
 event({chat,Pid}) ->
     error_logger:info_msg("Chat Pid: ~p",[Pid]),
     Username = case wf:user() of undefined -> "anonymous"; A -> A end,
     Message = wf:q(message),
+    Terms = [ message("Systen","Message added"), #button{postback=hello} ],
+    wf:insert_top(<<"history">>, Terms),
     wf:wire("$('#message').focus(); $('#message').select(); "),
     wf:reg(room),
     Pid ! {message, Username, Message}.
+
 
 chat_loop() ->
    receive
