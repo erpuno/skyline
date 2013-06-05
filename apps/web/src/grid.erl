@@ -8,7 +8,7 @@
 -define(PAGE_SIZE, 1).
 
 main() -> error_logger:info_msg("Main() "),
-  [#dtl{file="dev", bindings=[{title,<<"Grid2.psd">>},{body, body()}]}].
+  [#dtl{file="prod", bindings=[{title,<<"Grid2.psd">>},{body, body()}]}].
 
 body() ->
   error_logger:info_msg("body()"),
