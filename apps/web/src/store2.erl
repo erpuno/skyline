@@ -14,12 +14,12 @@ header() -> [
             #li{body=#link{url="/chat",body=[ #i{class=["fui-chat", "icon-comment"]}, #span{class=["badge badge-info"], body="10"} ]}},
             #li{body=#link{url="/chat?mode=mail",body=[ #i{class=["fui-mail", "icon-envelope"]}, #span{class=["badge badge-info"], body="21"} ]} },
             #li{body=#link{body=[ #i{class=["fui-search", "icon-search"]} ]}},
-            #li{body=#link{body="Home",url="#"}},
-            #li{body=#link{body="Games",url="/store2"}},
-            #li{body=#link{body="Review"}}
+            #li{body=#link{body= <<"Home">>,url="#"}},
+            #li{body=#link{body= <<"Games">>,url="/store2"}},
+            #li{body=#link{body= <<"Review">>}}
           ]},
           #panel{class=["pull-right"], body=[
-            #list{class="nav pull-right", body=[
+            #list{class=["nav", "pull-right"], body=[
               #li{body=[
                 #link{class=["dropdown-toggle"], data_fields=[{<<"data-toggle">>, <<"dropdown">>}], body=[
                   case wf:user() of
