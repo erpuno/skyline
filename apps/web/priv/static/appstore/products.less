@@ -1,0 +1,29 @@
+.products {
+  background: @prodListBackground;
+}
+
+.product {
+  background: @prodBackground;
+  border: 1px solid #ddd;
+  .border-radius(@baseBorderRadius);
+  .box-shadow(0 1px 3px rgba(0,0,0,.055));
+  padding: 5px;
+
+  .items-list & {.span(12);}
+
+  .items-grid & {
+      .span(3);
+
+      & .product-image {width:195px; height:auto;}
+
+      & .product-controls, & .product-name, & .product-price {
+        width:100%;
+        margin-left:0;
+      }
+
+      & .product-description{display:none;}
+    }
+}
+
+.product-name, .product-controls, .product-price {text-align:center;}
+
