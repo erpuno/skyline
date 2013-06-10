@@ -4,7 +4,7 @@
 
 main() -> [ #dtl{file = "prod", bindings=[{title,<<"Login">>},{body, body()}]} ].
 
-body() -> store2:header() ++ [
+body() -> index:header() ++ [
 
     #panel{class=["login-icon"],body=[#image{image="static/flatui/images/illustrations/retina.png"}]},
 

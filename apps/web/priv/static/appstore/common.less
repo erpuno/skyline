@@ -28,3 +28,13 @@ body{
 .tag-small{.tag(1.2, @grayLight);}
 .tag-large{.tag(2.3, @grayLight);}
 .tag-huge {.tag(3.7, @grayLight);}
+
+.label,
+.badge {
+  &-transparent, &-transperent[href]{
+    background-color: transparent;
+    color: currentColor;
+    top:0 !important;
+    text-shadow:none;
+  }
+}

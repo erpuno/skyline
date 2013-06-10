@@ -25,8 +25,55 @@ body() -> %% area of http handler
     #panel { id=n2ostatus }
  ].
 
-api_event(Name,Tag,Term) -> error_logger:info_msg("Name ~p, Tag ~p, Term ~p",[Name,Tag,Term]), event(change_me).
+header() -> [
+  #panel{class=[navbar, "navbar-inverse", "navbar-fixed-top"], body=[
+    #panel{class=["navbar-inner"], body=[
+      #panel{class=[container], body=[
+        #link{class=[brand], url="/login", body="Synrc App Store", name="top" },
+        #panel{class=["nav-collapse collapse"],body=[
 
+          #list{class=[nav], body=[
+            #li{body=#link{url="/chat",body=[ #i{class=["fui-chat", "icon-comment"]}, #span{class=["badge badge-info"], body="10"} ]}},
+            #li{body=#link{url="/chat?mode=mail",body=[ #i{class=["fui-mail", "icon-envelope"]}, #span{class=["badge badge-info"], body="21"} ]} },
+            #li{body=#link{body=[ #i{class=["fui-search", "icon-search"]} ]}},
+            #li{body=#link{body= <<"Home">>,url="#"}},
+            #li{body=#link{body= <<"Games">>,url="/store2"}},
+            #li{body=#link{body= <<"Review">>}}]},
+
+          #panel{class=["pull-right"], body=[
+            #list{class=["nav", "pull-right"], body=[
+              #li{body=[
+                #link{class=["dropdown-toggle"], data_fields=[{<<"data-toggle">>, <<"dropdown">>}], body=[
+                  case wf:user() of
+                       undefined -> "Log in";
+                       A -> A end,
+                  #b{class=["caret"]}
+                ]},
+                #list{class=["dropdown-menu"], body=[
+                  #li{body=#link{body=[#i{class=["icon-cog", "fui-gear"]},  <<" Preferences">>]}},
+                  #li{body=#link{postback=chat,body=[#i{class=["icon-cog", "fui-gear"]},  <<" Notifications">>]}},
+                  case wf:user() of
+                       undefined -> #li{body=#link{postback=to_login,body=[#i{class=["icon-off"]}, <<" Login">> ]}};
+                       A -> #li{body=#link{postback=logout,body=[#i{class=["icon-off"]}, <<" Logout">> ]}} end
+                ]} ]} ]} ]} ]} ]} ]} ]} ].
+
+footer()-> [
+  #footer{class=[container,thumbnail,"text-center"],body=
+      #panel{body=[
+        #panel{class=["row-fluid"], body=[
+          #panel{class=[span12], body=[
+            #panel{class=["span8"], body=[
+              #link{class=["btn btn-link"],body= <<"About">>},
+              #link{class=["btn btn-link"],body= <<"Help">>},
+              #link{class=["btn btn-link"],body= <<"Terms of Use">>},
+              #link{class=["btn btn-link"],body= <<"Privacy">>},
+              #link{class=["btn btn-link"],body= <<"RSS">>} ]},
+            #panel{class=["span4"], body=[
+              #link{class=["btn btn-link"],url="http://synrc.com", body=[
+                #span{class=["label", "label-transparent"], body= <<"&copy;">>}, <<"synrc.com">>]}
+            ]} ]} ]} ]}} ].
+
+api_event(Name,Tag,Term) -> error_logger:info_msg("Name ~p, Tag ~p, Term ~p",[Name,Tag,Term]), event(change_me).
 
 event(init) ->
   User = wf:user(),
