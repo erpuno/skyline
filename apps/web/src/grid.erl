@@ -10,50 +10,14 @@
 main() -> [#dtl{file="dev", bindings=[{title,<<"Grid2.psd">>},{body, body()}]}].
 
 body() ->
-  wf:session(products, kvs:all(product)),
-  store2:header() ++ [
+  products:fill_prods(),
+  index:header() ++ [
     #panel{class=["container"],body=[
-      carousel(),
       #panel{class=["row-fluid"], body=[ #panel{id=products, body=product_list(1)}, tags() ]},
       #button{class=["btn"], data_fields=[{<<"data-toggle">>,<<"modal">>}, {<<"data-target">>, <<"#addProduct">>}], body= <<"Add product">>},
       add_product()
     ]}
-  ] ++ store2:footer().
-
-carousel()->
-  #panel{id=myCarousel, class=["carousel", "slide", "top"], data_fields=[{<<"data-interval">>, <<"5000">>}],body=[
-    #list{numbered=true, class=["carousel-indicators"], body=[
-      #li{data_fields=[{<<"data-target">>, <<"#myCarousel">>}, {<<"data-slide-to">>, <<"0">>}], class=[active]},
-      #li{data_fields=[{<<"data-target">>, <<"#myCarousel">>}, {<<"data-slide-to">>, <<"1">>}]},
-      #li{data_fields=[{<<"data-target">>, <<"#myCarousel">>}, {<<"data-slide-to">>, <<"2">>}]}
-    ]},
-    #panel{class=["carousel-inner"], body=[
-      #panel{class=[active, item], data_fields=[{<<"data-slide-number">>,<<"0">>}], body=[
-        #image{image="/static/img/item-bg.png"},
-        #panel{class=["carousel-caption"], body=[
-          #h4{body="First image label&copy;"},
-          #p{body=[
-            "Cras justo odio, dapibus ac facilisis in, egestas eget quam. 
-            Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit."]} ]} ]},
-      #panel{class=[item], data_fields=[{<<"data-slide-number">>, <<"1">>}], body=[
-        #image{image="/static/img/item-bg.png"},
-        #panel{class=["carousel-caption"], body=[
-          #h4{body="Second image label"},
-          #p{body=[
-            "Cras justo odio, dapibus ac facilisis in, egestas eget quam. 
-            Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit."]} ]} ]},
-      #panel{class=[item], data_fields=[{<<"data-slide-number">>, <<"2">>}], body=[
-        #image{image="/static/img/item-bg.png"},
-        #panel{class=["carousel-caption"], body=[
-          #h4{body="Third image label"},
-          #p{body=[
-            "Cras justo odio, dapibus ac facilisis in, egestas eget quam. 
-            Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit."]} ]} ]}
-    ]},
-    #link{class=["carousel-control", left], url="#myCarousel", data_fields=[{<<"data-slide">>, <<"prev">>}], body="&lsaquo;"},
-    #link{class=["carousel-control", right], url="#myCarousel", data_fields=[{<<"data-slide">>, <<"next">>}], body="&rsaquo;"}
-  ]}.
-
+  ] ++ index:footer().
 
 product_list(Page) ->
   Prods = wf:session(products),
@@ -69,7 +33,7 @@ product_list(Page) ->
             #h4{body = P#product.name},
             #p{body=[#span{style="display:block;", body = <<"John Smith">>},#small{body= <<"Yesterday, 1:00 pm">>}]},
             #link{url="#",body=[ #i{class=["icon-user"]}, #span{class=["badge badge-info"], body= <<"1024">>} ]},
-            #link{url="#",body=[ #i{class=["fui-chat", "icon-comment"]}, #span{class=["badge badge-info"], body= <<"10">>} ]} ]},
+            #link{url="#",body=[ #i{class=["icon-comment"]}, #span{class=["badge badge-info"], body= <<"10">>} ]} ]},
           #link{class=span4, body=#image{class=["img-polaroid"], image=P#product.image_small_url}},
           #panel{class=span5, body=[
             #h4{body = <<"Description head">>},
@@ -80,9 +44,9 @@ product_list(Page) ->
 
     #panel{class=["pagination pagination-large pagination-centered"],body=[
       #list{body=[
-         #li{class=if Page==1 -> ["disabled"];true->[] end,body=#link{class=["fui-arrow-left"], body= <<"&lsaquo;">>, postback={page, 1}, url="javascript:void(0);"}},
+         #li{class=if Page==1 -> [disabled, previous];true->[previous] end,body=#link{class=["fui-arrow-left"], body= <<"&lsaquo;">>, postback={page, 1}, url="javascript:void(0);"}},
         [#li{class=if Page==I -> [active];    true->[] end,body=#link{id="pagelink"++integer_to_list(I),body=integer_to_list(I), postback={page, I}, url="javascript:void(0);" }} || I <- lists:seq(1, PageCount)],
-         #li{class=if Page==PageCount -> ["disabled"];true->[] end, body=#link{class=["fui-arrow-right"], body= <<"&rsaquo;">>, postback={page, PageCount}}}
+         #li{class=if Page==PageCount -> [disabled, next];true->[next] end, body=#link{class=["fui-arrow-right"], body= <<"&rsaquo;">>, postback={page, PageCount}}}
       ]} ]} ]}.
 
 tags()->
