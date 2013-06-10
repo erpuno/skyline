@@ -29,14 +29,6 @@ $(document).ready(function() {
     // JS input/textarea placeholder
     $("input, textarea").placeholder();
 
-    // Make pagination demo work
-    $(".pagination a").click(function() {
-        if (!$(this).parent().hasClass("previous") && !$(this).parent().hasClass("next")) {
-            $(this).parent().siblings("li").removeClass("active");
-            $(this).parent().addClass("active");
-        }
-    });
-
     $(".btn-group a").click(function() {
         $(this).siblings().removeClass("active");
         $(this).addClass("active");
