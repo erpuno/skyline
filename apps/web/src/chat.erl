@@ -38,7 +38,7 @@ body() ->
 event(init) ->
     Self = self(),
     wf:send(lobby,{top,5,Self}),
-    Terms = receive Top -> [ message(U,M) || {U,M} <- Top] end,
+    Terms = wf:render(receive Top -> [ message(U,M) || {U,M} <- Top] end),
     error_logger:info_msg("Top 10: ~p",[Terms]),
     wf:insert_top(<<"history">>, Terms),
     wf:wire("$('#history').scrollTop = $('#history').scrollHeight;");
@@ -60,8 +60,8 @@ event({chat,Pid}) ->
 
 
 chat_loop() ->
-   receive
-         {message, Username, Message} ->
+    receive
+        {message, Username, Message} ->
             error_logger:info_msg("Comet received : ~p",[{Username,Message}]),
             Terms = message(Username,Message),
             wf:insert_top(<<"history">>, Terms),

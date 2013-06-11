@@ -42,6 +42,7 @@ dispatch_rules() ->
 chat_room(List) ->
     receive
          {add, Message} -> chat_room([Message|List]);
+         print -> io:format("~p",[List]), chat_room(List);
          {top, Number, Caller} -> Caller ! lists:sublist(List,Number), chat_room(List);
          {win, Page, Caller} -> Caller ! lists:sublist(List,Page*10,10), chat_room(List);
          _ -> chat_room(List)
