@@ -53,7 +53,7 @@ event({chat,Pid}) ->
     Username = case wf:user() of undefined -> "anonymous"; A -> A end,
     Message = wf:q(message),
     Terms = [ message("Systen","Message added"), #button{postback=hello} ],
-    wf:insert_top(<<"history">>, Terms),
+%    wf:insert_top(<<"history">>, Terms),
     wf:wire("$('#message').focus(); $('#message').select(); "),
     wf:reg(room),
     Pid ! {message, Username, Message}.
