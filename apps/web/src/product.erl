@@ -22,11 +22,30 @@ body() ->
   index:header()++[
   #panel{class=["container"], body=[
     #panel{class=["row-fluid"], body=[
-      #panel{class=[span4, "product-view"], body=products:product(Product)},
+      #panel{class=[span4, "product-view"], body=product(Product)},
       #panel{class=[span8], body=#list{class=[thumbnails], body=feed()} }
     ]}
   ]}
   ]++index:footer().
+
+product(P = #product{})->
+  #panel{class=[product, "row-fluid"], body=[
+    #link{class=[span4,"product-image"], body=#image{image=P#product.image_small_url}, postback={product, integer_to_list(P#product.id)} },
+    #panel{class=[span2, "product-name"], body=[
+      #h4{body = P#product.name},
+      #panel{class=[badges],body=[
+        #link{url="#",body=[ #i{class=["icon-user"]}, #span{class=["badge badge-info"], body= <<"1024">>} ]},
+        #link{url="#",body=[ #i{class=["icon-comment"]}, #span{class=["badge badge-info"], body= <<"10">>} ]} ]} ]},
+    #panel{class=[span3, "product-description"], body=[
+      #h4{body = P#product.description_short},
+      #p{body=P#product.description_long} ]},
+    #panel{class=[span3, "product-price"], body=[
+      #h2{body=list_to_binary(integer_to_list(P#product.price)++"$")},
+      #panel{class=["product-controls", "btn-toolbar"], body=[
+        #panel{class=["btn-group"],body=#button{class=["btn btn-warning"], body="Buy It!"}},
+        #panel{class=["btn-group"],body=#button{class=["btn btn-info"], body="Review", postback={product, integer_to_list(P#product.id)} }}
+      ]} ]} ]}.
+
 
 feed() -> [#feed_entry{entry=E} || E <- entries(), _I <- lists:seq(1, 5)].
 

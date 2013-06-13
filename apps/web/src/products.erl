@@ -15,7 +15,7 @@ body()->
   wf:wire("$('#gridsw').on('click', function(){ $('#products').removeClass('items-list').addClass('items-grid'); });"),
   index:header() ++ [
   #panel{class=[container], body=[
-    carousel(),
+    #carousel{class=["product-carousel", "top"], items= [product:product(P) || P <-[product:product()], _I <- lists:seq(1,3) ]},
     #panel{class=["btn-toolbar"],body=[
       #panel{class=["btn-group"], body=[
         #link{id=listsw, class=[btn, active], body=#i{class=["icon-th-list"]}, postback=to_list },
@@ -25,25 +25,7 @@ body()->
   ]}
   ] ++ index:footer().
 
-list_products(Page) -> [#li{body=product(P)} || P <- lists:sublist(wf:session(products), (Page-1) * ?PAGE_SIZE + 1, ?PAGE_SIZE)].
-
-product(P)->
-  #panel{class=[product, "row-fluid"], body=[
-    #link{class=[span4,"product-image"], body=#image{class=["img-polaroid"], image=P#product.image_small_url}, postback={product, integer_to_list(P#product.id)} },
-    #panel{class=[span2, "product-name"], body=[
-      #h4{body = P#product.name},
-      #link{url="#",body=[ #i{class=["icon-user"]}, #span{class=["badge badge-info"], body= <<"1024">>} ]},
-      #link{url="#",body=[ #i{class=["icon-comment"]}, #span{class=["badge badge-info"], body= <<"10">>} ]} ]},
-    #panel{class=[span3, "product-description"], body=[
-      #h4{body = P#product.description_short},
-      #p{body=P#product.description_long} ]},
-    #panel{class=[span3, "product-price"], body=[
-      #h2{body=list_to_binary(integer_to_list(P#product.price)++"$")},
-      #panel{class=["product-controls", "btn-toolbar"], body=[
-        #panel{class=["btn-group"],body=#button{class=["btn btn-warning"], body="Buy It!"}},
-        #panel{class=["btn-group"],body=#button{class=["btn btn-info"], body="Review", postback={product, integer_to_list(P#product.id)} }}
-      ]} ]} ]}.
-
+list_products(Page) -> [#li{body=product:product(P)} || P <- lists:sublist(wf:session(products), (Page-1) * ?PAGE_SIZE + 1, ?PAGE_SIZE)].
 
 pagination(Page)->
   PageCount = (length(wf:session(products)) -1 ) div ?PAGE_SIZE + 1,
@@ -51,42 +33,6 @@ pagination(Page)->
   [#li{class=if I==Page -> active;true->[] end,body=#link{id="pglink"++integer_to_list(I),body=integer_to_list(I), postback={page, I}, url="javascript:void(0);" }} 
     || I <- lists:seq(1, PageCount)],
    #li{class=[if PageCount==Page -> "disabled";true->[] end,"next"], body=#link{class=["fui-arrow-right"], body= <<"&rsaquo;">>, postback={page, PageCount},url="javascript:void(0);" }} ].
-
-
-carousel()->
-  #panel{id=productCarousel, class=[carousel, slide, top, "product-carousel"], data_fields=[{<<"data-interval">>, <<"3000">>}],body=[
-    #list{numbered=true, class=["carousel-indicators"], body=[
-      #li{data_fields=[{<<"data-target">>, <<"#productCarousel">>}, {<<"data-slide-to">>, <<"0">>}], class=[active]},
-      #li{data_fields=[{<<"data-target">>, <<"#productCarousel">>}, {<<"data-slide-to">>, <<"1">>}]},
-      #li{data_fields=[{<<"data-target">>, <<"#productCarousel">>}, {<<"data-slide-to">>, <<"2">>}]}
-    ]},
-    #panel{class=["carousel-inner"], body=[
-      #panel{class=[active, item], data_fields=[{<<"data-slide-number">>,<<"0">>}], body=[
-        #image{image="/static/img/item-bg.png"},
-        #panel{class=["carousel-caption"], body=[
-          #h4{body="First image label&copy;"},
-          #p{body=[
-            "Cras justo odio, dapibus ac facilisis in, egestas eget quam. 
-            Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit."]} ]} ]},
-      #panel{class=[item], data_fields=[{<<"data-slide-number">>, <<"1">>}], body=[
-        #image{image="/static/img/item-bg.png"},
-        #panel{class=["carousel-caption"], body=[
-          #h4{body="Second image label"},
-          #p{body=[
-            "Cras justo odio, dapibus ac facilisis in, egestas eget quam. 
-            Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit."]} ]} ]},
-      #panel{class=[item], data_fields=[{<<"data-slide-number">>, <<"2">>}], body=[
-        #image{image="/static/img/item-bg.png"},
-        #panel{class=["carousel-caption"], body=[
-          #h4{body="Third image label"},
-          #p{body=[
-            "Cras justo odio, dapibus ac facilisis in, egestas eget quam. 
-            Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit."]} ]} ]}
-    ]},
-    #link{class=["carousel-control", left], url="#productCarousel", data_fields=[{<<"data-slide">>, <<"prev">>}], body="&lsaquo;"},
-    #link{class=["carousel-control", right], url="#productCarousel", data_fields=[{<<"data-slide">>, <<"next">>}], body="&rsaquo;"}
-  ]}.
-
 
 event(init) -> [];
 event({page, Page})-> 
