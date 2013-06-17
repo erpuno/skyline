@@ -39,3 +39,31 @@ body{padding-top:0px;}
     text-shadow:none;
   }
 }
+
+footer{
+  background: #333333;
+  color: #e9e9e9;
+  border-top: 1px solid black;
+  text-shadow: 1px 1px 1px #222222;
+  .box-shadow(0 3px 3px rgba(0,0,0,.25));
+  padding: 30px 0px;
+  margin: 0;
+  position: relative;
+
+  & .btn-link {
+    text-shadow:1px 1px 1px #222222;
+  }
+  & small {
+    color: #e9e9e9;
+    font-style: italic;
+    text-indent:0;
+    display:block;
+  }
+  & .icons {
+    text-indent: -0.8em;
+    margin-left: 2em;
+    list-style-type: none;
+  }
+
+  & h3 {text-transform: uppercase}
+}

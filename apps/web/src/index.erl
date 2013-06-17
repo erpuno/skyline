@@ -54,8 +54,38 @@ header() -> [
                        A -> #li{body=#link{postback=logout,body=[#i{class=["icon-off"]}, <<" Logout">> ]}} end ]} ]} ]} ]} ]} ]} ]} ].
 
 footer()-> [
-  #footer{class=[container,thumbnail,"text-center"],body=
-      #panel{body=[
+  #footer{body=
+      #panel{class=[container],body=[
+        #panel{class=["row-fluid"], body=[
+          #panel{class=[span4], body=[
+            #h3{body= <<"Contact us">>},
+            #p{body = <<"Each line of code is driven by intention to make our world better and to avoid suffering and causes of suffering. We guarantee that. We believe that making good software is impossible without good intention. So keep calm with us for the sake of great good :-)">>},
+            #list{class=[icons], body=[
+              #li{body=[#i{class=["icon-envelope"]}, #link{url= <<"mailto:maxim@synrc.com">>, body= <<" Maksym Sokhatskyi">>}]},
+              #li{body=[#i{class=["icon-envelope"]}, #link{url= <<"mailto:doxtop@synrc.com">>, body= <<" Andrii Zadorozhnii">>}]},
+              #li{body=[#i{class=["icon-twitter"]}, #link{url= <<"https://twitter.com/5HT">>, body= <<" @5HT">>}]},
+              #li{body=[#i{class=["icon-facebook"]}, #link{url= <<"https://www.facebook.com/synrc">>, body= <<" synrc">>}]},
+              #li{body=[#i{class=["icon-google-plus"]}, #link{url= <<"https://plus.google.com/114626316186565874650">>, body= <<" synrc">>}]}
+            ]}
+          ]},
+          #panel{class=[span4], body=[
+            #h3{body= <<"Recent news">>},
+            #list{class=[icons], body=[
+              #li{body=[#p{body=[#i{class=["icon-twitter"]},<<" Never saw Windows Phone slowness even on slow and cheap phones.">>,#small{body=[<<"by ">>, #link{url= <<"https://twitter.com/5HT">>, body= <<"maxim">>}]} ]} ]},
+              #li{body=[#p{body=[#i{class=["icon-twitter"]},<<" N2O now is more popular than Erlyvideo-old on Github #FuryN2O In Top #30 Erlang Projects with Rank #26">>, #small{body=[<<"by ">>, #link{url= <<"https://twitter.com/5HT">>, body= <<"maxim">>}]} ]} ]},
+              #li{body=[#p{body=[#i{class=["icon-twitter"]},<<" KVS supports Mnesia and Riak out of the box #EKVS: https://github.com/synrc/kvs">>, #small{body=[<<"by ">>, #link{url= <<"https://twitter.com/5HT">>, body= <<"maxim">>}]} ]} ]}
+            ]}
+          ]},
+          #panel{class=[span4], body=[
+            #h3{body= <<"Latest posts">>},
+            #list{class=["unstyled"], body=[
+              #li{body=[#h4{body=[#link{url= <<"http://maxim.livejournal.com/409763.html">>, body= <<"DHARMA LICENSE">>}]}, #p{body=[#small{body= <<"May 12, 2013">>}]}]},
+              #li{body=[#h4{body=[#link{url= <<"http://maxim.livejournal.com/407956.html">>, body= <<"Web Frameworks Great Congregation">>}]}, #p{body=[#small{body= <<"May 6, 2013">>}]}]},
+              #li{body=[#h4{body=[#link{url= <<"http://maxim.livejournal.com/411719.html">>, body= <<"N2O FAQ">>}]}, #p{body=[#small{body= <<"June 8, 2013">>}]}]}
+            ]}
+          ]}
+        ]},
+        #hr{},
         #panel{class=["row-fluid"], body=[
           #panel{class=[span12], body=[
             #panel{class=["span8"], body=[
@@ -68,6 +98,7 @@ footer()-> [
               #link{class=["btn btn-link"],url="http://synrc.com", body=[
                 #span{class=["label", "label-transparent"], body= <<"&copy;">>}, <<"synrc.com">>]}
             ]} ]} ]} ]}} ].
+
 
 api_event(Name,Tag,Term) -> error_logger:info_msg("Name ~p, Tag ~p, Term ~p",[Name,Tag,Term]), event(change_me).
 
