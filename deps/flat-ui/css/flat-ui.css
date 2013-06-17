@@ -40,6 +40,7 @@ you can use the generic selector below, but it's slower:
 .fui-eye,
 .fui-chat,
 .fui-search,
+.icon-search,
 .fui-user,
 .fui-mail,
 .fui-lock,
@@ -113,6 +114,12 @@ you can use the generic selector below, but it's slower:
   content: "\e013";
 }
 .fui-search:before {
+  content: "\e01c";
+}
+.icon-search{
+  background-image:none;
+}
+.icon-search:before {
   content: "\e01c";
 }
 .fui-user:before {
@@ -766,7 +773,9 @@ h6 {
 
   font-weight: 700;
   margin-left: 0;
-  padding: 23px 28px 24px 32px;
+  margin-top:0;
+  margin-bottom:0;
+  padding: 20px 28px 20px 32px;
   text-shadow: none;
 }
 .navbar .brand:hover,
@@ -857,9 +866,9 @@ h6 {
   margin-left: 12px;
 }
 .navbar .nav > li:first-child > a {
-  -webkit-border-radius: 0 0 0 6px;
-  -moz-border-radius: 0 0 0 6px;
-  border-radius: 0 0 0 6px;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
 }
 .navbar .nav ul {
   border-radius: 6px;
@@ -975,7 +984,7 @@ h6 {
   border-bottom: 2px solid #2c3e50;
   border-right: 2px solid #2c3e50;
   color: #ffffff;
-  padding: 10px 28px 11px 32px;
+  padding: 20px 28px 20px 32px;
 }
 .navbar-inverse .btn-navbar {
   color: #ffffff;
@@ -988,6 +997,7 @@ h6 {
   border-left: none;
 }
 .navbar-inverse .nav > li.active > a,
+.navbar-inverse .nav > li.dropdown.active > .dropdown-toggle,
 .navbar-inverse .nav > li.active > a:hover,
 .navbar-inverse .nav > li.active > a:focus {
   background-color: #1abc9c;
@@ -1078,6 +1088,10 @@ h6 {
 }
 .navbar .nav li.dropdown > .dropdown-toggle {
   outline: none;
+}
+.navbar .nav li.dropdown.active > .dropdown-toggle:hover .caret {
+  border-bottom-color: #4c6a89;
+  border-top-color: #4c6a89;
 }
 .navbar .nav li.dropdown > .dropdown-toggle:hover .caret,
 .navbar .nav li.dropdown > .dropdown-toggle:focus .caret {
