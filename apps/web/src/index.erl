@@ -26,7 +26,7 @@ body() -> %% area of http handler
  ].
 
 header() -> [
-  #panel{class=[navbar, "navbar-inverse", "navbar-fixed-top", "sky-navbar"], body=[
+  #panel{class=[navbar, "navbar-fixed-top", "sky-navbar"], body=[
     #panel{class=["navbar-inner"], body=[
       #panel{class=[container], body=[
         #link{class=[btn, "btn-navbar"], data_fields=[{<<"data-toggle">>, <<"collapse">>}, {<<"data-target">>, <<".nav-collapse">>}], url="javascript:void(0)",
@@ -54,7 +54,7 @@ header() -> [
                        A -> #li{body=#link{postback=logout,body=[#i{class=["icon-off"]}, <<" Logout">> ]}} end ]} ]} ]} ]} ]} ]} ]} ].
 
 footer()-> [
-  #footer{body=
+  #footer{class=["sky-footer"], body=
       #panel{class=[container],body=[
         #panel{class=["row-fluid"], body=[
           #panel{class=[span4], body=[

@@ -32,7 +32,7 @@ body() -> index:header() ++ [
 display_item(Image,Developer,Title,Genre) ->
     #li{style="width: 840px;margin-left:60px;", body=[
         #panel{style="background-color: #f5f5f5;", class=thumbnail, body=[
-            #list{class=breadcrumb, style="margin-top: 20px;",body=[
+            #list{class=[breadcrumb], style="margin-top: 20px;",body=[
                 #li{style="font-size:24px; font-weight:bold;", body=[#link{body=Genre}, #span{class=["divider"], body=[<<"/">>]}]},
                 #li{style="font-size:24px", body=#link{body=Title}}
             ]},

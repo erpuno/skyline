@@ -1,8 +1,32 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,800);
+body {  font-family: 'Open Sans', Arial, serif; font-size:16px; line-height:24px;}
+h1, h2, h3, h4, h5, h6 {  font-family: 'Open Sans', Arial, serif;  font-weight: 800;}
+
+
 body{padding-top:0px;}
 @media (min-width: 980px){body{padding-top:80px;}}
 
 @media(min-width: 980px){ .sky-navbar {&.navbar .nav > li > a { padding:29px 10px 31px;}}}
-.sky-navbar { & .btn-navbar {margin-top:15px;}}
+.sky-navbar {
+  & .brand {
+    font-weight: 800;
+    font-size: 30px;
+    line-height: 30px;
+    padding: 23px 20px 27px;
+    margin-top: 0;
+    margin-bottom: 0;
+    color: #555555;
+    text-shadow: 0 1px 0 white;
+
+    & a{color: #555555;}
+  }
+  & .navbar-inner {background: @white;
+    background: rgba(255, 255, 255, 0.95);
+    .box-shadow(none);
+    border-bottom: 1px solid #e9e9e9;
+  }
+
+  & .btn-navbar {margin-top:15px;}}
 
 .n2o-modal-body {
   position: relative;
@@ -40,7 +64,7 @@ body{padding-top:0px;}
   }
 }
 
-footer{
+.sky-footer{
   background: #333333;
   color: #e9e9e9;
   border-top: 1px solid black;
