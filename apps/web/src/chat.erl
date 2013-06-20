@@ -2,12 +2,12 @@
 -compile(export_all).
 -include_lib("n2o/include/wf.hrl").
 
-main() -> [ #dtl{file = "prod", bindings=[{title,<<"Login">>},{body,body()}]} ].
+main() -> [ #dtl{file = "dev", bindings=[{title,<<"Login">>},{body,body()}]} ].
 
 message(Who,What) ->
   #panel{class=["media"],body=[
       #link{class=["pull-left"], body=[
-          #image{class=["media-object"],image="static/flatui/images/illustrations/infinity.png",width= <<"63">>} ]},
+          #image{class=["media-object"],image="static/img/infinity.png",width= <<"63">>} ]},
             #panel{class=["media-body"],body=[
                 #h4{body=Who},
                 #span{body=What} ]} ]}.
@@ -15,7 +15,7 @@ message(Who,What) ->
 body() ->
     {ok,Pid} = wf:comet(fun() -> chat_loop() end),
     index:header(true) ++ [
-  #panel{class=["container-fluid"], body=[
+  #panel{class=["container-fluid", chat], body=[
     #panel{class=["row-fluid"], body=[
       #h1{body= <<"N2O based WebSocket Chat">>,class=[offset3, span8]}
     ]},
