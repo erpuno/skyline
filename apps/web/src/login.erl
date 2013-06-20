@@ -1,11 +1,14 @@
 -module(login).
 -compile(export_all).
 -include_lib("n2o/include/wf.hrl").
+-include_lib("kvs/include/users.hrl").
 
 main() -> [ #dtl{file = "prod", bindings=[{title,<<"Login">>},{body, body()}]} ].
 
 body() -> 
   index:header() ++ [
+  fb_utils:init_sdk(),
+
   #panel{id="content", role="main", class=["theme-pattern-lightmesh", alt], body=[
   #section{class=[section], id=promo, body=[
   #panel{class=[container], body=[
@@ -20,7 +23,7 @@ body() ->
           #h3{class=["text-center"], body= <<"Sign in with">>},
           #panel{class=["btn-toolbar", "text-center"], body=[
             #panel{class=["btn-group"], body=#link{class=[btn, "btn-info", disabled], body=[#i{class=["icon-twitter"]}, <<" Twitter">>]}},
-            #panel{class=["btn-group"], body=#link{class=[btn, "btn-primary", disabled], body=[#i{class=["icon-facebook"]}, <<" Facebook">>]}},
+            fb_utils:login_btn(),
             #panel{class=["btn-group"], body=#link{class=[btn, "btn-danger", disabled], body=[#i{class=["icon-google-plus"]}, <<" Google">>]}}
           ]},
           #h3{class=["text-center"], body= <<"or">>},
@@ -58,12 +61,32 @@ body() ->
     #panel{class=["pull-center"], body=[<<"Not a member?">>, #link{body= <<" Sign Up">>} ]} ]} ]} ]} ] ++ index:footer().
 
 
-api_event(Name,Tag,Term) -> error_logger:info_msg("Name ~p~n, Tag ~w~n, Term ~p",[Name,Tag,Term]).
+api_event(Name,Tag,Term) ->
+  error_logger:info_msg("Login Name ~p~n, Tag ~p~n",[Name,Tag]),
+  fb_utils:api_event(Name, Tag, Term).
 
 event(init) -> [];
-event(chat) -> wf:redirect("chat");
-event(to_login) -> wf:redirect("login");
-event(login) -> User = wf:q(user), wf:update(display,User), wf:user(User), wf:redirect("/chat").
+event(logout) -> wf:user(undefined), wf:redirect("/login");
+event(login) -> User = wf:q(user), wf:user(User), wf:redirect("/chat");
+event(to_login) -> wf:redirect("/login");
+event(chat) -> wf:redirect("chat").
 
+login_user(UserName) ->
+  case kvs:get(user, UserName) of
+    {ok, User}->
+      %nsx_msg:notify(["login", "user", UserName, "update_after_login"], []),
+      Update = case kvs:get(user_status, UserName) of
+        {error, not_found} ->
+          #user_status{username = UserName, last_login = erlang:now()};
+        {ok, UserStatus} -> UserStatus#user_status{last_login = erlang:now()}
+        end,
+      kvs:put(Update),
+
+      wf:session(user_info, User),
+      wf:user(UserName),
+      wf:redirect("/chat");
+    {error, not_found}-> 
+      wf:redirect("/?message=" ++ site_utils:base64_encode_to_url("failed"))
+  end.
 
 

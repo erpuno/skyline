@@ -4,9 +4,9 @@ h1, h2, h3, h4, h5, h6 {  font-family: 'Open Sans', Arial, serif;  font-weight: 
 
 
 body{padding-top:0px; background-color:#ecf0f1;}
-@media (min-width: 980px){body{padding-top:80px;}}
-
-@media(min-width: 980px){ .sky-navbar {&.navbar .nav > li > a { padding:29px 10px 31px;}}}
+@media(min-width: 980px){body{padding-top:80px;}}
+@media(min-width: 980px){ .sky-navbar{ &.navbar .nav > li > a {padding:29px 10px 31px;  &.avatar{padding: 10px 10px 10px;} } } }
+@media(max-width: 979px){ .sky-navbar { &.navbar .nav > li > a { &.avatar{padding-top:5px;} } } }
 .sky-navbar{
   & .brand {
     font-weight: 800;
@@ -34,6 +34,24 @@ body{padding-top:0px; background-color:#ecf0f1;}
   }
 
   & .btn-navbar {margin-top:15px;}
+
+  & .account-link {
+    position: absolute;
+    top: 50%;
+    right: -35px;
+    margin: -17px 0 0;
+    z-index: 10000;
+    font-size: 13px;
+    .border-radius(50%);
+    width: 2.5em;
+    height: 2.5em;
+    padding: 0;
+  }
+
+  & .avatar{
+    max-height:79px;
+    & img { margin:0 5px;}
+  }
 }
 
 .n2o-modal-body {
@@ -127,3 +145,4 @@ body{padding-top:0px; background-color:#ecf0f1;}
   }
 
 }
+
