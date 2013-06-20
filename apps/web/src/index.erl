@@ -25,8 +25,9 @@ body() -> %% area of http handler
     #panel { id=n2ostatus }
  ].
 
-header() -> [
-  #panel{class=[navbar, "navbar-fixed-top", "navbar-inverse", "sky-navbar"], body=[
+header()-> header(false).
+header(Inverse) -> [
+  #panel{class=[navbar, "navbar-fixed-top", if Inverse==true->"navbar-inverse"; true-> "" end, "sky-navbar"], body=[
     #panel{class=["navbar-inner"], body=[
       #panel{class=[container], body=[
         #link{class=[btn, "btn-navbar"], data_fields=[{<<"data-toggle">>, <<"collapse">>}, {<<"data-target">>, <<".nav-collapse">>}], url="javascript:void(0)",
