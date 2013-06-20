@@ -25,53 +25,69 @@ body() -> %% area of http handler
     #panel { id=n2ostatus }
  ].
 
-header() -> [
-  #panel{class=[navbar, "navbar-inverse", "navbar-fixed-top"], body=[
+header()-> header(false).
+header(Inverse) -> [
+  #panel{class=[navbar, "navbar-fixed-top", if Inverse==true->"navbar-inverse"; true-> "" end, "sky-navbar"], body=[
     #panel{class=["navbar-inner"], body=[
       #panel{class=[container], body=[
-        #link{class=[brand], url="/login", body="Synrc App Store", name="top" },
-        #panel{class=["nav-collapse collapse"],body=[
+        #link{class=[btn, "btn-navbar"], data_fields=[{<<"data-toggle">>, <<"collapse">>}, {<<"data-target">>, <<".nav-collapse">>}], url="javascript:void(0)",
+          body=[#span{class=["icon-bar"]}||_I<-lists:seq(1,3)]},
 
+        #h1{class=[brand], body=#link{url="/login", body= <<"Synrc App Store">>, name="top" }},
+        #panel{class=["nav-collapse", "collapse"], body=[
           #list{class=[nav], body=[
-            #li{body=#link{url="/chat",body=[ #i{class=["fui-chat", "icon-comment"]}, #span{class=["badge badge-info"], body="10"} ]}},
-            #li{body=#link{url="/chat?mode=mail",body=[ #i{class=["fui-mail", "icon-envelope"]}, #span{class=["badge badge-info"], body="21"} ]} },
-            #li{body=#link{body=[ #i{class=["fui-search", "icon-search"]} ]}},
+            #li{body=#link{url="/chat",body=[ #i{class=["icon-comment"]}, #span{class=["badge badge-info"], body="10"} ]}},
+            #li{body=#link{url="/chat?mode=mail",body=[ #i{class=["icon-envelope"]}, #span{class=["badge badge-info"], body="21"} ]} },
+            #li{body=#link{body=[ #i{class=["icon-search"]} ]}},
             #li{body=#link{body= <<"Home">>,url="#"}},
             #li{body=#link{body= <<"Games">>,url="/store2"}},
             #li{body=#link{body= <<"Review">>}}]},
-
-          #panel{class=["pull-right"], body=[
-            #list{class=["nav", "pull-right"], body=[
-              #li{body=[
-                #link{class=["dropdown-toggle"], data_fields=[{<<"data-toggle">>, <<"dropdown">>}], body=[
-                  case wf:user() of
-                       undefined -> "Log in";
-                       A -> A end,
-                  #b{class=["caret"]}
-                ]},
+          #list{class=["nav", "pull-right"], body=[
+            #li{class=["dropdown"], body=[
+              #link{class=["dropdown-toggle"], data_fields=[{<<"data-toggle">>, <<"dropdown">>}], url="javascript:void(0)", body=[
+                case wf:user() of undefined -> <<"Log in">>; A -> A end,
+                #b{class=["caret"]} ]} ,
                 #list{class=["dropdown-menu"], body=[
                   #li{body=#link{body=[#i{class=["icon-cog", "fui-gear"]},  <<" Preferences">>]}},
                   #li{body=#link{postback=chat,body=[#i{class=["icon-cog", "fui-gear"]},  <<" Notifications">>]}},
                   case wf:user() of
                        undefined -> #li{body=#link{postback=to_login,body=[#i{class=["icon-off"]}, <<" Login">> ]}};
-                       A -> #li{body=#link{postback=logout,body=[#i{class=["icon-off"]}, <<" Logout">> ]}} end
-                ]} ]} ]} ]} ]} ]} ]} ]} ].
+                       A -> #li{body=#link{postback=logout,body=[#i{class=["icon-off"]}, <<" Logout">> ]}} end ]} ]} ]} ]} ]} ]} ]} ].
 
 footer()-> [
-  #footer{class=[container,thumbnail,"text-center"],body=
-      #panel{body=[
+  #footer{id=mainfooter, class=["sky-footer"], body=
+      #panel{class=[container],body=[
         #panel{class=["row-fluid"], body=[
-          #panel{class=[span12], body=[
-            #panel{class=["span8"], body=[
-              #link{class=["btn btn-link"],body= <<"About">>},
-              #link{class=["btn btn-link"],body= <<"Help">>},
-              #link{class=["btn btn-link"],body= <<"Terms of Use">>},
-              #link{class=["btn btn-link"],body= <<"Privacy">>},
-              #link{class=["btn btn-link"],body= <<"RSS">>} ]},
-            #panel{class=["span4"], body=[
-              #link{class=["btn btn-link"],url="http://synrc.com", body=[
-                #span{class=["label", "label-transparent"], body= <<"&copy;">>}, <<"synrc.com">>]}
+          #panel{class=[span4, "footer-banner"], body=[
+            #h3{class=["footer-title"], body= <<"Synrc Research Center">>},
+            #p{body = <<"Feel free to share your thoughts on Synrc, Erlang, PaaS and other things.">>},
+            #list{class=[icons], body=[
+              #li{body=[#i{class=["icon-github"]}, #link{url= <<"https://github.com/synrc">>, body= <<"synrc">>}]},
+              #li{body=[#i{class=["icon-facebook"]}, #link{url= <<"https://www.facebook.com/synrc">>, body= <<"Synrc Research Center">>}]},
+              #li{body=[#i{class=["icon-google-plus"]}, #link{url= <<"https://plus.google.com/114626316186565874650">>, body= <<"synrc">>}]},
+              #li{body=[#i{class=["icon-envelope"]}, #link{url= <<"mailto:maxim@synrc.com">>, body= <<"Contact">>}]}
+            ]},
+            #list{class=[unstyled], body=[
+              #li{body= <<" &copy; 2013 Synrc Research Center s.r.o.">>},
+              #li{body= <<" Roháčova 141/18, Praha 3 13000, Сzech Republic">>},
+              #li{body= <<" HQ: Chokolivsky blvd, 19A, off. 8, Kyiv, Ukraine">>}
+            ]}
+          ]},
+          #panel{class=[span4], body=[
+            #h3{class=["footer-title"], body= <<"Recent news">>},
+            #list{class=[icons], body=[
+              #li{body=[#p{body=[#i{class=["icon-twitter"]},<<" Never saw Windows Phone slowness even on slow and cheap phones.">>,#small{body=[<<"by ">>, #link{url= <<"https://twitter.com/5HT">>, body= <<"maxim">>}]} ]} ]},
+              #li{body=[#p{body=[#i{class=["icon-twitter"]},<<" N2O now is more popular than Erlyvideo-old on Github #FuryN2O In Top #30 Erlang Projects with Rank #26">>, #small{body=[<<"by ">>, #link{url= <<"https://twitter.com/5HT">>, body= <<"maxim">>}]} ]} ]},
+              #li{body=[#p{body=[#i{class=["icon-twitter"]},<<" KVS supports Mnesia and Riak out of the box #EKVS: https://github.com/synrc/kvs">>, #small{body=[<<"by ">>, #link{url= <<"https://twitter.com/5HT">>, body= <<"maxim">>}]} ]} ]}
+            ]}
+          ]},
+          #panel{class=[span4], body=[
+            #h3{class=["footer-title"], body= <<"Latest posts">>},
+            #list{class=[unstyled], body=[
+              #li{body=[#h4{body=[#link{url= <<"http://voxoz.com/">>, body= <<"First Erlang PaaS">>}]}, #p{body=[#small{body= <<"Jun 12, 2013">>}]}]},
+              #li{body=[#h4{body=[#link{url= <<"http://synrc.com/framework/web">>, body= <<"N2O: Fastest Erlang Web Framework">>}]}, #p{body=[#small{body= <<"May 1, 2013">>}]}]}
             ]} ]} ]} ]}} ].
+
 
 api_event(Name,Tag,Term) -> error_logger:info_msg("Name ~p, Tag ~p, Term ~p",[Name,Tag,Term]), event(change_me).
 
