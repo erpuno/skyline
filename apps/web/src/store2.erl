@@ -2,7 +2,7 @@
 -compile(export_all).
 -include_lib("n2o/include/wf.hrl").
 
-main() -> #dtl{file="prod", bindings=[{title,<<"Store">>},{body, body()}]}.
+main() -> #dtl{file="dev", bindings=[{title,<<"Store">>},{body, body()}]}.
 
 body() -> index:header() ++ [
 

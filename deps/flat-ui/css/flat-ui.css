@@ -974,7 +974,6 @@ h6 {
 .navbar-inverse {
   font-size: 16.996px;
   /* 17px */
-
 }
 .navbar-inverse .navbar-inner {
   background: #34495e;
@@ -3026,12 +3025,14 @@ input.todo-search-field.placeholder {
 }
 footer {
   //background-color: #edeff1;
-  //color: #bac1c8;
+  background-color: #f5f5f5;
+  color: #bac1c8;
   font-size: 15px;
   padding: 0;
+  text-shadow:none;
 }
 footer a {
-  //color: #9aa4af;
+  color: #9aa4af;
   font-weight: 700;
 }
 footer p {
