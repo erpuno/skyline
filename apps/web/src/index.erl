@@ -40,7 +40,7 @@ header(Inverse) -> [
             #li{body=#link{url="/chat?mode=mail",body=[ #i{class=["icon-envelope"]}, #span{class=["badge badge-info"], body="21"} ]} },
             #li{body=#link{body=[ #i{class=["icon-search"]} ]}},
             #li{body=#link{body= <<"Home">>,url="#"}},
-            #li{body=#link{body= <<"Games">>,url="/store2"}},
+            #li{body=#link{body= <<"Games">>,url="/products"}},
             #li{body=#link{body= <<"Review">>}}]},
           #list{class=["nav", "pull-right"], body=[
             #li{class=["dropdown"], body=[
