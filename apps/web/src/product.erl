@@ -7,7 +7,7 @@
 
 -define(PAGE_SIZE, 4).
 
-main() -> #dtl{file="dev", bindings=[{title,<<"product">>},{body, body()}]}.
+main() -> #dtl{file="prod", bindings=[{title,<<"product">>},{body, body()}]}.
 
 body() ->
 %  Qid = wf:qs(<<"id">>),
