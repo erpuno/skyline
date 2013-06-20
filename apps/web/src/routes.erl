@@ -22,7 +22,7 @@ route(<<"/product">>) -> {product, []};
 route(<<"/product", Rest/binary>>) -> {product, [Rest]};
 route(<<"/feed">>) -> {feed, []};
 route(<<"/chat">>) -> {chat, []};
-route(<<"/ws/">>) -> {index, []};
+route(<<"/ws/">>) -> {login, []};
 route(<<"/ws/index">>) -> {index, []};
 route(<<"/ws/login">>) -> {login, []};
 route(<<"/ws/hello">>) -> {hello, []};

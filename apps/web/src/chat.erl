@@ -44,9 +44,6 @@ event(init) ->
     error_logger:info_msg("Top 10: ~p",[Terms]),
     wf:insert_top(<<"history">>, Terms),
     wf:wire("$('#history').scrollTop = $('#history').scrollHeight;");
-event(logout) -> store2:event(logout);
-event(to_login) -> wf:redirect("login");
-event(login) -> User = wf:q(user), wf:user(User), wf:redirect("index");
 event(chat) -> wf:redirect("chat");
 event(hello) -> wf:redirect("login");
 
