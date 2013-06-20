@@ -14,7 +14,7 @@ message(Who,What) ->
 
 body() ->
     {ok,Pid} = wf:comet(fun() -> chat_loop() end),
-    index:header(true) ++ [
+    index:header() ++ [
   #panel{class=["container-fluid", chat], body=[
     #panel{class=["row-fluid"], body=[
       #h1{body= <<"N2O based WebSocket Chat">>,class=[offset3, span8]}

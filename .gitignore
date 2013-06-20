@@ -5,7 +5,7 @@ ebin
 *.dump
 apps/web/priv/static/bootstrap
 apps/web/priv/static/less
-apps/web/priv/static/flatui
+apps/web/priv/static/css/appstore.css
 deps
 !deps/bootstrap/*
 !deps/flat-ui/*
