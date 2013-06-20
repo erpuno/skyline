@@ -3,7 +3,6 @@
 FILES=apps/web/priv/static/nitrogen
 BOOTSTRAP=apps/web/priv/static/bootstrap
 LESS=apps/web/priv/static/less
-FLATUI=apps/web/priv/static/flatui
 rm -rf $FILES
 rm -rf $BOOTSTRAP
 rm -rf $LESS
@@ -11,4 +10,3 @@ rm -rf $FLATUI
 ln -s ../../../../deps/n2o/priv/static/n2o $FILES
 ln -s ../../../../deps/bootstrap $BOOTSTRAP
 ln -s ../../../../deps/less.js $LESS
-ln -s ../../../../deps/flat-ui $FLATUI

@@ -55,7 +55,7 @@ header(Inverse) -> [
                        A -> #li{body=#link{postback=logout,body=[#i{class=["icon-off"]}, <<" Logout">> ]}} end ]} ]} ]} ]} ]} ]} ]} ].
 
 footer()-> [
-  #footer{id=mainfooter, class=["sky-footer"], body=
+  #footer{id=mainfooter, class=[section, "sky-footer"], body=
       #panel{class=[container],body=[
         #panel{class=["row-fluid"], body=[
           #panel{class=[span4, "footer-banner"], body=[

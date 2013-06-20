@@ -15,5 +15,4 @@ function create_script {
 }
 
 create_script deps/bootstrap/js ../../../apps/web/priv/static/js/bootstrap.min.js "/"
-create_script deps/flat-ui/js ../../../apps/web/priv/static/js/flat-ui.min.js "/"
 create_script deps/n2o/priv/static/n2o ../../../../../apps/web/priv/static/js/all.min.js "/|all.js|zepto.js|textboxlist.js"
