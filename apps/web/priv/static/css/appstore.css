@@ -1276,7 +1276,7 @@ body{padding-top:0;background-color:#ecf0f1}
 .tag-large{font-size:32.199999999999996px;line-height:36.199999999999996px;color:#999}.tag-large a{color:#999}.tag-large a:hover{color:#005580}
 .tag-huge{font-size:51.800000000000004px;line-height:55.800000000000004px;color:#999}.tag-huge a{color:#999}.tag-huge a:hover{color:#005580}
 .label-transparent,.badge-transparent,.label-transperent[href],.badge-transperent[href]{background-color:transparent;color:currentColor;top:0 !important;text-shadow:none}
-footer{background:#333;color:#e9e9e9;text-shadow:1px 1px 1px #222;-webkit-box-shadow:0 3px 3px rgba(0,0,0,0.25);-moz-box-shadow:0 3px 3px rgba(0,0,0,0.25);box-shadow:0 3px 3px rgba(0,0,0,0.25);text-shadow:1px 1px 1px #222}
+#mainfooter{background:#333;color:#e9e9e9;text-shadow:1px 1px 1px #222;-webkit-box-shadow:0 3px 3px rgba(0,0,0,0.25);-moz-box-shadow:0 3px 3px rgba(0,0,0,0.25);box-shadow:0 3px 3px rgba(0,0,0,0.25);text-shadow:1px 1px 1px #222}
 .sky-footer{padding:0 0 0 0;margin:0;margin-top:30px;position:relative}.sky-footer small{color:#e9e9e9;font-style:italic;text-indent:0;display:block}
 .sky-footer .icons{text-indent:-0.8em;margin-left:2em;list-style-type:none}
 .sky-footer h3{text-transform:uppercase}
