@@ -12,7 +12,7 @@ body() ->
     #panel{class=[modal, "modal-login"], body=[ 
       #panel{class=["form-horizontal"], id=loginform, body=[
         #panel{class=["modal-header"], body=[
-          #button{class=[close], data_fields=[{<<"data-dismiss">>,<<"modal">>}], aria_states=[{<<"aria-hidden">>, <<"true">>}], body= <<"×">>},
+          #button{class=[close], data_fields=[{<<"data-dismiss">>,<<"modal">>}], aria_states=[{<<"aria-hidden">>, <<"true">>}], body= <<"&times;">>},
           #h3{body= <<"Log in to your account">>}
         ]},
         #panel{class=["modal-body"], body=[
