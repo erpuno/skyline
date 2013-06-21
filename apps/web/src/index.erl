@@ -1,6 +1,7 @@
 -module(index).
 -compile(export_all).
 -include_lib("n2o/include/wf.hrl").
+-include_lib("kvs/include/users.hrl").
 
 main() -> 
 %    case wf:user() of
@@ -35,24 +36,26 @@ header(Inverse) -> [
 
         #h1{class=[brand], body=#link{url="/login", body= <<"Synrc App Store">>, name="top" }},
         #panel{class=["nav-collapse", "collapse"], body=[
-          #list{class=[nav], body=[
+          #list{class=[nav, "pull-right"], body=[
             #li{body=#link{url="/chat",body=[ #i{class=["icon-comment"]}, #span{class=["badge badge-info"], body="10"} ]}},
             #li{body=#link{url="/chat?mode=mail",body=[ #i{class=["icon-envelope"]}, #span{class=["badge badge-info"], body="21"} ]} },
             #li{body=#link{body=[ #i{class=["icon-search"]} ]}},
             #li{body=#link{body= <<"Home">>,url="#"}},
             #li{body=#link{body= <<"Games">>,url="/store2"}},
-            #li{body=#link{body= <<"Review">>}}]},
-          #list{class=["nav", "pull-right"], body=[
-            #li{class=["dropdown"], body=[
-              #link{class=["dropdown-toggle"], data_fields=[{<<"data-toggle">>, <<"dropdown">>}], url="javascript:void(0)", body=[
-                case wf:user() of undefined -> <<"Log in">>; A -> A end,
-                #b{class=["caret"]} ]} ,
-                #list{class=["dropdown-menu"], body=[
-                  #li{body=#link{body=[#i{class=["icon-cog", "fui-gear"]},  <<" Preferences">>]}},
-                  #li{body=#link{postback=chat,body=[#i{class=["icon-cog", "fui-gear"]},  <<" Notifications">>]}},
-                  case wf:user() of
-                       undefined -> #li{body=#link{postback=to_login,body=[#i{class=["icon-off"]}, <<" Login">> ]}};
-                       A -> #li{body=#link{postback=logout,body=[#i{class=["icon-off"]}, <<" Logout">> ]}} end ]} ]} ]} ]} ]} ]} ]} ].
+            #li{body=#link{body= <<"Review">>}},
+            #li{body=[
+              case kvs:get(user, wf:user()) of {error, not_found} -> #link{id=login1, body= <<"Log in">>, postback=to_login};
+                {ok, U} -> #link{class=["dropdown-toggle", "avatar"],data_fields=[{<<"data-toggle">>, <<"dropdown">>}], body=[
+                    #image{class=["img-circle", "img-polaroid"], image=U#user.avatar, width= <<"50px">>, height= <<"50px">>},  wf:user()]} end,
+              #button{id="style-switcher", class=[btn, "btn-inverse", "dropdown-toggle", "account-link"], data_fields=[{<<"data-toggle">>, <<"dropdown">>}], body=#i{class=["icon-cog"]}},
+              #list{class=["dropdown-menu"], body=[
+                #li{body=#link{body=[#i{class=["icon-cog", "fui-gear"]},  <<" Preferences">>]}},
+                #li{body=#link{postback=chat,body=[#i{class=["icon-cog", "fui-gear"]},  <<" Notifications">>]}},
+                case wf:user() of
+                  undefined -> #li{body=#link{id=loginbtn, postback=to_login, delegate=login, body=[#i{class=["icon-off"]}, <<" Login">> ]}};
+                  A -> #li{body=#link{id=logoutbtn, postback=logout, delegate=login, body=[#i{class=["icon-off"]}, <<" Logout">> ] }} end ]}
+            ]}
+          ]} ]} ]} ]} ]} ].
 
 footer()-> [
   #footer{id=mainfooter, class=[section, "sky-footer"], body=
@@ -89,7 +92,7 @@ footer()-> [
             ]} ]} ]} ]}} ].
 
 
-api_event(Name,Tag,Term) -> error_logger:info_msg("Name ~p, Tag ~p, Term ~p",[Name,Tag,Term]), event(change_me).
+api_event(Name,Tag,Term) -> error_logger:info_msg("Index Name ~p, Tag ~p, Term ~p",[Name,Tag,Term]), event(change_me).
 
 event(init) ->
   User = wf:user(),
@@ -112,8 +115,6 @@ event(change_me) ->
 event(replace) ->
     wf:wire(#redirect{url="hello",nodrop=false});
 
-event(logout) -> wf:user(undefined), wf:redirect("login");
-event(login) -> login:event(login);
 event({chat,Pid}) -> %% area of websocket handler
     error_logger:info_msg("Chat Pid: ~p",[Pid]),
     Username = wf:user(),
