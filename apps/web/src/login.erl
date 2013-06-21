@@ -3,7 +3,7 @@
 -include_lib("n2o/include/wf.hrl").
 -include_lib("kvs/include/users.hrl").
 
-main() -> [ #dtl{file = "dev", bindings=[{title,<<"Login">>},{body, body()}]} ].
+main() -> [ #dtl{file = "prod", bindings=[{title,<<"Login">>},{body, body()}]} ].
 
 body() -> 
   index:header() ++ [

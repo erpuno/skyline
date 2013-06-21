@@ -1,4 +1,4 @@
--name n2o@127.0.0.1
+-name skyline@127.0.0.1
 -setcookie node_runner
 +K true
 +A 5

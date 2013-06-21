@@ -40,8 +40,8 @@ header(Inverse) -> [
             #li{body=#link{url="/chat",body=[ #i{class=["icon-comment"]}, #span{class=["badge badge-info"], body="10"} ]}},
             #li{body=#link{url="/chat?mode=mail",body=[ #i{class=["icon-envelope"]}, #span{class=["badge badge-info"], body="21"} ]} },
             #li{body=#link{body=[ #i{class=["icon-search"]} ]}},
-            #li{body=#link{body= <<"Home">>,url="#"}},
-            #li{body=#link{body= <<"Games">>,url="/store2"}},
+            #li{body=#link{body= <<"Home">>,url="/login"}},
+            #li{body=#link{body= <<"Games">>,url="/products"}},
             #li{body=#link{body= <<"Review">>}},
             #li{body=[
               case kvs:get(user, wf:user()) of {error, not_found} -> #link{id=login1, body= <<"Log in">>, postback=to_login};
@@ -49,13 +49,11 @@ header(Inverse) -> [
                     #image{class=["img-circle", "img-polaroid"], image=U#user.avatar, width= <<"50px">>, height= <<"50px">>},  wf:user()]} end,
               #button{id="style-switcher", class=[btn, "btn-inverse", "dropdown-toggle", "account-link"], data_fields=[{<<"data-toggle">>, <<"dropdown">>}], body=#i{class=["icon-cog"]}},
               #list{class=["dropdown-menu"], body=[
-                #li{body=#link{body=[#i{class=["icon-cog", "fui-gear"]},  <<" Preferences">>]}},
-                #li{body=#link{postback=chat,body=[#i{class=["icon-cog", "fui-gear"]},  <<" Notifications">>]}},
+                #li{body=#link{body=[#i{class=["icon-cog"]},  <<" Preferences">>]}},
+                #li{body=#link{postback=chat,body=[#i{class=["icon-cog"]},  <<" Notifications">>]}},
                 case wf:user() of
                   undefined -> #li{body=#link{id=loginbtn, postback=to_login, delegate=login, body=[#i{class=["icon-off"]}, <<" Login">> ]}};
-                  A -> #li{body=#link{id=logoutbtn, postback=logout, delegate=login, body=[#i{class=["icon-off"]}, <<" Logout">> ] }} end ]}
-            ]}
-          ]} ]} ]} ]} ]} ].
+                  A -> #li{body=#link{id=logoutbtn, postback=logout, delegate=login, body=[#i{class=["icon-off"]}, <<" Logout">> ] }} end ]} ]} ]} ]} ]} ]} ]} ].
 
 footer()-> [
   #footer{id=mainfooter, class=[section, "sky-footer"], body=
