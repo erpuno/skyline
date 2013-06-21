@@ -44,7 +44,7 @@ header(Inverse) -> [
             #li{body=#link{body= <<"Games">>,url="/products"}},
             #li{body=#link{body= <<"Review">>}},
             #li{body=[
-              case kvs:get(user, wf:user()) of {error, not_found} -> #link{id=login1, body= <<"Log in">>, postback=to_login};
+              case kvs:get(user, wf:user()) of {error, not_found} -> #link{id=login1, body= <<"Log in">>, postback=to_login, delegate=login};
                 {ok, U} -> #link{class=["dropdown-toggle", "avatar"],data_fields=[{<<"data-toggle">>, <<"dropdown">>}], body=[
                     #image{class=["img-circle", "img-polaroid"], image=U#user.avatar, width= <<"50px">>, height= <<"50px">>},  wf:user()]} end,
               #button{id="style-switcher", class=[btn, "btn-inverse", "dropdown-toggle", "account-link"], data_fields=[{<<"data-toggle">>, <<"dropdown">>}], body=#i{class=["icon-cog"]}},
