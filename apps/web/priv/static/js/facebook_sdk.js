@@ -1,27 +1,26 @@
 <script>
-  window.fbAsyncInit = function() {
-    FB.init({ appId: '{{appid}}', channelUrl: ' {{channelUrl}}', status: true, cookie: true, xfbml: true, oauth: true });
+window.fbAsyncInit = function() {
+  FB.init({ appId: '{{appid}}', channelUrl: ' {{channelUrl}}', status: true, cookie: true, xfbml: true, oauth: true });
 
-    FB.getLoginStatus(function(response) {
-      if(setFbIframe){
-        var inIframe= top!=self;
-        setFbIframe(inIframe);
-        if(inIframe && response.status == 'connected' && fbLogin)
-          FB.api("/me?fields=id,username,first_name,last_name,email,birthday", function(response){ fbLogin(response);});
-      }
-    });
-  };
+  FB.getLoginStatus(function(response) {
+    if(setFbIframe){
+      var inIframe= top!=self;
+      setFbIframe(inIframe);
+      if(inIframe && response.status == 'connected' && fbLogin)
+        FB.api("/me?fields=id,username,first_name,last_name,email,birthday", function(response){ fbLogin(response);});
+    }
+  });
+};
 
-  function fb_login(){
-    FB.getLoginStatus(function(response){
-      if(response.status == 'connected'){
-        if(fbLogin) FB.api("/me?fields=id,username,first_name,last_name,email,birthday", function(response){fbLogin(response);});
-        else FB.login(function(r){
-          if(r.authResponse && fbLogin) FB.api("/me?fields=id,username,first_name,last_name,email,birthday", function(response){fbLogin(response);});
-        }, {scope: 'email,user_birthday'});
-      }
-    });
-  }
+function fb_login(){
+  FB.getLoginStatus(function(response){
+    if(response.status == 'connected'){
+      if(fbLogin) FB.api("/me?fields=id,username,first_name,last_name,email,birthday", function(response){fbLogin(response);});
+    } else FB.login(function(r){
+        if(r.authResponse && fbLogin) FB.api("/me?fields=id,username,first_name,last_name,email,birthday", function(response){fbLogin(response);});
+      }, {scope: 'email,user_birthday'});
+  });
+}
 
 (function(d){
   var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
