@@ -3,12 +3,15 @@
 -include_lib("n2o/include/wf.hrl").
 -include_lib("kvs/include/users.hrl").
 
-main() -> [ #dtl{file = "prod", bindings=[{title,<<"Login">>},{body, body()}]} ].
+-define(HTTP_ADDRESS, case application:get_env(web, http_address) of {ok, A} -> A; _ -> "http://localhost:8000" end).
+-define(FB_APP_ID, case application:get_env(web, fb_id) of {ok, Id} -> Id; _-> "176025532423202" end).
+-define(GPLUS_CLIENT_ID, case application:get_env(web, gplus_client_id) of {ok, Id} -> Id; _-> "146782506820.apps.googleusercontent.com" end).
+-define(GPLUS_COOKIE_POLICY, case application:get_env(web, gplus_cookiepolicy) of {ok, P} -> P; _-> "single_host_origin" end).
+
+main() -> [ #dtl{file = "dev", bindings=[{title,<<"Login">>},{body, body()}]} ].
 
 body() -> 
   index:header() ++ [
-  fb_utils:init_sdk(),
-
   #panel{id="content", role="main", class=["theme-pattern-lightmesh", alt], body=[
   #section{class=[section], id=promo, body=[
   #panel{class=[container], body=[
@@ -16,16 +19,14 @@ body() ->
       #panel{class=["form-horizontal"], id=loginform, body=[
         #panel{class=["modal-header"], body=[
           #button{class=[close], data_fields=[{<<"data-dismiss">>,<<"modal">>}], aria_states=[{<<"aria-hidden">>, <<"true">>}], body= <<"&times;">>},
-          #h3{body= <<"Log in to your account">>}
-        ]},
+          #h3{body= <<"Log in to your account">>} ]},
         #panel{class=["modal-body"], body=[
           #panel{id=messages, body=[]},
           #h3{class=["text-center"], body= <<"Sign in with">>},
           #panel{class=["btn-toolbar", "text-center"], body=[
             #panel{class=["btn-group"], body=#link{class=[btn, "btn-info", disabled], body=[#i{class=["icon-twitter"]}, <<" Twitter">>]}},
-            fb_utils:login_btn(),
-            #panel{class=["btn-group"], body=#link{class=[btn, "btn-danger", disabled], body=[#i{class=["icon-google-plus"]}, <<" Google">>]}}
-          ]},
+            login_btn(facebook),
+            login_btn(google) ]},
           #h3{class=["text-center"], body= <<"or">>},
           #panel{class=["control-group"], body=[
             #label{class=["control-label"], for=user, body= <<"Username">>},
@@ -58,18 +59,37 @@ body() ->
         ]}
       ]}
     ]},
-    #panel{class=["pull-center"], body=[<<"Not a member?">>, #link{body= <<" Sign Up">>} ]} ]} ]} ]} ] ++ index:footer().
+    #panel{class=["pull-center"], body=[<<"Not a member?">>, #link{body= <<" Sign Up">>} ]} ]} ]} ]} ] 
+    ++ index:footer() ++ [
+      facebook_sdk(),
+      gplus_sdk()
+    ].
 
-
-api_event(Name,Tag,Term) ->
-  error_logger:info_msg("Login Name ~p~n, Tag ~p~n",[Name,Tag]),
-  fb_utils:api_event(Name, Tag, Term).
 
 event(init) -> [];
 event(logout) -> wf:user(undefined), wf:redirect("/login");
 event(login) -> User = wf:q(user), wf:user(User), wf:redirect("/chat");
 event(to_login) -> wf:redirect("/login");
 event(chat) -> wf:redirect("chat").
+
+api_event(plusLogin, Args, _)-> login(googleplus_id, Args);
+api_event(fbLogin, Args, _Term)-> login(facebook_id, Args);
+api_event(Name,Tag,_Term) -> error_logger:info_msg("Login Name ~p~n, Tag ~p~n",[Name,Tag]).
+
+login(Key, Args)->
+  case Args of
+    [{error, E}|_Rest] -> error_logger:info_msg("oauth error: ~p", [E]);
+    _ ->
+      CurrentUser = wf:user(),
+      case kvs:all_by_index(user, Key, proplists:get_value(id, Args)) of
+        [] ->  case kvs_user:register(registration_data(Args, Key)) of
+            {ok, Name} -> login_user(Name);
+            {error, E} -> error_logger:info_msg("error: ~p", [E])
+          end;
+        [User|_] when element(2,User) == CurrentUser -> ok;
+        [User|_] -> login_user(element(2, User))
+      end
+  end.
 
 login_user(UserName) ->
   case kvs:get(user, UserName) of
@@ -86,7 +106,67 @@ login_user(UserName) ->
       wf:user(UserName),
       wf:redirect("/chat");
     {error, not_found}-> 
-      wf:redirect("/?message=" ++ site_utils:base64_encode_to_url("failed"))
+      error_logger:info_msg("~p NOT FOUND", [UserName])
   end.
 
 
+registration_data(Props, facebook_id)->
+  UserName = proplists:get_value(username, Props),
+  BirthDay = case proplists:get_value(birthday, Props) of
+    undefined -> {1, 1, 1970};
+    BD -> list_to_tuple([list_to_integer(X) || X <- string:tokens(BD, "/")])
+  end,
+  #user{
+    username = re:replace(UserName, "\\.", "_", [{return, list}]),
+    display_name = UserName,
+    avatar = "https://graph.facebook.com/" ++ UserName ++ "/picture?width=50&height=50",
+    email = proplists:get_value(email, Props),
+    name = proplists:get_value(first_name, Props),
+    surname = proplists:get_value(last_name, Props),
+    facebook_id = proplists:get_value(id, Props),
+    team = kvs_meeting:create_team("tours"),
+    age = {element(3, BirthDay), element(1, BirthDay), element(2, BirthDay)},
+    register_date = erlang:now(),
+    status = ok
+  };
+registration_data(Props, googleplus_id)->
+  Name = proplists:get_value(name, Props),
+  GivenName = proplists:get_value(givenName, Name),
+  FamilyName = proplists:get_value(familyName, Name),
+  Image = proplists:get_value(image, Props),
+  #user{
+    username = string:to_lower(GivenName ++ "_" ++ FamilyName),
+    display_name = proplists:get_value(displayName, Props),
+    avatar = proplists:get_value(url, Image),
+    email = proplists:get_value(email, Props),
+    name = GivenName,
+    surname = FamilyName,
+    googleplus_id = proplists:get_value(id, Props),
+    team = kvs_meeting:create_team("tours"),
+    register_date = erlang:now(),
+    sex = proplists:get_value(gender, Props),
+    status = ok
+  }.
+
+login_btn(google)->
+  #panel{id=plusloginbtn, class=["btn-group"], body=#link{class=[btn, "btn-google-plus"], body=[#i{class=["icon-google-plus"]}, <<"Google">>] }};
+login_btn(facebook)-> #panel{class=["btn-group"], body=
+  #link{id=loginfb, class=[btn, "btn-primary"], body=[#i{class=["icon-facebook"]}, <<"Facebook">>],  actions= "$('#loginfb').on('click', fb_login);" }}.
+
+gplus_sdk()->
+  wf:wire(#api{name=plusLogin, tag=plus}),
+  #dtl{bind_script=false, file="google_sdk", ext="js", folder="priv/static/js", bindings=[
+    {loginbtnid, plusloginbtn},
+    {clientid, ?GPLUS_CLIENT_ID},
+    {cookiepolicy, ?GPLUS_COOKIE_POLICY}
+  ]}.
+
+facebook_sdk()->
+  wf:wire(#api{name=setFbIframe, tag=fb}),
+  wf:wire(#api{name=fbAutoLogin, tag=fb}),
+  wf:wire(#api{name=fbLogin, tag=fb}),
+  [#panel{id="fb-root"},
+  #dtl{bind_script=false, file="facebook_sdk", ext="js", folder="priv/static/js", bindings=[
+    {appid, ?FB_APP_ID},
+    {channelUrl, ?HTTP_ADDRESS ++ "/static/channel.html"}
+  ]}].
