@@ -8,9 +8,9 @@
 -define(GPLUS_CLIENT_ID, case application:get_env(web, gplus_client_id) of {ok, Id} -> Id; _-> "146782506820.apps.googleusercontent.com" end).
 -define(GPLUS_COOKIE_POLICY, case application:get_env(web, gplus_cookiepolicy) of {ok, P} -> P; _-> "single_host_origin" end).
 
-main() -> [ #dtl{file = "dev", bindings=[{title,<<"Login">>},{body, body()}]} ].
+main() -> [ #dtl{file = "prod", bindings=[{title,<<"Login">>},{body, body()}]} ].
 
-body() -> 
+body() ->
   index:header() ++ [
   #panel{id="content", role="main", class=["theme-pattern-lightmesh", alt], body=[
   #section{class=[section], id=promo, body=[
