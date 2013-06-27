@@ -59,7 +59,7 @@ body() ->
         ]},
         #panel{class=["modal-footer"], body=[
           #link{class=["pull-left", "link-forgot"], body= <<"forgot password?">>},
-          #button{id=login, class=[btn, "btn-info"], body= <<"Sign in">>, postback=login, source=[user,pass]}
+          #button{id=login, class=[btn, "btn-info", "btn-large"], body= <<"Sign in">>, postback=login, source=[user,pass]}
         ]}
       ]}
     ]},
@@ -185,13 +185,13 @@ registration_data(Props, twitter_id)->
   }}.
 
 login_btn(google)-> #panel{id=plusloginbtn, class=["btn-group"], body=
-  #link{class=[btn, "btn-google-plus"], body=[#i{class=["icon-google-plus"]}, <<"Google">>] }};
+  #link{class=[btn, "btn-google-plus", "btn-large"], body=[#i{class=["icon-google-plus", "icon-large"]}, <<"Google">>] }};
 login_btn(facebook)-> #panel{class=["btn-group"], body=
-  #link{id=loginfb, class=[btn, "btn-primary"], body=[#i{class=["icon-facebook"]}, <<"Facebook">>],  actions= "$('#loginfb').on('click', fb_login);" }};
+  #link{id=loginfb, class=[btn, "btn-primary", "btn-large"], body=[#i{class=["icon-facebook", "icon-large"]}, <<"Facebook">>],  actions= "$('#loginfb').on('click', fb_login);" }};
 login_btn(twitter) ->
   case tw_utils:get_request_token() of
     {RequestToken, _, _} -> #panel{class=["btn-group"], body=
-      #link{id=twlogin, class=[btn, "btn-info"], body=[#i{class=["icon-twitter"]}, <<"Twitter">>], url=tw_utils:authenticate_url(RequestToken)}};
+      #link{id=twlogin, class=[btn, "btn-info", "btn-large"], body=[#i{class=["icon-twitter", "icon-large"]}, <<"Twitter">>], url=tw_utils:authenticate_url(RequestToken)}};
     {error, R} -> error_logger:info_msg("Twitter request failed:", [R]), []
   end.
 
