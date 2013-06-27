@@ -8,7 +8,11 @@
 -define(GPLUS_CLIENT_ID, case application:get_env(web, gplus_client_id) of {ok, Id} -> Id; _-> "146782506820.apps.googleusercontent.com" end).
 -define(GPLUS_COOKIE_POLICY, case application:get_env(web, gplus_cookiepolicy) of {ok, P} -> P; _-> "single_host_origin" end).
 
-main() -> [ #dtl{file = "prod", bindings=[{title,<<"Login">>},{body, body()}]} ].
+-record(struct, {lst=[]}).
+
+main() ->
+  twitter_callback(),
+  [#dtl{file = "dev", bindings=[{title,<<"Login">>},{body, body()}]} ].
 
 body() ->
   index:header() ++ [
@@ -24,7 +28,7 @@ body() ->
           #panel{id=messages, body=[]},
           #h3{class=["text-center"], body= <<"Sign in with">>},
           #panel{class=["btn-toolbar", "text-center"], body=[
-            #panel{class=["btn-group"], body=#link{class=[btn, "btn-info", disabled], body=[#i{class=["icon-twitter"]}, <<" Twitter">>]}},
+            login_btn(twitter),
             login_btn(facebook),
             login_btn(google) ]},
           #h3{class=["text-center"], body= <<"or">>},
@@ -81,8 +85,9 @@ login(Key, Args)->
     [{error, E}|_Rest] -> error_logger:info_msg("oauth error: ~p", [E]);
     _ ->
       CurrentUser = wf:user(),
-      case kvs:all_by_index(user, Key, proplists:get_value(id, Args)) of
-        [] ->  case kvs_user:register(registration_data(Args, Key)) of
+      {Id, RegData} = registration_data(Args, Key),
+      case kvs:all_by_index(user, Key, Id) of
+        [] ->  case kvs_user:register(RegData) of
             {ok, Name} -> login_user(Name);
             {error, E} -> error_logger:info_msg("error: ~p", [E])
           end;
@@ -109,49 +114,86 @@ login_user(UserName) ->
       error_logger:info_msg("~p NOT FOUND", [UserName])
   end.
 
+twitter_callback()->
+  Token = wf:q(<<"oauth_token">>),
+  Verifier =wf:q(<<"oauth_verifier">>),
+  case wf:user() of
+    undefined ->
+      if (Token /= undefined) andalso ( Verifier/= undefined) ->
+        case tw_utils:get_access_token(binary_to_list(Token), binary_to_list(Verifier)) of
+          not_authorized -> skip;
+          Props ->
+            UserData = tw_utils:show(Props),
+            login(twitter_id, UserData#struct.lst)
+        end;
+        true -> skip
+      end;
+    _ -> skip
+  end.
 
 registration_data(Props, facebook_id)->
+  Id = proplists:get_value(id, Props),
   UserName = proplists:get_value(username, Props),
   BirthDay = case proplists:get_value(birthday, Props) of
     undefined -> {1, 1, 1970};
     BD -> list_to_tuple([list_to_integer(X) || X <- string:tokens(BD, "/")])
   end,
-  #user{
+  {proplists:get_value(id, Props), #user{
     username = re:replace(UserName, "\\.", "_", [{return, list}]),
     display_name = UserName,
     avatar = "https://graph.facebook.com/" ++ UserName ++ "/picture?width=50&height=50",
     email = proplists:get_value(email, Props),
     name = proplists:get_value(first_name, Props),
     surname = proplists:get_value(last_name, Props),
-    facebook_id = proplists:get_value(id, Props),
+    facebook_id = Id,
     team = kvs_meeting:create_team("tours"),
     age = {element(3, BirthDay), element(1, BirthDay), element(2, BirthDay)},
     register_date = erlang:now(),
     status = ok
-  };
+  }};
 registration_data(Props, googleplus_id)->
+  Id = proplists:get_value(id, Props),
   Name = proplists:get_value(name, Props),
   GivenName = proplists:get_value(givenName, Name),
   FamilyName = proplists:get_value(familyName, Name),
   Image = proplists:get_value(image, Props),
-  #user{
+  {Id, #user{
     username = string:to_lower(GivenName ++ "_" ++ FamilyName),
     display_name = proplists:get_value(displayName, Props),
     avatar = proplists:get_value(url, Image),
     email = proplists:get_value(email, Props),
     name = GivenName,
     surname = FamilyName,
-    googleplus_id = proplists:get_value(id, Props),
+    googleplus_id = Id,
     team = kvs_meeting:create_team("tours"),
     register_date = erlang:now(),
     sex = proplists:get_value(gender, Props),
     status = ok
-  }.
+  }};
+registration_data(Props, twitter_id)->
+  Id = proplists:get_value(<<"id_str">>, Props),
+  UserName = proplists:get_value(<<"screen_name">>, Props),
+  {Id, #user{
+    username = re:replace(UserName, "\\.", "_", [{return, list}]),
+    display_name = proplists:get_value(<<"screen_name">>, Props),
+    avatar = proplists:get_value(<<"profile_image_url">>, Props),
+    name = proplists:get_value(<<"name">>, Props),
+    twitter_id = Id,
+    team = kvs_meeting:create_team("tours"),
+    register_date = erlang:now(),
+    status = ok
+  }}.
 
-login_btn(google)->
-  #panel{id=plusloginbtn, class=["btn-group"], body=#link{class=[btn, "btn-google-plus"], body=[#i{class=["icon-google-plus"]}, <<"Google">>] }};
+login_btn(google)-> #panel{id=plusloginbtn, class=["btn-group"], body=
+  #link{class=[btn, "btn-google-plus"], body=[#i{class=["icon-google-plus"]}, <<"Google">>] }};
 login_btn(facebook)-> #panel{class=["btn-group"], body=
-  #link{id=loginfb, class=[btn, "btn-primary"], body=[#i{class=["icon-facebook"]}, <<"Facebook">>],  actions= "$('#loginfb').on('click', fb_login);" }}.
+  #link{id=loginfb, class=[btn, "btn-primary"], body=[#i{class=["icon-facebook"]}, <<"Facebook">>],  actions= "$('#loginfb').on('click', fb_login);" }};
+login_btn(twitter) ->
+  case tw_utils:get_request_token() of
+    {RequestToken, _, _} -> #panel{class=["btn-group"], body=
+      #link{id=twlogin, class=[btn, "btn-info"], body=[#i{class=["icon-twitter"]}, <<"Twitter">>], url=tw_utils:authenticate_url(RequestToken)}};
+    {error, R} -> error_logger:info_msg("Twitter request failed:", [R]), []
+  end.
 
 gplus_sdk()->
   wf:wire(#api{name=plusLogin, tag=plus}),

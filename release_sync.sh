@@ -5,7 +5,8 @@ appss=( "rels/web/node/lib/web-1"
         "rels/web/node/lib/n2o-3.0"
         "rels/web/node/lib/kvs-1"
         "rels/web/node/lib/eper-0.69"
-        "rels/web/node/lib/mqs-0.0.1")
+        "rels/web/node/lib/mqs-0.0.1"
+        "rels/web/node/lib/oauth-1.3.0")
 
 declare -A sources_apps
 declare -A sources_deps
