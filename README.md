@@ -24,12 +24,6 @@ JavaScript
 * BERT.js
 * Bullet.js
 
-Credits
--------
-
-* Maxim Sokhatsky
-* Andrew Zadorozhny
-
 Run
 ---
 
@@ -37,19 +31,17 @@ No fancy scripts, pure rebar and Erlang releases
 
     $ rebar get-deps
     $ rebar compile
-    $ cd rels/web && rebar -f generate
-    $ node/bin/node console
+    $ ./release.sh
+    $ ./styles.sh
+    $ ./javascript.sh
+    $ ./start.sh
 
 And open in browser [http://localhost:8000](http://localhost:8000)
 
-Developers
-----------
+Credits
+-------
 
-For developing we use some script which is needed for linking source
-directories with release lib directories and also link BERT, N2O and
-jQuery javascript. After making release you should perform:
-
-    $ ./nitrogen_static.sh
-    $ ./release_sync.sh
+* Maxim Sokhatsky
+* Andrew Zadorozhny
 
 OM A HUM
