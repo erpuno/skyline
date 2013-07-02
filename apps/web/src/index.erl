@@ -47,8 +47,10 @@ header(Inverse) -> [
               case wf:user() of
                 undefined -> #link{id=login1, body= <<"Log in">>, postback=to_login, delegate=login};
                 User -> case kvs:get(user, User) of {error, not_found} -> #link{id=login1, body= <<"Log in">>, postback=to_login, delegate=login};
-                  {ok, U} -> #link{class=["dropdown-toggle", "avatar"],data_fields=[{<<"data-toggle">>, <<"dropdown">>}], body=[
-                    case U#user.avatar of undefined-> ""; Img-> #image{class=["img-circle", "img-polaroid"], image=Img, width= <<"50px">>, height= <<"50px">>} end,
+                  {ok, U} -> #link{class=["dropdown-toggle", "avatar"],
+                    %data_fields=[{<<"data-toggle">>, <<"dropdown">>}],
+                    url="/account", body=[
+                    case U#user.avatar of undefined-> ""; Img-> #image{class=["img-circle", "img-polaroid"], image=iolist_to_binary([Img,"?sz=50&width=50&height=50"]), width= <<"50px">>, height= <<"50px">>} end,
                     case U#user.display_name of undefined -> []; N -> N end]} end end,
               #button{id="style-switcher", class=[btn, "btn-inverse", "dropdown-toggle", "account-link"], data_fields=[{<<"data-toggle">>, <<"dropdown">>}], body=#i{class=["icon-cog"]}},
               #list{class=["dropdown-menu"], body=[
@@ -56,7 +58,7 @@ header(Inverse) -> [
                 #li{body=#link{postback=chat,body=[#i{class=["icon-cog"]},  <<" Notifications">>]}},
                 case wf:user() of
                   undefined -> #li{body=#link{id=loginbtn, postback=to_login, delegate=login, body=[#i{class=["icon-off"]}, <<" Login">> ]}};
-                  A -> #li{body=#link{id=logoutbtn, postback=logout, delegate=login, body=[#i{class=["icon-off"]}, <<" Logout">> ] }} end ]} ]} ]} ]} ]} ]} ]} ].
+                  _A -> #li{body=#link{id=logoutbtn, postback=logout, delegate=login, body=[#i{class=["icon-off"]}, <<" Logout">> ] }} end ]} ]} ]} ]} ]} ]} ]} ].
 
 footer()-> [
   #footer{id=mainfooter, class=[section, "sky-footer"], body=

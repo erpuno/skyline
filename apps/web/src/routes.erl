@@ -7,7 +7,7 @@
 finish(State, Ctx) -> {ok, State, Ctx}.
 init(State, Ctx) -> 
     Path = wf:path(Ctx#context.req),
-%    error_logger:info_msg("Routes path: ~p", [Path]),
+    %error_logger:info_msg("Routes path: ~p", [Path]),
     {Module, PathInfo} = route(Path),
     {ok, State, Ctx#context{path=PathInfo,module=Module}}.
 
@@ -15,6 +15,7 @@ route(<<"/">>) -> {login, []};
 route(<<"/index">>) -> {index, []};
 route(<<"/hello">>) -> {hello, []};
 route(<<"/login">>) -> {login, []};
+route(<<"/account">>) -> {account, []};
 route(<<"/tblist">>) -> {tblist, []};
 route(<<"/grid">>) -> {grid, []};
 route(<<"/products">>) -> {products, []};
@@ -25,6 +26,7 @@ route(<<"/chat">>) -> {chat, []};
 route(<<"/ws/">>) -> {login, []};
 route(<<"/ws/index">>) -> {index, []};
 route(<<"/ws/login">>) -> {login, []};
+route(<<"/ws/account">>) -> {account, []};
 route(<<"/ws/hello">>) -> {hello, []};
 route(<<"/ws/tblist">>) -> {tblist, []};
 route(<<"/ws/grid">>) -> {grid, []};
