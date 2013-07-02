@@ -50,7 +50,7 @@ header(Inverse) -> [
                   {ok, U} -> #link{class=["dropdown-toggle", "avatar"],
                     %data_fields=[{<<"data-toggle">>, <<"dropdown">>}],
                     url="/account", body=[
-                    case U#user.avatar of undefined-> ""; Img-> #image{class=["img-circle", "img-polaroid"], image=Img++"?sz=50&width=50&height=50", width= <<"50px">>, height= <<"50px">>} end,
+                    case U#user.avatar of undefined-> ""; Img-> #image{class=["img-circle", "img-polaroid"], image=iolist_to_binary([Img,"?sz=50&width=50&height=50"]), width= <<"50px">>, height= <<"50px">>} end,
                     case U#user.display_name of undefined -> []; N -> N end]} end end,
               #button{id="style-switcher", class=[btn, "btn-inverse", "dropdown-toggle", "account-link"], data_fields=[{<<"data-toggle">>, <<"dropdown">>}], body=#i{class=["icon-cog"]}},
               #list{class=["dropdown-menu"], body=[

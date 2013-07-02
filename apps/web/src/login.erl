@@ -178,6 +178,7 @@ registration_data(Props, twitter_id)->
     display_name = proplists:get_value(<<"screen_name">>, Props),
     avatar = proplists:get_value(<<"profile_image_url">>, Props),
     name = proplists:get_value(<<"name">>, Props),
+    surname = [],
     twitter_id = Id,
     team = kvs_meeting:create_team("tours"),
     register_date = erlang:now(),
