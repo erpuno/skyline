@@ -62,38 +62,32 @@ header(Inverse) -> [
 
 footer()-> [
   #footer{id=mainfooter, class=[section, "sky-footer"], body=
-      #panel{class=[container],body=[
-        #panel{class=["row-fluid"], body=[
-          #panel{class=[span4, "footer-banner"], body=[
-            #h3{class=["footer-title"], body= <<"Synrc Research Center">>},
-            #p{body = <<"Feel free to share your thoughts on Synrc, Erlang, PaaS and other things.">>},
+    #panel{class=["row-fluid"], body=[
+          #panel{class=[span5, "footer-banner"], body=[
+            #h3{body= <<"Synrc Research Center">>},
+            #p{body = <<"Feel free to share your thoughts on Voxoz, Erlang, PaaS and other things.">>},
             #list{class=[icons], body=[
-              #li{body=[#i{class=["icon-github"]}, #link{url= <<"https://github.com/synrc">>, body= <<"synrc">>}]},
-              #li{body=[#i{class=["icon-facebook"]}, #link{url= <<"https://www.facebook.com/synrc">>, body= <<"Synrc Research Center">>}]},
-              #li{body=[#i{class=["icon-google-plus"]}, #link{url= <<"https://plus.google.com/114626316186565874650">>, body= <<"synrc">>}]},
-              #li{body=[#i{class=["icon-envelope"]}, #link{url= <<"mailto:maxim@synrc.com">>, body= <<"Contact">>}]}
+              #li{body=[#i{class=["icon-github", "icon-2x"]}, #link{url= <<"https://github.com/synrc">>, body= <<"Synrc Repositories">>}]}
             ]},
             #list{class=[unstyled], body=[
               #li{body= <<" &copy; 2013 Synrc Research Center s.r.o.">>},
-              #li{body= <<" Roháčova 141/18, Praha 3 13000, Сzech Republic">>},
+              #li{body= <<" Roh&#225;&#269;ova 141/18, Praha 3 13000, Czech Republic">>},
               #li{body= <<" HQ: Chokolivsky blvd, 19A, off. 8, Kyiv, Ukraine">>}
             ]}
           ]},
-          #panel{class=[span4], body=[
-            #h3{class=["footer-title"], body= <<"Recent news">>},
-            #list{class=[icons], body=[
-              #li{body=[#p{body=[#i{class=["icon-twitter"]},<<" Never saw Windows Phone slowness even on slow and cheap phones.">>,#small{body=[<<"by ">>, #link{url= <<"https://twitter.com/5HT">>, body= <<"maxim">>}]} ]} ]},
-              #li{body=[#p{body=[#i{class=["icon-twitter"]},<<" N2O now is more popular than Erlyvideo-old on Github #FuryN2O In Top #30 Erlang Projects with Rank #26">>, #small{body=[<<"by ">>, #link{url= <<"https://twitter.com/5HT">>, body= <<"maxim">>}]} ]} ]},
-              #li{body=[#p{body=[#i{class=["icon-twitter"]},<<" KVS supports Mnesia and Riak out of the box #EKVS: https://github.com/synrc/kvs">>, #small{body=[<<"by ">>, #link{url= <<"https://twitter.com/5HT">>, body= <<"maxim">>}]} ]} ]}
+          #panel{class=[span2], body=[
+            #h3{body= <<"voxoz">>},
+            #list{class=[unstyled], body=[
+              #li{body=#link{url= <<"http://voxoz.com">>, body= <<"How it works">>}},
+              #li{body=#link{url= <<"http://voxoz.com/pricing.html">>, body= <<"Pricing">>}},
+              #li{body=#link{url= <<"http://voxoz.com">>, body= <<"Applications">>}}
             ]}
           ]},
-          #panel{class=[span4], body=[
-            #h3{class=["footer-title"], body= <<"Latest posts">>},
+          #panel{class=[span5], body=[
+            #h3{body= <<"Recent news">>},
             #list{class=[unstyled], body=[
-              #li{body=[#h4{body=[#link{url= <<"http://voxoz.com/">>, body= <<"First Erlang PaaS">>}]}, #p{body=[#small{body= <<"Jun 12, 2013">>}]}]},
-              #li{body=[#h4{body=[#link{url= <<"http://synrc.com/framework/web">>, body= <<"N2O: Fastest Erlang Web Framework">>}]}, #p{body=[#small{body= <<"May 1, 2013">>}]}]}
-            ]} ]} ]} ]}} ].
-
+              #li{body=[#h3{body=[#link{url= <<"http://voxoz.com/">>, body= <<"First Erlang PaaS">>}]}, #p{body= <<"Jun 12, 2013">>}]},
+              #li{body=[#h3{body=[#link{url= <<"http://synrc.com/framework/web">>, body= <<"N2O: Fastest Erlang Web Framework">>}]}, #p{body= <<"May 1, 2013">>}]} ]} ]} ]} }].
 
 api_event(Name,Tag,Term) -> error_logger:info_msg("Index Name ~p, Tag ~p, Term ~p",[Name,Tag,Term]), event(change_me).
 

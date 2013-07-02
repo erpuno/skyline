@@ -4,7 +4,7 @@
 
 sidebar_menu(Page)->
   Lis = [#li{class=if Page==I->active;true->[]end, body=#link{url="#"++atom_to_list(I), body=T}}
-    || {I, T} <- [{boxes, <<"boxes">>}, {releases, <<"releases">>}, {apps, <<"apps">>}, {ssh, <<"ssh">>}, {account, <<"account">>}]],
+    || {I, T} <- [{boxes, <<"containers">>}, {releases, <<"releases">>}, {apps, <<"apps">>}, {ssh, <<"ssh">>}, {account, <<"account">>}]],
   #panel{class=["docs-sidebar-menu", "dash-sidebar-menu"], body=#list{class=[nav, "nav-list", "docs-sidebar-nav", "dash-sidebar-nav", "affix-top"],
     data_fields=[{<<"data-spy">>, <<"affix">>}],
     body=Lis}}.

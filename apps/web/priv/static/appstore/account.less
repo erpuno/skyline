@@ -26,14 +26,16 @@
 
   & .dashboard-section{
     margin:60px 0 0 0;
-    &:first-child{margin-top:0;}
+    &:first-child{
+      margin-top:0;
+      border-bottom: 1px solid #e9e9e9;
+    }
   }
 
   & .dashboard-unit{
     padding: 0;
     z-index: 1;
     overflow: hidden;
-    border-bottom: 1px solid #e9e9e9;
     padding-bottom:30px;
 
     & h3{
@@ -101,6 +103,9 @@
     & .payments{
       font-size:20px;
       margin-bottom:60px;
+      margin-top:30px;
+      max-width: 500px;
+      @media (max-width:768px){margin: 0 auto;}
     }
 
     & .btn-charge{margin-top:30px;}
