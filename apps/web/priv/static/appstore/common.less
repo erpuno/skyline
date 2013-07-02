@@ -1,10 +1,7 @@
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,800);
-body {  font-family: 'Open Sans', Arial, serif; font-size:16px; line-height:24px;}
-h1, h2, h3, h4, h5, h6 {  font-family: 'Open Sans', Arial, serif;  font-weight: 800;}
-
-
-body{padding-top:0px; background-color:#ecf0f1;}
-@media(min-width: 980px){body{padding-top:80px;}}
+body {
+  padding-top:0px;
+  @media(min-width: 980px){padding-top:80px;}
+}
 @media(min-width: 980px){ .sky-navbar{ &.navbar .nav > li > a {padding:29px 10px 31px;  &.avatar{padding: 10px 10px 10px;} } } }
 @media(max-width: 979px){ .sky-navbar { &.navbar .nav > li > a { &.avatar{padding-top:5px;} } } }
 .sky-navbar{
@@ -29,7 +26,7 @@ body{padding-top:0px; background-color:#ecf0f1;}
   & .navbar-inner {
     background: @white;
     background: rgba(255, 255, 255, 0.95);
-    .box-shadow(none);
+    //.box-shadow(none);
     border-bottom: 1px solid #e9e9e9;
   }
 

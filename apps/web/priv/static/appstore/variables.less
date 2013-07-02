@@ -1,9 +1,67 @@
+// Bootstrap Core variables
+@import "../bootstrap/less/variables.less";
+
+
+@azure:                     #6bc7e1;
+@darkAzure:                 #41b7d8;
+
+// Links
+// -------------------------
+@linkColor:             @azure;
+@linkColorHover:        @darkAzure;
+
+// Typography
+// -------------------------
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,800);
+
+@font-face {
+  font-family: 'Nokia Pure Text';
+  src: url("http://synrc.com/fonts/nokiapuretextlight-webfont.eot?v=3");
+  src: url("http://synrc.com/fonts/nokiapuretextlight-webfont.eot?v=3") format("eot"),
+       url("http://synrc.com/fonts/nokiapuretextlight-webfont.woff?v=3") format("truetype"),
+       url("http://synrc.com/fonts/nokiapuretextlight-webfont.ttf?v=3") format("truetype");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@nokiaFontFamily:       "Nokia Pure Text", Arial, serif;
+@openSansFontFamily:    "Open Sans", Arial, serif;
+
+@baseFontSize:          20px;
+@baseFontFamily:        @nokiaFontFamily;
+@baseLineHeight:        24px;
+@altFontFamily:         @openSansFontFamily;
+
+@headingsFontFamily:    @openSansFontFamily; // empty to use BS default, @baseFontFamily
+@headingsFontWeight:    800;    // instead of browser default, bold
+@headingsColor:         inherit; // empty to use BS default, @textColor
+
+// Component sizing
+// -------------------------
+@fontSizeLarge:         @baseFontSize * 1.25;
+@fontSizeSmall:         @baseFontSize * 0.85;
+@fontSizeMini:          @baseFontSize * 0.75;
+
+@baseBorderRadius:      0;
+@borderRadiusLarge:     0;
+@borderRadiusSmall:     0;
+
+// Navbar
+// -------------------------
+@navbarCollapseWidth:             979px;//?
+@navbarCollapseDesktopWidth:      @navbarCollapseWidth + 1;
+
+@navbarHeight:                    40px;// ?
+@navbarLinkColorHover:            @darkAzure;
+
 // Products
+// -------------------------
 @productHeight:         160px;
 @prodListBackground:    @grayLighter;
 @prodBackground:        @white;
 @reviewBackground:      @white;
 
 // Buttons
+// -------------------------
 @btnGooglePlusBackground:               #cc3732;
 @btnGooglePlusBackgroundHighlight:      #e74b37;
