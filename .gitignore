@@ -3,9 +3,7 @@ ebin
 *.dets
 *.gz
 *.dump
-apps/web/priv/static/bootstrap
-apps/web/priv/static/less
 apps/web/priv/static/css/appstore.css
 deps
-!deps/bootstrap/*
-!deps/less.js/*
+all.min.js
+bootstrap.min.js
