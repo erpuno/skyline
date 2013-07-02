@@ -1,0 +1,76 @@
+-module(account).
+-compile(export_all).
+-include_lib("n2o/include/wf.hrl").
+-include_lib("kvs/include/users.hrl").
+
+main() ->
+%  case wf:user() of undefined -> wf:redirect("/login"); _ -> [#dtl{file = "dev", bindings=[{title,<<"Account">>},{body,body()}]}] end.
+  [#dtl{file = "dev", bindings=[{title,<<"Account">>},{body,body()}]}].
+
+body() -> index:header() ++ [
+  #section{id=content, body=
+    #panel{class=[container], body=
+      #panel{class=[row, dashboard], body=[
+        #panel{class=[span3], body=[
+          dashboard:sidebar_menu(account)
+        ]},
+        #panel{class=[span9], body=[
+          dashboard:section(profile_info(wf:user()), "icon-user"),
+          dashboard:section(ballance(wf:user()), "icon-ok-sign"),
+          dashboard:section(payments(wf:user()), "icon-list")
+        ]}
+      ]}
+    }
+  }
+  ] ++ index:footer().
+
+profile_info(UserName) -> 
+  case kvs:get(user, UserName) of
+    {error, not_found} -> [];
+    {ok,U} -> [
+      #h3{class=["text-left"], body= <<"Profile">>},
+      #panel{class=["row-fluid"], body=[
+        #panel{class=[span4, "dashboard-img-wrapper"], body=
+        #panel{class=["dashboard-img"], body=
+          #image{class=[], alt="",
+            image = re:replace(U#user.avatar, "_normal", "_original", [{return, list}]) ++"?sz=180&width=180&height=180" ,
+            width= <<"180px">>, height= <<"180px">>
+            %image="https://secure.gravatar.com/avatar/d91a0ffee363be9c58e689fc7fd20599?s=420&amp;d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png"
+          }}
+      },
+      #panel{class=[span8, "profile-info-wrapper"], body=
+        #panel{class=["form-inline", "profile-info"], body=[
+        #panel{body=[#label{body= <<"Name:">>}, #b{body= U#user.display_name}]},
+        #panel{body=[#label{body= <<"Mail:">>}, #link{url= iolist_to_binary(["mailto:",U#user.email]), body=#strong{body= U#user.email}}]},
+        #panel{body=[#label{body= <<"Member since ">>}, #strong{body= <<"27 Jun 2013">>}]},
+        #b{class=["text-success"], body= <<"Active">>} ]}}]}]
+  end.
+
+ballance(User) -> [
+  #h3{body= <<"Balance">>},
+  #panel{class=["row-fluid"], body=[
+    #panel{class=[span4, "text-center", "ballance-label"], body=[
+      #b{class=[positive], body= <<"+30.0">>},
+      #span{body= <<"Credit">>}]},
+    #panel{class=[span3, "text-center", "ballance-label"], body=[
+      #b{class=[negative], body= <<"-0.82">>},
+      #span{body= <<"Debit">>}]},
+    #panel{class=[span4, "text-center"], body=[#link{class=[btn, "btn-large", "btn-success", "btn-charge"], body= <<"Charge">>}]},
+    #panel{class=[span1]}]}].
+
+payments(User) -> [
+  #h3{body= <<"Payments">>},
+  #table{class=[table, "table-hover", payments], rows=[
+    #tablerow{cells= [
+      #tablecell{body= <<"27 Jun 2013">>},
+      #tablecell{body= <<"Charge">>},
+      #tablecell{body= <<"-$0.82">>},
+      #tablecell{body=#link{body= <<"sncn1">>}} ]},
+    #tablerow{cells= [
+      #tablecell{body= <<"26 Jun 2013">>},
+      #tablecell{body= <<"Payment">>},
+      #tablecell{body= <<"$30">>},
+      #tablecell{body= <<"">>} ]} ]} ].
+
+api_event(Name,Tag,Term) -> error_logger:info_msg("dashboard Name ~p, Tag ~p, Term ~p",[Name,Tag,Term]).
+event(init) -> [].

@@ -141,7 +141,7 @@ registration_data(Props, facebook_id)->
   {proplists:get_value(id, Props), #user{
     username = re:replace(UserName, "\\.", "_", [{return, list}]),
     display_name = UserName,
-    avatar = "https://graph.facebook.com/" ++ UserName ++ "/picture?width=50&height=50",
+    avatar = "https://graph.facebook.com/" ++ UserName ++ "/picture",
     email = proplists:get_value(email, Props),
     name = proplists:get_value(first_name, Props),
     surname = proplists:get_value(last_name, Props),
@@ -160,7 +160,7 @@ registration_data(Props, googleplus_id)->
   {Id, #user{
     username = string:to_lower(GivenName ++ "_" ++ FamilyName),
     display_name = proplists:get_value(displayName, Props),
-    avatar = proplists:get_value(url, Image),
+    avatar = lists:nth(1,string:tokens(proplists:get_value(url, Image), "?")),
     email = proplists:get_value(email, Props),
     name = GivenName,
     surname = FamilyName,
