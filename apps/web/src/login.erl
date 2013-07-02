@@ -12,7 +12,7 @@
 
 main() ->
   twitter_callback(),
-  [#dtl{file = "dev", bindings=[{title,<<"Login">>},{body, body()}]} ].
+  [#dtl{file = "prod", bindings=[{title,<<"Login">>},{body, body()}]} ].
 
 body() ->
   index:header() ++ [
