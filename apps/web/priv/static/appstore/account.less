@@ -39,7 +39,7 @@
     padding-bottom:30px;
 
     & h3{
-      margin-bottom:30px;
+      margin-bottom:60px;
     }
 
     &:hover{& .dashboard-img{
@@ -54,7 +54,7 @@
     }
     & .dashboard-img {
       display:inline-block;
-      margin:30px 0 30px;
+      margin:0 0 30px;
       max-width: 180px;
       max-height: 180px;
       .box-shadow(0 0 10px rgba(51, 51, 51, 0.9) inset);
@@ -82,7 +82,6 @@
       min-width:370px;
       @media (max-width:410px){width:100%; min-width:100%;}
 
-      margin-top: 30px;
       font-size: 30px;
       line-height: 1.5em;
       font-weight: 300;
@@ -103,12 +102,17 @@
     & .payments{
       font-size:20px;
       margin-bottom:60px;
-      margin-top:30px;
       max-width: 500px;
       @media (max-width:768px){margin: 0 auto;}
     }
 
-    & .btn-charge{margin-top:30px;}
+    & .containers{
+      margin-bottom:60px;
+      max-width: 600px;
+      font-size:18pt;
+    }
+
+    & .btn-charge{margin-top:10px;}
 
     & .ballance-label{
       margin-bottom:20px;
@@ -117,7 +121,7 @@
       & b{
         font-size:56px;
         line-height:70px;
-        margin:20px auto;
+        margin:0 auto;
         display:block;
         &.positive{color:green;}
         &.negative{color:red;}
