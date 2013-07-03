@@ -2,15 +2,17 @@
 -compile(export_all).
 -include_lib("n2o/include/wf.hrl").
 
-main() -> [ #dtl{file = "prod", bindings=[{title,<<"Login">>},{body,body()}]} ].
+main() -> [ #dtl{file = "dev", bindings=[{title,<<"Login">>},{body,body()}]} ].
 
 message(Who,What) ->
+    N=string:join(string:tokens(What,"\n")," "),
+    error_logger:info_msg("~p",[N]),
   #panel{class=["media"],body=[
       #link{class=["pull-left"], body=[
           #image{class=["media-object"],image="static/img/infinity.png",width= <<"63">>} ]},
             #panel{class=["media-body"],body=[
                 #h4{body=Who},
-                #span{body=What} ]} ]}.
+                #span{body=N} ]} ]}.
 
 body() ->
     {ok,Pid} = wf:comet(fun() -> chat_loop() end),
