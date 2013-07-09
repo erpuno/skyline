@@ -10,6 +10,7 @@ main() ->
     Title = "Title",
     Body = "Body",
     [ #dtl{file = "index", bindings=[{title,Title},{body,Body}]} ].
+%    <<"N2O">>. 
 
 body() -> %% area of http handler
     {ok,Pid} = wf:comet(fun() -> chat_loop() end), 

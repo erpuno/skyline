@@ -2,7 +2,7 @@
 -compile(export_all).
 -include_lib("n2o/include/wf.hrl").
 
-main() -> [ #dtl{file = "dev", bindings=[{title,<<"Login">>},{body,body()}]} ].
+main() -> [ #dtl{file = "prod", bindings=[{title,<<"Login">>},{body,body()}]} ].
 
 message(Who,What) ->
     N=string:join(string:tokens(What,"\n")," "),
