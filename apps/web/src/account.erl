@@ -16,10 +16,7 @@ body() -> index:header() ++ [
           dashboard:section(payments(wf:user()), "icon-list") ]} ]} } }
   ] ++ index:footer().
 
-profile_info(UserName) -> 
-  case kvs:get(user, UserName) of
-    {error, not_found} -> [];
-    {ok,U} ->
+profile_info(U) -> 
       {{Y, M, D}, _} = calendar:now_to_datetime(U#user.register_date),
       RegDate = io_lib:format("~p ~s ~p", [D, element(M, {"Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"}), Y]),
       Mailto = if U#user.email==undefined -> []; true-> iolist_to_binary(["mailto:", U#user.email]) end,
@@ -29,14 +26,13 @@ profile_info(UserName) ->
         #panel{class=[span4, "dashboard-img-wrapper"], body=
         #panel{class=["dashboard-img"], body=
           #image{class=[], alt="",
-            image = re:replace(U#user.avatar, <<"_normal">>, <<"">>, [{return, list}]) ++"?sz=180&width=180&height=180", width= <<"180px">>, height= <<"180px">> }} },
+            image = re:replace(U#user.avatar, <<"_normal">>, <<"">>, [{return, list}]) ++"?sz=180&width=180&height=180&s=180", width= <<"180px">>, height= <<"180px">> }} },
       #panel{class=[span8, "profile-info-wrapper"], body=
         #panel{class=["form-inline", "profile-info"], body=[
         #panel{body=[#label{body= <<"Name:">>}, #b{body= iolist_to_binary([U#user.name, " ", U#user.surname])}]},
         #panel{show_if=U#user.email=/=undefined, body=[#label{body= <<"Mail:">>}, #link{url= Mailto, body=#strong{body= U#user.email}}]},
         #panel{body=[#label{body= <<"Member since ">>}, #strong{body= RegDate}]},
-        #b{class=["text-success"], body= <<"Active">>} ]}}]}]
-  end.
+        #b{class=["text-success"], body= <<"Active">>} ]}}]}].
 
 ballance(User) -> [
   #h3{body= <<"Balance">>},
