@@ -48,7 +48,7 @@ show(Props)->
   URI = "https://api.twitter.com/1.1/users/show.json",
   {ok, Response} = oauth:get(URI, [{"user_id", proplists:get_value("user_id", Props)}, {"include_entities", false}], ?CONSUMER, oauth:token(Props), oauth:token_secret(Props)),
   case Response of
-    {HttpResponse, _, Body} -> case HttpResponse of {"HTTP/1.1", 200, "OK"} ->  mochijson2:decode(Body); _-> error end;
+    {HttpResponse, _, Body} -> case HttpResponse of {"HTTP/1.1", 200, "OK"} ->  n2o_json:decode(Body); _-> error end;
     _ -> error
   end.
 
