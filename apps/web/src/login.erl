@@ -83,7 +83,7 @@ event(Ev) ->
     ok.
 
 api_event(plusLogin, Args, _)-> JSArgs = n2o_json:decode(Args), login(googleplus_id, JSArgs#struct.lst);
-api_event(fbLogin, Args, _Term)-> JSArgs = n2o_json:decode(Args), login(facebook_id, JSArgs#struct.lst);
+api_event(fbLogin, Args, _Term)-> error_logger:info_msg("Args: ~p",  [Args]),JSArgs = n2o_json:decode(Args), login(facebook_id, JSArgs#struct.lst);
 api_event(Name,Tag,_Term) -> error_logger:info_msg("Login Name ~p~n, Tag ~p~n",[Name,Tag]).
 
 login_user(User) -> wf:user(User), wf:redirect("/account").
@@ -92,7 +92,7 @@ login(Key, Args)-> case Args of [{error, E}|_Rest] -> error_logger:info_msg("oau
               {ok,Existed} -> {Id, RegData} = registration_data(Args, Key, Existed), login_user(RegData);
               {error,_} -> {Id, RegData} = registration_data(Args, Key, #user{}),
                   case kvs_user:register(RegData) of
-                      {ok, Registered} -> login_user(Registered);
+                      {ok, Registered} -> error_logger:info_msg("User: ~p", [Registered]),login_user(Registered);
                       {error, E} -> error_logger:info_msg("error: ~p", [E]) end end end.
 
 twitter_callback()->
@@ -124,8 +124,8 @@ registration_data(Props, facebook_id, Ori)->
     display_name = UserName,
     avatar = "https://graph.facebook.com/" ++ UserName ++ "/picture",
     email = email_prop(Props, facebook_id),
-    name = proplists:get_value(first_name, Props),
-    surname = proplists:get_value(last_name, Props),
+    name = proplists:get_value(<<"first_name">>, Props),
+    surname = proplists:get_value(<<"last_name">>, Props),
     facebook_id = Id,
     age = {element(3, BirthDay), element(1, BirthDay), element(2, BirthDay)},
     register_date = erlang:now(),
@@ -165,7 +165,7 @@ registration_data(Props, twitter_id, Ori)->
   }}.
 
 email_prop(Props, twitter_id) -> binary_to_list(proplists:get_value(<<"screen_name">>, Props)) ++ "@twitter.com";
-email_prop(Props, _) -> proplists:get_value(<<"email">>, Props).
+email_prop(Props, _) -> binary_to_list(proplists:get_value(<<"email">>, Props)).
 
 login_btn(google)-> #panel{id=plusloginbtn, class=["btn-group"], body=
   #link{class=[btn, "btn-google-plus", "btn-large"], body=[#i{class=["icon-google-plus", "icon-large"]}, <<"Google">>] }};
