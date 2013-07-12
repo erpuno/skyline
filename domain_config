@@ -1,3 +1,5 @@
 kernel = "vmling"
 name = "skyline"
 memory = 512
+extra = "-ipaddr 192.168.1.111 -netmask 255.255.255.0 -gateway 192.168.1.1"
+vif =  [ '', ]
