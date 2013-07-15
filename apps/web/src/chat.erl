@@ -6,14 +6,13 @@
 main() -> [ #dtl{file = "prod", bindings=[{title,<<"Login">>},{body,body()}]} ].
 
 message(Who,What) ->
-  error_logger:info_msg("who ~p what ~p", [Who, What]),
     N=string:join(string:tokens(What,"\n")," "),
     error_logger:info_msg("~p",[N]),
   #panel{class=["media"],body=[
       #link{class=["pull-left"], body=[
           #image{class=["media-object"],image="static/img/infinity.png",width= <<"63">>} ]},
             #panel{class=["media-body"],body=[
-                #h4{body= case Who of U = #user{} ->  U#user.username; S -> S end},
+                #h4{body= unicode:characters_to_binary(Who)},
                 #span{body=N} ]} ]}.
 
 body() ->
@@ -33,7 +32,7 @@ body() ->
       #panel{class=[span8], body=[
         #panel{id=history, class=[history], body=[
             case wf:user() of undefined -> message("System","You are not logged in. Anonymous mode!");
-                              User -> message("System","Hello, " ++ [User#user.display_name] ++ "! Here you can chat, please go on!") end ]},
+                              User -> message("System", "Hello, "++ case User#user.display_name of <<N/binary>> -> binary_to_list(N); L -> L end ++ "! Here you can chat, please go on!") end ]},
         #textarea{id=message,style="display: inline-block; width: 200px; margin-top: 20px; margin-right: 20px;"},
         #button{id=send,body="Send",class=["btn","btn-primary","btn-large","btn-inverse"],postback={chat,Pid},source=[message]}
       ]}
@@ -53,7 +52,7 @@ event(hello) -> wf:redirect("login");
 
 event({chat,Pid}) ->
     error_logger:info_msg("Chat Pid: ~p",[Pid]),
-    Username = case wf:user() of undefined -> "anonymous"; A -> A#user.username end,
+    Username = case wf:user() of undefined -> "anonymous"; A -> A#user.display_name end,
     Message = wf:q(message),
     Terms = [ message("Systen","Message added"), #button{postback=hello} ],
 %    wf:insert_top(<<"history">>, Terms),
