@@ -4,6 +4,10 @@ ebin
 *.gz
 *.dump
 apps/web/priv/static/css/appstore.css
+apps/web/priv/static/n2o
+apps/web/priv/static/bootstrap
+apps/web/priv/static/font-awesome
+apps/web/priv/static/less
 deps
 all.min.js
 bootstrap.min.js
