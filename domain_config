@@ -1,5 +1,5 @@
 kernel = "vmling"
 name = "skyline"
 memory = 512
-extra = "-ipaddr 192.168.1.111 -netmask 255.255.255.0 -gateway 192.168.1.1"
+extra = "-ipaddr 192.168.1.111 -netmask 255.255.255.0 -gateway 192.168.1.1 -root /erlang -pz /skyline/apps/web/ebin -pz /skyline/deps/erlydtl/ebin -pz /skyline/deps/n2o/ebin -pz /skyline/deps/cowboy/ebin -pz /skyline/deps/ranch/ebin -pz /skyline/deps/mimetypes/ebin"
 vif =  [ '', ]
