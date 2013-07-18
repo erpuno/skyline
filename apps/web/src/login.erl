@@ -12,7 +12,7 @@
 
 main() ->
   twitter_callback(),
-  [#dtl{file = "prod", bindings=[{title,<<"Login">>},{body, body()}]} ].
+  [#dtl{file = "prod",  ext="dtl",bindings=[{title,<<"Login">>},{body, body()}]} ].
 
 body() ->
   index:header() ++ [
@@ -180,7 +180,7 @@ login_btn(twitter) ->
 
 gplus_sdk()->
   wf:wire(#api{name=plusLogin, tag=plus}),
-  #dtl{bind_script=false, file="google_sdk", ext="js", folder="priv/static/js", bindings=[
+  #dtl{bind_script=false, file="google_sdk", ext="dtl", folder="priv/static/js", bindings=[
     {loginbtnid, plusloginbtn},
     {clientid, ?GPLUS_CLIENT_ID},
     {cookiepolicy, ?GPLUS_COOKIE_POLICY}
@@ -191,7 +191,7 @@ facebook_sdk()->
   wf:wire(#api{name=fbAutoLogin, tag=fb}),
   wf:wire(#api{name=fbLogin, tag=fb}),
   [#panel{id="fb-root"},
-  #dtl{bind_script=false, file="facebook_sdk", ext="js", folder="priv/static/js", bindings=[
+  #dtl{bind_script=false, file="facebook_sdk", ext="dtl", folder="priv/static/js", bindings=[
     {appid, ?FB_APP_ID},
     {channelUrl, ?HTTP_ADDRESS ++ "/static/channel.html"}
   ]}].

@@ -5,7 +5,7 @@
 title() -> [<<"TBL">>].
 
 main() ->
-  [#dtl{file="dev", bindings=[{title, title()},{body, body()}]}].
+  [#dtl{file="dev",  ext="dtl",bindings=[{title, title()},{body, body()}]}].
 
 body() -> [
     #p{style="width:500px", body=[

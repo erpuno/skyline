@@ -9,7 +9,7 @@ main() ->
 %         _ -> 
     Title = "Title",
     Body = "Body",
-    [ #dtl{file = "index", bindings=[{title,Title},{body,Body}]} ].
+    [ #dtl{file = "index", ext="dtl", bindings=[{title,Title},{body,Body}]} ].
 %    <<"N2O">>. 
 
 body() -> %% area of http handler
