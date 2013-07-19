@@ -1,5 +1,5 @@
 kernel = "vmling"
 name = "skyline"
 memory = 512
-extra = "-ipaddr 192.168.1.111 -netmask 255.255.255.0 -gateway 192.168.1.1 -root /erlang -pz /skyline/apps/web/ebin -pz /skyline/deps/erlydtl/ebin -pz /skyline/deps/n2o/ebin -pz /skyline/deps/cowboy/ebin -pz /skyline/deps/ranch/ebin -pz /skyline/deps/mimetypes/ebin"
-vif =  [ '', ]
+extra = "-ipaddr 172.16.42.108 -netmask 255.255.255.0 -gateway 172.16.42.108 -root /erlang -pz /skyline/deps/erlydtl/ebin -pz /skyline/apps/web/ebin -pz /skyline/deps/n2o/ebin -pz /skyline/deps/cowboy/ebin -pz /skyline/deps/ranch/ebin -pz /skyline/deps/mimetypes/ebin -pz /skyline/deps/mqs/ebin -pz /skyline/deps/eper/ebin -pz /skyline/deps/oauth/ebin -pz /skyline/deps/gproc/ebin -pz /skyline/deps/rabbit_common/ebin -pz /skyline/deps/amqp_client/ebin -pz /skyline/deps/kvs/ebin -home /skyline/apps/web/ebin"
+vif =  [ 'bridge=docker0', ]
