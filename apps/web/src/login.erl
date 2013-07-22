@@ -75,6 +75,7 @@ event(init) -> [];
 event(logout) -> wf:user(undefined), wf:redirect("/login");
 event(login) -> %User = wf:q(user), wf:user(User), 
     wf:user(#user{username="maxim",surname="sokhatsky",name="maxim",
+            display_name = "maxim",
             email="maxim@synrc.com",register_date=now(),
             avatar="https://graph.facebook.com/namdak.tonpa/picture?sz=180&width=180&height=180&s=180"}),
     error_logger:info_msg("Login Pressed"),
