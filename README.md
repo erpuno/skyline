@@ -33,11 +33,8 @@ JavaScrip Prerequisites
     $ sudo apt-get install npm
     $ sudo npm install uglify-js -g
 
-Run
+LXC
 ---
-
-No fancy scripts, pure rebar and Erlang releases
-
 
     $ rebar get-deps
     $ rebar compile
