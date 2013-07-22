@@ -12,7 +12,6 @@ CSS
 ---
 
 * Twitter Bootstrap (LESS)
-* Flat UI (Compiled from SASS)
 * Skyline (LESS)
 
 JavaScript
@@ -71,8 +70,8 @@ Xen
     $ sudo xl create -c domain_config
     > application:start(web).
 
-Key-Value Store Init DB Mnesia Example
---------------------------------------
+Init DB (Mnesia)
+----------------
 
     > store_mnesia:single().
     > kvs:init_db().
