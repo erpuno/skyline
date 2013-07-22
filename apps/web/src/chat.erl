@@ -3,7 +3,8 @@
 -include_lib("n2o/include/wf.hrl").
 -include_lib("kvs/include/users.hrl").
 
-main() -> [ #dtl{file = "prod", ext="dtl", bindings=[{title,<<"Login">>},{body,body()}]} ].
+main() -> 
+  [ #dtl{file = "prod", ext="dtl", bindings=[{title,<<"Login">>},{body,body()}]} ].
 
 message(Who,What) ->
     N=string:join(string:tokens(What,"\n")," "),

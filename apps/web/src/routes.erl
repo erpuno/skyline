@@ -7,7 +7,7 @@
 finish(State, Ctx) -> {ok, State, Ctx}.
 init(State, Ctx) -> 
     Path = wf:path(Ctx#context.req),
-    %error_logger:info_msg("Routes path: ~p", [Path]),
+    error_logger:info_msg("Routes path: ~p", [Path]),
     {Module, PathInfo} = route(Path),
     {ok, State, Ctx#context{path=PathInfo,module=Module}}.
 

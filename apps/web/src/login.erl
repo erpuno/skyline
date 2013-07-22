@@ -74,6 +74,9 @@ body() ->
 event(init) -> [];
 event(logout) -> wf:user(undefined), wf:redirect("/login");
 event(login) -> %User = wf:q(user), wf:user(User), 
+    wf:user(#user{username="maxim",surname="sokhatsky",name="maxim",
+            email="maxim@synrc.com",register_date=now(),
+            avatar="https://graph.facebook.com/namdak.tonpa/picture?sz=180&width=180&height=180&s=180"}),
     error_logger:info_msg("Login Pressed"),
     wf:redirect("/account");
 event(to_login) -> wf:redirect("/login");
@@ -170,7 +173,8 @@ email_prop(Props, _) -> binary_to_list(proplists:get_value(<<"email">>, Props)).
 login_btn(google)-> #panel{id=plusloginbtn, class=["btn-group"], body=
   #link{class=[btn, "btn-google-plus", "btn-large"], body=[#i{class=["icon-google-plus", "icon-large"]}, <<"Google">>] }};
 login_btn(facebook)-> #panel{class=["btn-group"], body=
-  #link{id=loginfb, class=[btn, "btn-primary", "btn-large"], body=[#i{class=["icon-facebook", "icon-large"]}, <<"Facebook">>],  actions= "$('#loginfb').on('click', fb_login);" }};
+  #link{id=loginfb, class=[btn, "btn-primary", "btn-large"], body=[#i{class=["icon-facebook", "icon-large"]}, <<"Facebook">>],  actions= "$('#loginfb').on('click', fb_login);"
+             }};
 login_btn(twitter) ->
   case tw_utils:get_request_token() of
     {RequestToken, _, _} -> #panel{class=["btn-group"], body=

@@ -1,13 +1,15 @@
 -module(product).
 -compile(export_all).
 -include_lib("n2o/include/wf.hrl").
+-include_lib("kvs/include/users.hrl").
 -include_lib("kvs/include/products.hrl").
 -include_lib("kvs/include/feeds.hrl").
 -include("records.hrl").
 
 -define(PAGE_SIZE, 4).
 
-main() -> #dtl{file="prod",  ext="dtl",bindings=[{title,<<"product">>},{body, body()}]}.
+main() -> 
+   #dtl{file="prod",  ext="dtl",bindings=[{title,<<"product">>},{body, body()}]}.
 
 body() ->
 %  Qid = wf:qs(<<"id">>),

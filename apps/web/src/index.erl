@@ -4,13 +4,11 @@
 -include_lib("kvs/include/users.hrl").
 
 main() -> 
-%    case wf:user() of
-%         undefined -> wf:redirect("login");
-%         _ -> 
-    Title = "Title",
-    Body = "Body",
-    [ #dtl{file = "index", ext="dtl", bindings=[{title,Title},{body,Body}]} ].
-%    <<"N2O">>. 
+    case wf:user() of
+         undefined -> wf:redirect("login");
+         _ -> Title = "Title",
+              Body = "Body",
+              [ #dtl{file = "prod", ext="dtl", bindings=[{title,Title},{body,Body}]} ] end.
 
 body() -> %% area of http handler
     {ok,Pid} = wf:comet(fun() -> chat_loop() end), 
