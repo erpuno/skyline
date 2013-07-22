@@ -24,19 +24,60 @@ JavaScript
 * BERT.js
 * Bullet.js
 
+JavaScrip Prerequisites
+-----------------------
+
+    $ sudo apt-get install python-software-properties
+    $ sudo add-apt-repository ppa:chris-lea/node.js
+    $ sudo apt-get update
+    $ sudo apt-get install nodejs
+    $ sudo apt-get install npm
+    $ sudo npm install uglify-js -g
+
 Run
 ---
 
 No fancy scripts, pure rebar and Erlang releases
 
+
     $ rebar get-deps
     $ rebar compile
+    $ ./nitrogen_static.sh
     $ ./release.sh
+    $ ./release_sync.sh
     $ ./styles.sh
     $ ./javascript.sh
     $ ./start.sh
 
 And open in browser [http://localhost:8000](http://localhost:8000)
+
+    $ ./attach.sh
+    > application:which_applications().
+    
+Xen
+---
+
+    $ sudo apt-get install xen-hypervisor-amd64
+    $ echo XENTOOLSTACK=xl > /etc/default/xen
+    $ sudo brctl addbr docker0
+    $ sudo ip addr add 172.16.42.1/24 dev docker0
+
+    $ rebar get-deps
+    $ rebar compile
+    $ ./nitrogen_static.sh
+    $ rebar ling-build-image
+
+    $ truncate -s 100m disk
+    $ sudo xl create -c domain_config
+    > application:start(web).
+
+Key-Value Store Init DB Mnesia Example
+--------------------------------------
+
+    > store_mnesia:single().
+    > kvs:init_db().
+    > kvs:dir().
+    > kva:all(user).
 
 Credits
 -------
