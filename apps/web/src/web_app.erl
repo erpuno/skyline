@@ -25,6 +25,7 @@ start(_StartType, _StartArgs) ->
     application:start(inets),
     application:start(xmerl),
     application:start(oauth),
+    application:start(gproc),
 
     web_sup:start_link().
 

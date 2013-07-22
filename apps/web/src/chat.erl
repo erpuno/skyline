@@ -33,7 +33,11 @@ body() ->
       #panel{class=[span8], body=[
         #panel{id=history, class=[history], body=[
             case wf:user() of undefined -> message("System","You are not logged in. Anonymous mode!");
-                              User -> message("System", "Hello, "++ case User#user.display_name of <<N/binary>> -> binary_to_list(N); L -> L end ++ "! Here you can chat, please go on!") end ]},
+                              User -> message("System", "Hello, "++ 
+        case User#user.display_name of <<N/binary>> -> binary_to_list(N); 
+             undefined -> "Anonymous";
+              L -> L end
+     ++ "! Here you can chat, please go on!") end ]},
         #textarea{id=message,style="display: inline-block; width: 200px; margin-top: 20px; margin-right: 20px;"},
         #button{id=send,body="Send",class=["btn","btn-primary","btn-large","btn-inverse"],postback={chat,Pid},source=[message]}
       ]}
