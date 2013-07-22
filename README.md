@@ -67,6 +67,8 @@ Xen
     $ sudo xl create -c domain_config
     > application:start(web).
 
+And open in browser [http://172.16.42.108:8000](http://172.16.42.108:8000)
+
 Init DB (Mnesia)
 ----------------
 
