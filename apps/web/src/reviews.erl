@@ -1,22 +1,27 @@
--module(containers).
+-module(reviews).
 -compile(export_all).
 -include_lib("n2o/include/wf.hrl").
 -include_lib("kvs/include/users.hrl").
+-include_lib("kvs/include/feeds.hrl").
+-include_lib("kvs/include/attachments.hrl").
+-include_lib("kvs/include/membership.hrl").
 
-main() -> 
-  case wf:user() of undefined -> wf:redirect("/login"); _ -> 
-  [#dtl{file = "prod",  ext="dtl", bindings=[{title,<<"Containers">>},{body,body()}]}] end.
+main() -> %case wf:user() of undefined -> wf:redirect("/login"); _ -> 
+  [#dtl{file = "dev", ext="dtl", bindings=[{title,<<"Reviews">>},{body,body()}]}].
+% end.
 
 body() -> index:header() ++ [
   #section{id=content, body=
     #panel{class=[container], body=
       #panel{class=[row, dashboard], body=[
-        #panel{class=[span3], body=dashboard:sidebar_menu(containers)},
-        #panel{class=[span9], body=dashboard:section(containers(wf:user()), "icon-list")}]}}}
+        #panel{class=[span3], body=dashboard:sidebar_menu(reviews)},
+        #panel{class=[span9], body=dashboard:section(feed(wf:user()), "icon-list")}]}}}
   ] ++ index:footer().
 
-containers(User) -> [
-  #h3{body= <<"your linux boxes">>},
+feed(User) -> [
+  #h3{body= <<"your reviews">>},
+  #panel{class=["btn-toolbar"], body=[#link{class=[btn, "btn-large", "btn-success"], body= <<"Create New Box">>}]},
+
   #table{class=[table, "table-hover", containers],
     header=[ #tr{cells=[
       #th{body= <<"ID">>},
@@ -39,8 +44,8 @@ containers(User) -> [
         #td{body= <<"pass">>},
         #td{body= <<"do1.synrc.com">>},
         #td{body= <<"49154">>},
-        #td{body=#link{class=[btn], body= <<"Start">>}} ]} ]},
-    #panel{class=["btn-toolbar"], body=[#link{class=[btn, "btn-large", "btn-success"], body= <<"Create New Box">>}]} ].
+        #td{body=#link{class=[btn], body= <<"Start">>}} ]} ]}
+  ].
 
-api_event(Name,Tag,Term) -> error_logger:info_msg("dashboard Name ~p, Tag ~p, Term ~p",[Name,Tag,Term]).
 event(init) -> [].
+api_event(Name,Tag,Term) -> error_logger:info_msg("Name ~p, Tag ~p, Term ~p",[Name,Tag,Term]), ok.

@@ -5,19 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="shortcut icon" href="/static/images/favicon.ico">
   <link rel="stylesheet/less" type="text/css" href="/static/appstore/appstore.less"/>
-  <script src="/static/less/dist/less-1.4.0-beta.min.js" type="text/javascript"></script>
+  <script src="/static/less/dist/less-1.4.0-beta.js" type="text/javascript"></script>
   <link href="/static/css/theme.css" rel="stylesheet">
 </head>
 <body class="theme-pattern-45-degree-fabric">
   {{body}}
   <script>{{script}}</script>
   <div id="n2ostatus" style="display:block"></div>
-  <script src="/static/nitrogen/jquery.js"></script>
-  <script src="/static/nitrogen/bert.js"></script>
-  <script src="/static/nitrogen/bullet.js"></script>
-  <script src="/static/nitrogen/n2o.js"></script>
+  <script src="/static/n2o/jquery.js"></script>
+  <script src="/static/n2o/bert.js"></script>
+  <script src="/static/n2o/bullet.js"></script>
+  <script src="/static/n2o/n2o.js"></script>
   <script src="/static/js/holder.js"></script>
-  <script src="/static/nitrogen/textboxlist.js"></script>
   <script src="/static/bootstrap/js/bootstrap-transition.js"></script>
   <script src="/static/bootstrap/js/bootstrap-dropdown.js"></script>
   <script src="/static/bootstrap/js/bootstrap-button.js"></script>
