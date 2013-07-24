@@ -10,6 +10,7 @@
 
 -define(PAGE_SIZE, 4).
 -record(product_hero, {?ELEMENT_BASE(prod), product=[]}).
+-record(product_price, {?ELEMENT_BASE(prod), product=[]}).
 -record(product_entry, {?ELEMENT_BASE(prod), entry=[]}).
 -record(entry_media, {?ELEMENT_BASE(prod), media=[], fid}).
 
@@ -25,13 +26,38 @@ body() ->
     {error, not_found} -> wf:redirect("/404")
   end,
   index:header()++[
-    #section{class=[section, alt], body=[#panel{class=[container], body=[#product_hero{product=Product}]} ]},
+    #section{class=[section, alt], body=[#panel{class=[container], body=[ #product_hero{product=Product} ]} ]},
+    #section{class=[section], body=[#panel{class=[container], body=[feed_detail()]}]},
     #section{class=[section, static], body=#panel{class=[container], body=entry_form(Product)}},
     #section{class=[section], body=#panel{class=[container], body=[#panel{class=["row-fluid"], body=[
       #panel{class=[span9], body=feed(Product)},
       #panel{class=[span3], body=[]}
     ]} ]} }
   ] ++index:footer().
+
+feed_essential()-> [].
+feed_detail() -> [
+  #list{class=[nav, "nav-tabs", "sky-nav", "entry-type-tabs"], body=[
+    #li{class=[active], body=[#link{url= <<"#overview">>, data_fields=[{<<"data-toggle">>, <<"tab">>}], body= <<"Overview">>}]},
+    #li{body=[#link{url= <<"#features">>, data_fields=[{<<"data-toggle">>, <<"tab">>}], body= <<"Features">>}]},
+    #li{body=[#link{url= <<"#specs">>, data_fields=[{<<"data-toggle">>, <<"tab">>}], body= <<"Specification">>}]},
+    #li{body=[#link{url= <<"#gallery">>, data_fields=[{<<"data-toggle">>, <<"tab">>}], body= <<"Gallery">>}]},
+    #li{body=[#link{url= <<"#trailers">>, data_fields=[{<<"data-toggle">>, <<"tab">>}], body= <<"Videos">>}]},
+    #li{body=[#link{url= <<"#reviews">>, data_fields=[{<<"data-toggle">>, <<"tab">>}], body= <<"Reviews">>}]},
+    #li{body=[#link{url= <<"#news">>, data_fields=[{<<"data-toggle">>, <<"tab">>}], body= <<"News">>}]},
+    #li{body=[#link{url= <<"#bundles">>, data_fields=[{<<"data-toggle">>, <<"tab">>}], body= <<"Bundles">>}]}
+  ]},
+  #panel{class=["tab-content"], body=[
+    #panel{id=overview, class=["tab-pane", active], body=[]},
+    #panel{id=features, class=["tab-pane"], body=[]},
+    #panel{id=specs, class=["tab-pane"], body=[]},
+    #panel{id=gallery, class=["tab-pane"], body=[]},
+    #panel{id=trailers, class=["tab-pane"], body=[]},
+    #panel{id=reviews, class=["tab-pane"], body=[]},
+    #panel{id=news, class=["tab-pane"], body=[]},
+    #panel{id=bundles, class=["tab-pane"], body=[]}
+  ]}
+].
 
 entry_form(P) ->
   Id = wf:temp_id(),
@@ -43,7 +69,17 @@ entry_form(P) ->
       #htmlbox{id=descr, class=[span12]}
     ]},
     #panel{class=[span2], body=[
-%      #upload{id=upload, delegate=prod, root=code:priv_dir(web)++"/static"}
+      #select{name="type", id=type, body=[
+        #option{value=overview,  body= <<"Overview">>},
+        #option{value=features,  body= <<"Features">>},
+        #option{value=specs,  body= <<"Specification">>},
+        #option{value=gallery, body= <<"Galery">>},
+        #option{value=trailers, body= <<"Videos">>},
+        #option{value=reviews, body= <<"Reviews">>},
+        #option{value=news, body= <<"News">>},
+        #option{value=bundles, body= <<"Bundles">>}
+      ]}
+      %#upload{id=upload, delegate=prod, root=code:priv_dir(web)++"/static"}
     ]}
   ]},
   #panel{class=["btn-toolbar"], body=[#link{id=save, postback={post_entry, P#product.feed, P#product.id}, source=[descr, title], class=[btn, "btn-large", "btn-success"], body= <<"Post">>}]} ].
@@ -70,17 +106,67 @@ comment(InnerComment)->
   ]}.
 
 render_element(#product_hero{product=P})->
+  wf:wire(wf:f("var c = $('#title_pic')[0];
+    c.style.width='100%';
+    c.style.height='100%';
+    c.width  = c.offsetWidth;
+    c.height = c.offsetHeight;
+    if(c.height>470){c.height=470;c.style.height='470px'};
+
+    var context = c.getContext('2d');
+    var img = new Image();
+    var dw, dh, wi, he;
+
+    img.onload = function(){
+      if(img.width > c.width){
+        dw = (img.width-c.width)/2; 
+        wi = c.width;
+      }else{
+        dw = 0;
+        wi = img.width;
+      }
+
+      if(img.height > c.height){
+        dh = (img.height-c.height)/2;
+        he = c.height;
+      }else{
+        dh = 0;
+        he = img.height;
+      };
+      context.drawImage(img, dw, dh, wi, he, 0, 0, c.width, c.height);
+    };
+    img.src = '~s';
+  ", [P#product.title_picture])),
   Hero = #panel{class=["row-fluid"], body=[
     #panel{class=[span6], body=[
       #panel{class=["hero-unit"], body=[
         #h1{body=P#product.title},
-        #p{body=P#product.description},
-        #link{class=[btn, "btn-large", "btn-info"], body= <<"buy it">>, postback={product, integer_to_list(P#product.id)}}
+        #p{class=[brief], body=P#product.brief},
+        #product_price{product=P}
+%        #link{class=[btn, "btn-large", "btn-info"], body= <<"buy it">>, postback={product, integer_to_list(P#product.id)}}
       ]}
     ]},
-    #panel{class=[span6], body=#image{image=P#product.image_big_url}}
+    #panel{class=[span6], style="position:relative;height:100%;padding-top:60px;",  body= <<"<canvas id='title_pic' style='border:1px solid;'></canvas>">>}
   ]},
   element_panel:render_element(Hero);
+render_element(#product_price{product=P}) ->
+  {PriceHead, PriceClass, BtnClass} = case P#product.price of % case for featured product
+      true  ->  {<<"Featured">>, ["pricing-table-featured", "product-price-featured"], []};
+      false  -> {<<"Featured">>, ["pricing-table-featured", "product-price-featured", "featured-orange"], []};
+      _ ->      {<<"Standard">>, [], ["btn-info"]}
+  end,
+
+  Panel =#panel{class=["well","pricing-table", "product-price", span6, "text-center"]++PriceClass, body=[
+        #h3{body=#span{body=PriceHead}},
+        #h2{class=["pricing-table-price", "product-price-price"], body=[#span{body= <<"$">>}, list_to_binary(io_lib:format("~.2f", [P#product.price]))]},
+
+        #list{class=["pricing-table-list", "product-price-list"], body=[
+          #li{body= [#checkbox{id=win, body = <<"PC download">>}]},
+          #li{body= [#checkbox {id=ps3, body = <<"PLAYSTATION&reg;3">>}]}
+        ]},
+        #button{class=[btn, "btn-large"]++BtnClass, body= <<"buy it">>, postback={product, integer_to_list(P#product.id)}}
+      ]},
+  element_panel:render_element(Panel);
 render_element(#product_entry{entry=E})->
   Ms = E#entry.media,
   error_logger:info_msg("Entry: ~p", [Ms]),
@@ -121,10 +207,11 @@ event(init) -> [];
 event({post_entry, Fid, Id}) ->
   Entry = wf:q(descr),
   Title = wf:q(title),
-  error_logger:info_msg("Entry ~p ~p", [Title, Entry]),
+  Type =  wf:q(type),
+  error_logger:info_msg("Entry ~p ~p ~p", [Title, Entry, Type]),
   Recipients = [{Id, product}],
   SharedBy = "",
-  Type = {product, normal},
+  Type = {product, Type},
   Medias = case wf:session(medias) of undefined -> []; L -> L end,
   error_logger:info_msg("Medias to save ~p", [Medias]),
   Desc = Entry,

@@ -1,0 +1,56 @@
+.sky-nav{
+  font-size: 24px;
+  font-weight:bold;
+
+  & li {
+    &.active, &.active:hover, &.active:focus{
+      & a, a:focus {
+        color: @linkColorHover;
+
+        &:hover{
+          color:@linkColorHover;
+        }
+        background-color: transparent;
+        border:3px solid white;
+        border-top: 3px solid @linkColorHover;
+      }
+    }
+
+    & a {
+      color: #555555;
+      text-transform: uppercase;
+      border: 3px solid transparent;
+      background-color: transparent;
+      text-shadow: none;
+
+      &:hover, &:focus{
+        color: @linkColorHover;
+        background-color: transparent;
+        border: 3px solid transparent;
+        border-top: 3px solid @linkColorHover;
+      }
+    }
+  }
+}
+
+/* support colors?
+.muted               { color: @grayLight; }
+a.muted:hover,
+a.muted:focus        { color: darken(@grayLight, 10%); }
+
+.text-warning        { color: @warningText; }
+a.text-warning:hover,
+a.text-warning:focus { color: darken(@warningText, 10%); }
+
+.text-error          { color: @errorText; }
+a.text-error:hover,
+a.text-error:focus   { color: darken(@errorText, 10%); }
+
+.text-info           { color: @infoText; }
+a.text-info:hover,
+a.text-info:focus    { color: darken(@infoText, 10%); }
+
+.text-success        { color: @successText; }
+a.text-success:hover,
+a.text-success:focus { color: darken(@successText, 10%); }
+*/
