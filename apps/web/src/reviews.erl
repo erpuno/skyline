@@ -30,7 +30,7 @@ feed(User) -> [
       #th{body= <<"Region">>},
       #th{body= <<"SSH">>},
       #th{body= <<"action">>}]} ],
-    rows=[
+    body=[[
       #tr{class=[success], cells=[
         #td{body= <<"1d3e102378f9">>},
         #td{body= <<"sncn1">>},
@@ -44,7 +44,7 @@ feed(User) -> [
         #td{body= <<"pass">>},
         #td{body= <<"do1.synrc.com">>},
         #td{body= <<"49154">>},
-        #td{body=#link{class=[btn], body= <<"Start">>}} ]} ]}
+        #td{body=#link{class=[btn], body= <<"Start">>}} ]} ]]}
   ].
 
 event(init) -> [].

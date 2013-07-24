@@ -21,11 +21,11 @@ body() ->
     #panel{class=[span6], body=[
       #panel{class=["hero-unit"], body=[
         #h1{body=P#product.name},
-        #p{body=P#product.description_long},
+        #p{body=P#product.description},
         #button{class=[btn, "btn-large", "btn-info"], body= <<"buy it">>, postback={product, integer_to_list(P#product.id)}}
       ]}
     ]},
-    #panel{class=[span6], body=#image{image=P#product.image_big_url}}
+    #panel{class=[span6], body=#image{image=P#product.title_picture}}
   ]}}},
 
   #section{class=[section], body=#panel{class=[container], body=#panel{class=["row-fluid"], body=[
@@ -156,11 +156,11 @@ render_element(#product_figure{product=P})->
   end,
 
   L = #link{url= list_to_binary("/product?id="++ integer_to_list(P#product.id)), body=#figure{class=[product, "thumbnail-figure"], body=[
-    #image{image=P#product.image_big_url},
+    #image{image=P#product.title_picture},
     #figcaption{class=["row-fluid", "product-caption"], body=[
       #panel{class=["product-title", "thumbnail-title" ], body=[
         #h3{body=#span{body=P#product.name}},
-        #p{body=#span{body=P#product.description_long}},
+        #p{body=#span{body=P#product.brief}},
         #span{class=[badges],body=[
           #i{class=["icon-user"]}, #span{class=["badge badge-info"], body= <<"1024">>},
           #i{class=["icon-comment"]}, #span{class=["badge badge-info"], body= <<"10">>}
@@ -174,7 +174,8 @@ render_element(#product_figure{product=P})->
           #li{body= <<"dolor sit amet">>}
         ]},
         #button{class=[btn, "btn-large"]++BtnClass, body= <<"buy it">>, postback={product, integer_to_list(P#product.id)}}
-      ]} ]} ]} },
+      ]} 
+]} ]} },
   element_link:render_element(L);
 
 render_element(#feed_entry{entry=E, id=Id}) ->
@@ -269,9 +270,8 @@ product(Id, Pic)->
       id=Id,
       name = <<"Crysis 3">>,
       categories= [1],
-      description_short= <<"Crytek is back with Crysis 3">>,
-      description_long= <<"The award-winning developer Crytek is back with Crysis 3, the first blockbuster shooter of 2013!Return to the fight as Prophet, the Nanosuit soldier on a quest to rediscover his humanity. Adapt on the fly with the stealth and armor abilities of your unique Nanosuit as you battle through the seven wonders of New York’s Liberty Dome. Unleash the firepower of your all-new, Predator bow and alien weaponry to hunt both human and alien enemies. Crysis 3 is the ultimate sandbox shooter, realized in the stunning visuals only Crytek and the latest version of CryENGINE can deliver. Available now on Xbox 360, PlayStation 3, and PC">>,
-      image_big_url = "/static/img/crysis3-bg" ++ integer_to_list(Pic)++".png",
+      description= <<"<h2>Crytek is back with Crysis 3</h2> The award-winning developer Crytek is back with Crysis 3, the first blockbuster shooter of 2013!Return to the fight as Prophet, the Nanosuit soldier on a quest to rediscover his humanity. Adapt on the fly with the stealth and armor abilities of your unique Nanosuit as you battle through the seven wonders of New York’s Liberty Dome. Unleash the firepower of your all-new, Predator bow and alien weaponry to hunt both human and alien enemies. Crysis 3 is the ultimate sandbox shooter, realized in the stunning visuals only Crytek and the latest version of CryENGINE can deliver. Available now on Xbox 360, PlayStation 3, and PC">>,
+      title_picture = "/static/img/crysis3-bg" ++ integer_to_list(Pic)++".png",
       publish_start_date = calendar:local_time(),
       publish_end_date =  calendar:local_time(),
       price=22.95,

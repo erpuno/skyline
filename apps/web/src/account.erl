@@ -49,7 +49,7 @@ ballance(User) -> [
 
 payments(User) -> [
   #h3{body= <<"Payments">>},
-  #table{class=[table, "table-hover", payments], rows=[
+  #table{class=[table, "table-hover", payments], body=[[
     #tr{cells= [
       #td{body= <<"27 Jun 2013">>},
       #td{body= <<"Charge">>},
@@ -59,7 +59,7 @@ payments(User) -> [
       #td{body= <<"26 Jun 2013">>},
       #td{body= <<"Payment">>},
       #td{body= <<"$30">>},
-      #td{body= <<"">>} ]} ]} ].
+      #td{body= <<"">>} ]} ]]} ].
 
 api_event(Name,Tag,Term) -> error_logger:info_msg("dashboard Name ~p, Tag ~p, Term ~p",[Name,Tag,Term]).
 event(init) -> [].
