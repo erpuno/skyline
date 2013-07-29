@@ -1,6 +1,6 @@
 kernel = "vmling"
 name = "skyline"
 memory = 512
-extra = "-ipaddr 172.16.42.108 -netmask 255.255.255.0 -gateway 172.16.42.1 -root /erlang -pz /skyline/deps/erlydtl/ebin -pz /skyline/apps/web/ebin -pz /skyline/deps/n2o/ebin -pz /skyline/deps/cowboy/ebin -pz /skyline/deps/ranch/ebin -pz /skyline/deps/mimetypes/ebin -pz /skyline/deps/mqs/ebin -pz /skyline/deps/eper/ebin -pz /skyline/deps/oauth/ebin -pz /skyline/deps/gproc/ebin -pz /skyline/deps/rabbit_common/ebin -pz /skyline/deps/amqp_client/ebin -pz /skyline/deps/kvs/ebin -home /skyline/apps/web/ebin -config /skyline/rels/web/files/sys.config -goofs /skyline/apps/web/ebin/data"
+extra = "-ipaddr 10.0.3.10 -netmask 255.255.255.0 -gateway 10.0.3.1 -root /erlang -pz /skyline/deps/erlydtl/ebin -pz /skyline/apps/web/ebin -pz /skyline/deps/n2o/ebin -pz /skyline/deps/cowboy/ebin -pz /skyline/deps/ranch/ebin -pz /skyline/deps/mimetypes/ebin -pz /skyline/deps/mqs/ebin -pz /skyline/deps/eper/ebin -pz /skyline/deps/oauth/ebin -pz /skyline/deps/gproc/ebin -pz /skyline/deps/rabbit_common/ebin -pz /skyline/deps/amqp_client/ebin -pz /skyline/deps/kvs/ebin -home /skyline/apps/web/ebin -config /skyline/rels/web/files/sys.config -goofs /skyline/apps/web/ebin/data"
 disk = [ "tap:aio:disk,xvda,w" ]
-vif =  [ 'bridge=docker0', ]
+vif =  [ 'bridge=lxcbr0', ]
