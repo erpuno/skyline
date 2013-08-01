@@ -47,6 +47,7 @@ body() ->
 
 event(init) ->
     Self = self(),
+    wf:reg(room),
     wf:send(lobby,{top,5,Self}),
     Terms = wf:render(receive Top -> [ message(U,M) || {U,M} <- Top] end),
     error_logger:info_msg("Top 10: ~p",[Terms]),
@@ -62,9 +63,7 @@ event({chat,Pid}) ->
     Terms = [ message("Systen","Message added"), #button{postback=hello} ],
 %    wf:insert_top(<<"history">>, Terms),
     wf:wire("$('#message').focus(); $('#message').select(); "),
-    wf:reg(room),
     Pid ! {message, Username, Message}.
-
 
 chat_loop() ->
     receive
