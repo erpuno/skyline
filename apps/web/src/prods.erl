@@ -4,7 +4,6 @@
 -include_lib("kvs/include/users.hrl").
 -include_lib("kvs/include/products.hrl").
 -include_lib("kvs/include/feeds.hrl").
--include_lib("kvs/include/attachments.hrl").
 -include_lib("kvs/include/membership.hrl").
 
 -record(product_row, {?ELEMENT_BASE(prods), product=[]}).
@@ -60,7 +59,7 @@ event(save) ->
     creator= User#user.username,
     owner=User#user.username,
     title = Title,
-    title_picture = TitlePic,
+    cover = TitlePic,
     brief = Descr,
     categories = Categories,
     price = 59.95
@@ -94,6 +93,6 @@ render_element(#product_row{product=P}) ->
   Row = #tr{cells=[
     #td{body= integer_to_list(P#product.id)},
     #td{body= #link{class=[], url="/prod?id="++integer_to_list(P#product.id), body=P#product.title}},
-    #td{body= P#product.description}
+    #td{body= P#product.brief}
   ]},
   element_tr:render_element(Row).

@@ -3,7 +3,6 @@
 -include_lib("n2o/include/wf.hrl").
 -include_lib("kvs/include/users.hrl").
 -include_lib("kvs/include/feeds.hrl").
--include_lib("kvs/include/attachments.hrl").
 -include_lib("kvs/include/membership.hrl").
 
 main() -> %case wf:user() of undefined -> wf:redirect("/login"); _ -> 

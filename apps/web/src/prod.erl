@@ -4,7 +4,6 @@
 -include_lib("kvs/include/products.hrl").
 -include_lib("kvs/include/users.hrl").
 -include_lib("kvs/include/feeds.hrl").
--include_lib("kvs/include/attachments.hrl").
 -include_lib("kernel/include/file.hrl").
 -include("records.hrl").
 
@@ -136,7 +135,7 @@ render_element(#product_hero{product=P})->
       context.drawImage(img, dw, dh, wi, he, 0, 0, c.width, c.height);
     };
     img.src = '~s';
-  ", [P#product.title_picture])),
+  ", [P#product.cover])),
   Hero = #panel{class=["row-fluid"], body=[
     #panel{class=[span6], body=[
       #panel{class=["hero-unit"], body=[
@@ -235,8 +234,7 @@ control_event("upload", File, _Data) ->
 process_file(Name) ->
   U = wf:user(),
   {ok, Type} = identify(?ROOT++Name),
-  {ok, #attachment{
-    id=hash_from_file(?ROOT++Name), 
+  {ok, {id=hash_from_file(?ROOT++Name), 
     name = Name,
     file=?ROOT++Name,
     owner = U#user.username,
