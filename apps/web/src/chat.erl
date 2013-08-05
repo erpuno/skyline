@@ -18,6 +18,7 @@ message(Who,What) ->
 
 body() ->
     {ok,Pid} = wf:comet(fun() -> chat_loop() end),
+    error_logger:info_msg("comet: ~p", [Pid]),
     index:header() ++ [
   #panel{class=["container-fluid", chat], body=[
     #panel{class=["row-fluid"], body=[
@@ -55,6 +56,7 @@ event(init) ->
     wf:wire("$('#history').scrollTop = $('#history').scrollHeight;");
 event(chat) -> wf:redirect("chat");
 event(hello) -> wf:redirect("login");
+event(<<"PING">>) -> ok;
 
 event({chat,Pid}) ->
     error_logger:info_msg("Chat Pid: ~p",[Pid]),
