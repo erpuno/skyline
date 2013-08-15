@@ -45,8 +45,6 @@ LXC
     $ ./javascript.sh
     $ ./start.sh
 
-And open in browser [http://localhost:8000](http://localhost:8000)
-
     $ ./attach.sh
     > application:which_applications().
     
@@ -67,7 +65,6 @@ Xen
     $ sudo xl create -c domain_config
     > application:start(web).
 
-And open in browser [http://172.16.42.108:8000](http://172.16.42.108:8000)
 
 Init DB (Mnesia)
 ----------------
@@ -76,6 +73,12 @@ Init DB (Mnesia)
     > kvs:init_db().
     > kvs:dir().
     > kva:all(user).
+    
+And open in browser
+-------------------
+
+* LXC: [http://localhost:8000](http://localhost:8000)
+* Xen: [http://172.16.42.108:8000](http://172.16.42.108:8000)
 
 Credits
 -------
