@@ -74,11 +74,11 @@ body() ->
 event(init) -> [];
 event(logout) -> wf:user(undefined), wf:redirect("/login");
 event(login) -> %User = wf:q(user), wf:user(User), 
-    wf:user(#user{username="maxim",surname="sokhatsky",name="maxim",
-            display_name = "maxim",
-            email="maxim@synrc.com",register_date=now(),
-            avatar="https://graph.facebook.com/namdak.tonpa/picture?sz=180&width=180&height=180&s=180"}),
-    error_logger:info_msg("Login Pressed"),
+%    wf:user(#user{username="maxim",surname="sokhatsky",name="maxim",
+%            display_name = "maxim",
+%            email="maxim@synrc.com",register_date=now(),
+%            avatar="https://graph.facebook.com/namdak.tonpa/picture?sz=180&width=180&height=180&s=180"}),
+%    error_logger:info_msg("Login Pressed"),
     wf:redirect("/account");
 event(to_login) -> wf:redirect("/login");
 event(chat) -> wf:redirect("chat");
@@ -87,13 +87,13 @@ event(Ev) ->
     ok.
 
 api_event(plusLogin, Args, _)-> JSArgs = n2o_json:decode(Args), login(googleplus_id, JSArgs#struct.lst);
-api_event(fbLogin, Args, _Term)-> error_logger:info_msg("Args: ~p",  [Args]),JSArgs = n2o_json:decode(Args), login(facebook_id, JSArgs#struct.lst);
+api_event(fbLogin, Args, _Term)-> JSArgs = n2o_json:decode(Args), login(facebook_id, JSArgs#struct.lst);
 api_event(Name,Tag,_Term) -> error_logger:info_msg("Login Name ~p~n, Tag ~p~n",[Name,Tag]).
 
 login_user(User) -> wf:user(User), wf:redirect("/account").
 login(Key, Args)-> case Args of [{error, E}|_Rest] -> error_logger:info_msg("oauth error: ~p", [E]);
     _ -> case kvs:get(user,email_prop(Args,Key)) of
-              {ok,Existed} -> {Id, RegData} = registration_data(Args, Key, Existed), login_user(RegData);
+              {ok, Existed} -> {Id, RegData} = registration_data(Args, Key, Existed), login_user(RegData);
               {error,_} -> {Id, RegData} = registration_data(Args, Key, #user{}),
                   case kvs_user:register(RegData) of
                       {ok, Registered} -> error_logger:info_msg("User: ~p", [Registered]),login_user(Registered);
@@ -124,7 +124,6 @@ registration_data(Props, facebook_id, Ori)->
     BD -> list_to_tuple([list_to_integer(X) || X <- string:tokens(binary_to_list(BD), "/")])
   end,
   {proplists:get_value(id, Props), Ori#user{
-    username = re:replace(UserName, "\\.", "_", [{return, list}]),
     display_name = UserName,
     avatar = "https://graph.facebook.com/" ++ UserName ++ "/picture",
     email = email_prop(Props, facebook_id),
@@ -142,7 +141,6 @@ registration_data(Props, googleplus_id, Ori)->
   FamilyName = proplists:get_value(<<"familyName">>, Name#struct.lst),
   Image = proplists:get_value(<<"image">>, Props),
   {Id, Ori#user{
-    username = string:to_lower(binary_to_list(<< GivenName/binary, <<"_">>/binary, FamilyName/binary>>)),
     display_name = proplists:get_value(<<"displayName">>, Props),
     avatar = lists:nth(1,string:tokens(binary_to_list(proplists:get_value(<<"url">>, Image#struct.lst)), "?")),
     email = email_prop(Props,googleplus_id),
@@ -157,7 +155,6 @@ registration_data(Props, twitter_id, Ori)->
   Id = proplists:get_value(<<"id_str">>, Props),
   UserName = binary_to_list(proplists:get_value(<<"screen_name">>, Props)),
   {Id, Ori#user{
-    username = re:replace(UserName, "\\.", "_", [{return, list}]),
     display_name = proplists:get_value(<<"screen_name">>, Props),
     avatar = proplists:get_value(<<"profile_image_url">>, Props),
     name = proplists:get_value(<<"name">>, Props),
