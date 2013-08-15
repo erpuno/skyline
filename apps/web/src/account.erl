@@ -30,7 +30,7 @@ profile_info(U) ->
             image = re:replace(U#user.avatar, <<"_normal">>, <<"">>, [{return, list}]) ++"?sz=180&width=180&height=180&s=180", width= <<"180px">>, height= <<"180px">> }} },
       #panel{class=[span8, "profile-info-wrapper"], body=
         #panel{class=["form-inline", "profile-info"], body=[
-        #panel{body=[#label{body= <<"Name:">>}, #b{body= iolist_to_binary([U#user.name, " ", U#user.surname])}]},
+        #panel{body=[#label{body= <<"Name:">>}, #b{body= U#user.display_name}]},
         #panel{show_if=U#user.email=/=undefined, body=[#label{body= <<"Mail:">>}, #link{url= Mailto, body=#strong{body= U#user.email}}]},
         #panel{body=[#label{body= <<"Member since ">>}, #strong{body= RegDate}]},
         #b{class=["text-success"], body= <<"Active">>} ]}}]}].
