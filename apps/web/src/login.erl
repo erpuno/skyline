@@ -123,7 +123,9 @@ registration_data(Props, facebook_id, Ori)->
     undefined -> {1, 1, 1970};
     BD -> list_to_tuple([list_to_integer(X) || X <- string:tokens(binary_to_list(BD), "/")])
   end,
-  {proplists:get_value(id, Props), Ori#user{
+  error_logger:info_msg("User Ori: ~p",[Ori]),
+  error_logger:info_msg("Props: ~p",[Props]), 
+  {proplists:get_value(<<"id">>, Props), Ori#user{
     display_name = UserName,
     avatar = "https://graph.facebook.com/" ++ UserName ++ "/picture",
     email = email_prop(Props, facebook_id),

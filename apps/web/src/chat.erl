@@ -7,14 +7,13 @@ main() ->
   [ #dtl{file = "prod", ext="dtl", bindings=[{title,<<"Login">>},{body,body()}]} ].
 
 message(Who,What) ->
-    N=string:join(string:tokens(What,"\n")," "),
-    error_logger:info_msg("~p",[N]),
+    error_logger:info_msg("~p",[What]),
   #panel{class=["media"],body=[
       #link{class=["pull-left"], body=[
           #image{class=["media-object"],image="static/img/infinity.png",width= <<"63">>} ]},
             #panel{class=["media-body"],body=[
                 #h4{body= unicode:characters_to_binary(Who)},
-                #span{body=N} ]} ]}.
+                #span{body=wf:js_escape(What)} ]} ]}.
 
 body() ->
     {ok,Pid} = wf:comet(fun() -> chat_loop() end),

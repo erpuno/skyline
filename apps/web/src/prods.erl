@@ -91,7 +91,7 @@ control_event(Cid, {File, Data, ActionHolder}) ->
 
 render_element(#product_row{product=P}) ->
   Row = #tr{cells=[
-    #td{body= integer_to_list(P#product.id)},
+    #td{body= wf:to_list(P#product.id)},
     #td{body= #link{class=[], url="/prod?id="++integer_to_list(P#product.id), body=P#product.title}},
     #td{body= P#product.brief}
   ]},
