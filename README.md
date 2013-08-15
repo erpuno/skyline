@@ -23,7 +23,7 @@ JavaScript
 * BERT.js
 * Bullet.js
 
-JavaScrip Prerequisites
+JavaScript Prerequisites
 -----------------------
 
     $ sudo apt-get install python-software-properties
