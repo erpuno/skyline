@@ -81,10 +81,10 @@ entry_form(P) ->
       %#upload{id=upload, delegate=prod, root=code:priv_dir(web)++"/static"}
     ]}
   ]},
-  #panel{class=["btn-toolbar"], body=[#link{id=save, postback={post_entry, P#product.feed, P#product.id}, source=[descr, title], class=[btn, "btn-large", "btn-success"], body= <<"Post">>}]} ].
+  #panel{class=["btn-toolbar"], body=[#link{id=save, postback={post_entry, P#product.feeds, P#product.id}, source=[descr, title], class=[btn, "btn-large", "btn-success"], body= <<"Post">>}]} ].
 
 feed(P) ->
-  Entries = kvs_feed:entries(P#product.feed, undefined, 10),
+  Entries = kvs_feed:entries(P#product.feeds, undefined, 10),
 %  error_logger:info_msg("Render feed: ~p", [Entries]),
   [#product_entry{entry=E} || E <- Entries].
 

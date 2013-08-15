@@ -20,7 +20,7 @@ body() ->
   #section{class=[section, alt], body=#panel{class=[container], body=#panel{class=["row-fluid"], body=[
     #panel{class=[span6], body=[
       #panel{class=["hero-unit"], body=[
-        #h1{body=P#product.name},
+        #h1{body=P#product.title},
         #p{body=P#product.brief},
         #button{class=[btn, "btn-large", "btn-info"], body= <<"buy it">>, postback={product, integer_to_list(P#product.id)}}
       ]}
@@ -159,7 +159,7 @@ render_element(#product_figure{product=P})->
     #image{image=P#product.cover},
     #figcaption{class=["row-fluid", "product-caption"], body=[
       #panel{class=["product-title", "thumbnail-title" ], body=[
-        #h3{body=#span{body=P#product.name}},
+        #h3{body=#span{body=P#product.title}},
         #p{body=#span{body=P#product.brief}},
         #span{class=[badges],body=[
           #i{class=["icon-user"]}, #span{class=["badge badge-info"], body= <<"1024">>},
@@ -268,7 +268,7 @@ product() -> product(1,1).
 product(Id, Pic)->
     #product{
       id=Id,
-      name = <<"Crysis 3">>,
+      title = <<"Crysis 3">>,
       categories= [1],
       brief= <<"<h2>Crytek is back with Crysis 3</h2> The award-winning developer Crytek is back with Crysis 3, the first blockbuster shooter of 2013!Return to the fight as Prophet, the Nanosuit soldier on a quest to rediscover his humanity. Adapt on the fly with the stealth and armor abilities of your unique Nanosuit as you battle through the seven wonders of New York’s Liberty Dome. Unleash the firepower of your all-new, Predator bow and alien weaponry to hunt both human and alien enemies. Crysis 3 is the ultimate sandbox shooter, realized in the stunning visuals only Crytek and the latest version of CryENGINE can deliver. Available now on Xbox 360, PlayStation 3, and PC">>,
       cover = "/static/img/crysis3-bg" ++ integer_to_list(Pic)++".png",
