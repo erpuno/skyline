@@ -82,6 +82,10 @@ event(login) -> %User = wf:q(user), wf:user(User),
     wf:redirect("/account");
 event(to_login) -> wf:redirect("/login");
 event(chat) -> wf:redirect("chat");
+event(logintwitter) ->
+    case tw_utils:get_request_token() of
+         {RequestToken, _, _} -> wf:redirect(tw_utils:authenticate_url(RequestToken));
+         {error, R} -> error_logger:info_msg("Twitter request failed:", [R]), [] end;
 event(Ev) ->
     error_logger:info_msg("Event ~p",[Ev]),
     ok.
@@ -171,17 +175,16 @@ email_prop(Props, twitter_id) -> binary_to_list(proplists:get_value(<<"screen_na
 email_prop(Props, _) -> binary_to_list(proplists:get_value(<<"email">>, Props)).
 
 login_btn(google)-> #panel{id=plusloginbtn, class=["btn-group"], body=
-  #link{class=[btn, "btn-google-plus", "btn-large"], body=[#i{class=["icon-google-plus", "icon-large"]}, <<"Google">>] }};
+    #link{class=[btn, "btn-google-plus", "btn-large"], 
+        body=[#i{class=["icon-google-plus", "icon-large"]}, <<"Google">>] }};
 login_btn(facebook)-> #panel{class=["btn-group"], body=
-  #link{id=loginfb, class=[btn, "btn-primary", "btn-large"], body=[#i{class=["icon-facebook", "icon-large"]}, <<"Facebook">>],  actions= "$('#loginfb').on('click', fb_login);"
-             }};
-login_btn(twitter) ->
-  case tw_utils:get_request_token() of
-    {RequestToken, _, _} -> #panel{class=["btn-group"], body=
-      #link{id=twlogin, class=[btn, "btn-info", "btn-large"], body=[#i{class=["icon-twitter", "icon-large"]}, <<"Twitter">>], url=tw_utils:authenticate_url(RequestToken)}};
-    {error, R} -> error_logger:info_msg("Twitter request failed:", [R]), []
-  end.
+    #link{id=loginfb, class=[btn, "btn-primary", "btn-large"],
+        body=[#i{class=["icon-facebook", "icon-large"]}, <<"Facebook">>],  actions= "$('#loginfb').on('click', fb_login);"}};
+login_btn(twitter) -> #panel{class=["btn-group"], body=
+    #link{id=twlogin, class=[btn, "btn-info", "btn-large"], 
+        body=[#i{class=["icon-twitter", "icon-large"]}, <<"Twitter">>], postback=logintwitter}}.
 
+ 
 gplus_sdk()->
   wf:wire(#api{name=plusLogin, tag=plus}),
   #dtl{bind_script=false, file="google_sdk", ext="dtl", folder="priv/static/js", bindings=[
