@@ -62,12 +62,13 @@
     </div>
     <div id="footer">{{footer}}</div>
     <div id="fb-root"></div>
-    <script>{{sdk}}</script>
+    <script src="https://js.live.net/v5.0/ru/wl.js" type="text/javascript"></script>
     <script>{{script}}</script>
-    <div id="n2ostatus" style="display:none"></div>
-    <script src="http://johannburkard.de/resources/Johann/jquery.inc-6.js"></script>
+    {{sdk}}
     <script src="/static/js/all.min.js"></script>
+    <div id="n2ostatus" style="display:none"></div>
     <script src="/static/js/bootstrap.min.js"></script>
+
     <!-- uncomment for local markup
     <!-- script>$('#header').load("hd.dtl");</script>
         <script>$('#footer').load("tl.dtl");</script -->

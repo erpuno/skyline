@@ -27,7 +27,10 @@ profile_info(U) ->
         #panel{class=[span4, "dashboard-img-wrapper"], body=
         #panel{class=["dashboard-img"], body=
           #image{class=[], alt="",
-            image = re:replace(U#user.avatar, <<"_normal">>, <<"">>, [{return, list}]) ++"?sz=180&width=180&height=180&s=180", width= <<"180px">>, height= <<"180px">> }} },
+            image = case U#user.avatar of undefined -> undefined;
+                                          Avatar -> re:replace(Avatar, <<"_normal">>, <<"">>, [{return, list}]) ++
+                                                    "?sz=180&width=180&height=180&s=180" end,
+            width= <<"180px">>, height= <<"180px">> }} },
       #panel{class=[span8, "profile-info-wrapper"], body=
         #panel{class=["form-inline", "profile-info"], body=[
         #panel{body=[#label{body= <<"Name:">>}, #b{body= U#user.display_name}]},
