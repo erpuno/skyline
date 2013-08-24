@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>{{title}}</title>
+  <meta name="author" content="Андрей">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/static/images/favicon.ico" rel="shortcut icon" >
+  <link href="/static/css/appstore.css" rel="stylesheet" type="text/css"/>
+  <link href="/static/css/theme.css" rel="stylesheet" type="text/css">
+</head>
+<body class="theme-pattern-45-degree-fabric">
+    {{header}}
+    <div id="content" class="theme-pattern-lightmesh alt">
+        <section id="promo" class="section">
+            <div class="container">
+                <div class="modal modal-login">
+                    <div id="loginform" class="form-horizontal">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h3>Log in to your account</h3>
+                        </div>
+                        <div class="modal-body">
+                            <div id="messages"></div>
+                            <h3 class="text-center">Sign in with</h3>
+                            <div class="btn-toolbar text-center">
+                                {{buttons}}
+                            </div>
+                            <h3 class="text-center">or</h3>
+                            <div class="control-group">
+                                <label class="control-label" for="user">Email</label>
+                                <div class="controls">
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-user"></i></span>
+                                        <input id="user" type="text" placeholder="e-mail" data-original-title="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="pass">Password</label>
+                                <div class="controls">
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-lock"></i></span>
+                                        <input id="pass" type="password" placeholder="password" data-original-title="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <div class="controls">
+                                    <label class="checkbox" for="remember"><input id="remember" type="checkbox" data-toggle="checkbox" value="on" not_checked="true">Remember me</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="javascript:void(0);" class="pull-left link-forgot">forgot password?</a>
+                            <button id="login" type="button" class="btn btn-info btn-large">Sign in</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="pull-center">Not a member?<a href="javascript:void(0);"> Sign Up</a></div>
+            </div>
+        </section>
+    </div>
+    {{footer}}
+    <div id="fb-root"></div>
+    <script>{{sdk}}</script>
+    <script>{{script}}</script>
+    <div id="n2ostatus" style="display:none"></div>
+    <script src="/static/js/all.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+</body>
+</html>

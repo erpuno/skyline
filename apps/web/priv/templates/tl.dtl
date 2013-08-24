@@ -1,0 +1,32 @@
+
+    <footer id="mainfooter" class="section sky-footer">
+        <div class="row-fluid">
+            <div class="span5 footer-banner">
+                <h3>Synrc Research Center</h3>
+                <p>Feel free to share your thoughts on Voxoz, Erlang, PaaS and other things.</p>
+                <ul class="icons">
+                    <li><i class="icon-github icon-2x"></i><a href="https://github.com/synrc">Synrc Repositories</a></li>
+                </ul>
+                <ul class="unstyled">
+                    <li> &copy; 2013 Synrc Research Center s.r.o.</li>
+                    <li> Roh&#225;&#269;ova 141/18, Praha 3 13000, Czech Republic</li>
+                    <li> HQ: Chokolivsky blvd, 19A, off. 8, Kyiv, Ukraine</li>
+                </ul>
+            </div>
+            <div class="span2">
+                <h3>voxoz</h3>
+                <ul class="unstyled">
+                    <li><a href="http://voxoz.com">How it works</a></li>
+                    <li><a href="http://voxoz.com/pricing.html">Pricing</a></li>
+                    <li><a href="http://voxoz.com">Applications</a></li>
+                </ul>
+            </div>
+            <div class="span5">
+                <h3>Recent news</h3>
+                <ul class="unstyled">
+                    <li><h3><a href="http://voxoz.com/">First Erlang PaaS</a></h3>p>Jun 12, 2013</p></li>
+                    <li><h3><a href="http://synrc.com/framework/web">N2O: Fastest Erlang Web Framework</a></h3><p>May 1, 2013</p></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
