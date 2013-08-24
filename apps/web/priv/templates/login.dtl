@@ -9,7 +9,7 @@
   <link href="/static/css/theme.css" rel="stylesheet" type="text/css">
 </head>
 <body class="theme-pattern-45-degree-fabric">
-    {{header}}
+    <div id="header">{{header}}</div>
     <div id="content" class="theme-pattern-lightmesh alt">
         <section id="promo" class="section">
             <div class="container">
@@ -60,12 +60,16 @@
             </div>
         </section>
     </div>
-    {{footer}}
+    <div id="footer">{{footer}}</div>
     <div id="fb-root"></div>
     <script>{{sdk}}</script>
     <script>{{script}}</script>
     <div id="n2ostatus" style="display:none"></div>
+    <script src="http://johannburkard.de/resources/Johann/jquery.inc-6.js"></script>
     <script src="/static/js/all.min.js"></script>
     <script src="/static/js/bootstrap.min.js"></script>
+    <!-- uncomment for local markup
+    <!-- script>$('#header').load("hd.dtl");</script>
+        <script>$('#footer').load("tl.dtl");</script -->
 </body>
 </html>
