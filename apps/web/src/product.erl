@@ -274,5 +274,4 @@ product(Id, Pic)->
       cover = "/static/img/crysis3-bg" ++ integer_to_list(Pic)++".png",
       publish_start_date = calendar:local_time(),
       publish_end_date =  calendar:local_time(),
-      price=22.95,
-      creation_date= calendar:local_time()}.
+      price=22.95}.
