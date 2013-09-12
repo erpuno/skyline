@@ -7,6 +7,7 @@ appss=( "rels/web/node/lib/web-1"
         "rels/web/node/lib/avz-1"
         "rels/web/node/lib/kai-1"
         "rels/web/node/lib/erlfsmon-22fa485"
+        "rels/web/node/lib/active-003697b"
         "rels/web/node/lib/eper-0.69"
         "rels/web/node/lib/mqs-0.0.1"
         "rels/web/node/lib/oauth-1.3.0")
