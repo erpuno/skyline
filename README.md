@@ -17,7 +17,7 @@ CSS
 JavaScript
 ----------
 
-* Node 0.8 minimal
+* Node <=0.8
 * Uglify.js tool
 * Less.js tool
 * BERT.js
@@ -29,12 +29,11 @@ JavaScript Prerequisites
     $ sudo apt-get install python-software-properties
     $ sudo add-apt-repository ppa:chris-lea/node.js
     $ sudo apt-get update
-    $ sudo apt-get install nodejs
-    $ sudo apt-get install npm
+    $ sudo apt-get install nodejs=0.10.18-1chl1~precise1 npm
     $ sudo npm install uglify-js -g
 
-LXC
----
+Unix
+----
 
     $ rebar get-deps
     $ rebar compile
@@ -77,7 +76,7 @@ Init DB (Mnesia)
 And open in browser
 -------------------
 
-* LXC: [http://localhost:8000](http://localhost:8000)
+* Unix: [http://localhost:8000](http://localhost:8000)
 * Xen: [http://172.16.42.108:8000](http://172.16.42.108:8000)
 
 Credits
