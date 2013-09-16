@@ -6,8 +6,9 @@ appss=( "rels/web/node/lib/web-1"
         "rels/web/node/lib/kvs-1"
         "rels/web/node/lib/avz-1"
         "rels/web/node/lib/kai-1"
-        "rels/web/node/lib/erlfsmon-22fa485"
-        "rels/web/node/lib/active-003697b"
+        "rels/web/node/lib/erlfsmon-*"
+        "rels/web/node/lib/rebar-*"
+        "rels/web/node/lib/active-*"
         "rels/web/node/lib/eper-0.69"
         "rels/web/node/lib/mqs-0.0.1"
         "rels/web/node/lib/oauth-1.3.0")
@@ -52,3 +53,8 @@ for key in ${!apps[@]}; do
          ln -s  "$wd/${apps[$key]}/priv" "$wd/$key/priv"
     fi
 done
+
+echo "release sync: linking sys.config and vm.args"
+(cd rels/web/node/releases/1;
+       ln -sf ../../../files/sys.config;
+       ln -sf ../../../files/vm.args)
