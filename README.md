@@ -69,7 +69,7 @@ Xen
 Init DB (Mnesia)
 ----------------
 
-    > store_mnesia:single().
+    > kvs:join().
     > kvs:init_db().
     > kvs:dir().
     > kva:all(user).
