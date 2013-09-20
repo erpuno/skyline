@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 N2O=deps/n2o/priv/static
 FILES=apps/web/priv/static/n2o
