@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 wd=`pwd`
 appss=( "rels/web/node/lib/web-1"

@@ -1,9 +1,13 @@
-#!/bin/bash
+#!/bin/sh
 
 NODE=${1:-"web"}
 ERLANG=/usr/lib/erlang
 
-function release_node {
+if [ "$OSTYPE" == "FreeBSD" ] ; then
+    ERLANG=/usr/local/lib/erlang
+fi
+
+release_node() {
     rm -rf rels/$1/node/lib
     rm -rf rels/$1/node/log
     rm -rf rels/$1/node/releases
