@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 APPSTORE=apps/web/priv/static/appstore
 CSS=apps/web/priv/static/css

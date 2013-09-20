@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 NODE=${1:-"web"}
 ERLANG=/usr/lib/erlang

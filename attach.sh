@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 NODE=${1:-"web"}
 BIN="rels/$NODE/node/bin/node"

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 uglifyjs=`which uglifyjs`
 uglifijs_args='-nc'
