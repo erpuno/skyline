@@ -18,3 +18,5 @@ ln -s ../../../../deps/n2o/priv/static/n2o $FILES
 ln -s ../../../../deps/n2o/priv/static/bootstrap $BOOTSTRAP
 ln -s ../../../../deps/n2o/priv/static/font-awesome $FONTAWESOME
 ln -s ../../../../deps/n2o/priv/static/less $LESSJS
+
+echo $?

@@ -5,3 +5,4 @@ BIN="rels/$NODE/node/bin/node"
 
 $BIN attach
 
+echo $?

@@ -54,7 +54,9 @@ for key in ${!apps[@]}; do
     fi
 done
 
-echo "release sync: linking sys.config and vm.args"
-(cd rels/web/node/releases/1;
-       ln -sf ../../../files/sys.config;
-       ln -sf ../../../files/vm.args)
+#echo "release sync: linking sys.config and vm.args"
+#(cd rels/web/node/releases/1;
+#       ln -sf ../../../files/sys.config;
+#       ln -sf ../../../files/vm.args)
+
+echo $?
