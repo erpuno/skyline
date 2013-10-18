@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 git pull
-rebar clear-deps
+rebar delete-deps
 rebar get-deps
 
 echo $?
