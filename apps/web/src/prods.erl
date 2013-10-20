@@ -47,6 +47,7 @@ products_table() -> [
   #table{id=products, class=[table, "table-hover"], body=[[#product_row{product=P} || P <- kvs:all(product)]] }  ].
 
 event(init) -> [];
+event({counter,C}) -> wf:update(onlinenumber,wf:to_list(C));
 event(save) ->
   wf:session(xyu, [xyu, xyu]),
   error_logger:info_msg("Save product ~p ~p ~p", [wf:q(title), wf:q(brief), wf:q(category)]),

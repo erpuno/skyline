@@ -120,6 +120,7 @@ list_medias(C)->
 image_media(_Media)-> element_image:render_element(#image{image= "/static/img/item-bg.png"}).
 
 event(init) -> [];
+event({counter,C}) -> wf:update(onlinenumber,wf:to_list(C));
 event(Event) -> error_logger:info_msg("Page event: ~p", [Event]), [].
 
 api_event(Name,Tag,Term) -> error_logger:info_msg("Name ~p, Tag ~p, Term ~p",[Name,Tag,Term]), event(change_me).

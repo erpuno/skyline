@@ -7,10 +7,10 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </a>
-                <h1 class="brand"><a href="/login" name="top">Synrc App Store 2</a></h1>
+                <h1 class="brand"><a href="/login" name="top" >Synrc App Store </a></h1>
                 <div class="nav-collapse collapse">
                 <ul class="nav pull-right">
-                    <li><a href="/chat"><i class="icon-comment"></i><span class="badge badge-info">10</span></a></li>
+                    <li><a href="/chat"><i class="icon-comment"></i><span id="onlinenumber" class="badge badge-info">{{online}}</span></a></li>
                     <li><a href="/chat?mode=mail"><i class="icon-envelope"></i><span class="badge badge-info">21</span></a></li>
                     <li><a href="javascript:void(0);"><i class="icon-search"></i></a></li>
                     <li><a href="/login">Home</a></li>

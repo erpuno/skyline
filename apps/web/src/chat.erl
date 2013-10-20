@@ -70,6 +70,7 @@ event(init) ->
     wf:insert_top(<<"history">>, Terms),
     wf:wire("$('#history').scrollTop = $('#history').scrollHeight;");
 event(chat) -> wf:redirect("chat");
+event({counter,C}) -> wf:update(onlinenumber,wf:to_list(C));
 event(hello) -> wf:redirect("login");
 event(<<"PING">>) -> ok;
 

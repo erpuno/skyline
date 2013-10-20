@@ -12,5 +12,6 @@ main() ->
                                               {sdk,avz:sdk(?METHODS)},
                                               {buttons,avz:buttons(?METHODS)}]} ].
 
+event({counter,C}) -> wf:update(onlinenumber,wf:to_list(C));
 event(X) -> avz:event(X).
 api_event(X,Y,Z) -> avz:api_event(X,Y,Z).

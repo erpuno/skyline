@@ -65,4 +65,6 @@ payments(User) -> [
       #td{body= <<"">>} ]} ]]} ].
 
 api_event(Name,Tag,Term) -> error_logger:info_msg("dashboard Name ~p, Tag ~p, Term ~p",[Name,Tag,Term]).
-event(init) -> [].
+event(init) -> [];
+event({counter,C}) -> wf:update(onlinenumber,wf:to_list(C));
+event(U) -> wf:info("Unknown Event: ~p",[U]).

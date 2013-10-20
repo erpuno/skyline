@@ -46,5 +46,6 @@ feed(User) -> [
         #td{body=#link{class=[btn], body= <<"Start">>}} ]} ]]}
   ].
 
-event(init) -> [].
+event(init) -> [];
+event({counter,C}) -> wf:update(onlinenumber,wf:to_list(C)).
 api_event(Name,Tag,Term) -> error_logger:info_msg("Name ~p, Tag ~p, Term ~p",[Name,Tag,Term]), ok.

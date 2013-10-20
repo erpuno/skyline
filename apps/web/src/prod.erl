@@ -203,6 +203,7 @@ description(Id, Description) -> [
     {<<"data-parent">>, list_to_binary("#description"++Id)}], body= <<"Read...">>}].
 
 event(init) -> [];
+event({counter,C}) -> wf:update(onlinenumber,wf:to_list(C));
 event({post_entry, Fid, Id}) ->
   Entry = wf:q(descr),
   Title = wf:q(title),

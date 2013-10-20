@@ -51,6 +51,7 @@ pagination(Page)->
    #li{class=[if PageCount==Page -> "disabled";true->[] end,"next"], body=#link{class=["fui-arrow-right"], body= <<"&rsaquo;">>, postback={page, PageCount},url="javascript:void(0);" }} ].
 
 event(init) -> [];
+event({counter,C}) -> wf:update(onlinenumber,wf:to_list(C));
 event({page, Page})->
   wf:update(pagination, pagination(Page)),
   wf:update(products, list_products(Page));

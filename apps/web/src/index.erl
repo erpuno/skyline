@@ -34,8 +34,9 @@ account() ->
                  _A -> #li{body=#link{id=logoutbtn, postback=logout, delegate=login, 
                                       body=[#i{class=["icon-off"]}, <<" Logout">> ] }} end ]} ]}.
 
-header() -> [ #dtl{file = "hd", ext="dtl", bindings=[{account,account()}]} ].
+header() -> [{_,C}]= ets:lookup(globals,onlineusers), [ #dtl{file = "hd", ext="dtl", bindings=[{account,account()},{online,C}]} ].
 footer() -> [ #dtl{file = "tl", ext="dtl", bindings=[]} ].
 
 api_event(Name,Tag,Term) -> error_logger:info_msg("Index Name ~p, Tag ~p, Term ~p",[Name,Tag,Term]), event(change_me).
+event({counter,C}) -> wf:update(onlinenumber,wf:to_list(C));
 event(Event) -> error_logger:info_msg("Event: ~p", [Event]).

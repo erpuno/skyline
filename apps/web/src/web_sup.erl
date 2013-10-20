@@ -23,7 +23,7 @@ init([]) ->
 
     users:init(),
 
-    Pid = spawn(fun () -> wf:reg(lobby), chat_room([]) end),
+    Pid = spawn(fun () -> wf:reg(lobby), chat_room([],0) end),
 
     {ok, {{one_for_one, 5, 10}, []}}.
 
@@ -39,12 +39,14 @@ dispatch_rules() ->
             {'_', n2o_cowboy, []}
     ]}]).
 
-chat_room(List) ->
+chat_room(List,Counter) ->
     receive
-         {add, Message} -> chat_room([Message|List]);
-         print -> io:format("~p",[List]), chat_room(List);
-         {top, Number, Caller} -> Caller ! lists:sublist(List,Number), chat_room(List);
-         {win, Page, Caller} -> Caller ! lists:sublist(List,Page*10,10), chat_room(List);
-         _ -> chat_room(List)
-    end.
+        {counter,Caller} -> Caller ! {counter,Counter}, chat_room(List,Counter);
+        {inc} -> chat_room(List,Counter+1);
+        {dec} -> chat_room(List,Counter-1);
+        {add, Message} -> chat_room([Message|List],Counter);
+        print -> io:format("~p",[List]), chat_room(List,Counter);
+        {top, Number, Caller} -> Caller ! lists:sublist(List,Number), chat_room(List,Counter);
+        {win, Page, Caller} -> Caller ! lists:sublist(List,Page*10,10), chat_room(List,Counter);
+        _ -> chat_room(List,Counter) end.
 
