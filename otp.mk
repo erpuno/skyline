@@ -8,18 +8,18 @@ PLT_NAME := .dialyzer.plt
 
 test: eunit ct
 compile: get-deps static-link
-get-deps compile clean update-deps:
+delete-deps get-deps compile clean update-deps:
 	rebar $@
 .applist:
 	./envgen.erl $(APPS) > $@
 $(RUN_DIR) $(LOG_DIR):
 	mkdir -p $(RUN_DIR)
 	mkdir -p $(LOG_DIR)
-console:  .applist
+console: .applist
 	ERL_LIBS=$(ERL_LIBS) erl $(ERL_ARGS) -eval \
 		'[ok = application:ensure_started(A, permanent) || A <- $(shell cat .applist)]'
-start: $(RUN_DIR) $(LOG_DIR)
-	run_erl -daemon $(RUN_DIR)/ $(LOG_DIR)/ "exec $(MAKE) console"
+start: $(RUN_DIR) $(LOG_DIR) .applist
+	ERL_LIBS=$(ERL_LIBS) run_erl -daemon $(RUN_DIR)/ $(LOG_DIR)/ "exec $(MAKE) console"
 attach:
 	to_erl $(RUN_DIR)/
 release:
@@ -37,4 +37,4 @@ eunit:
 ct:
 	rebar ct skip_deps=true verbose=1
 
-.PHONY: get-deps compile clean console start attach release update-deps dialyze
+.PHONY: delete-deps get-deps compile clean console start attach release update-deps dialyze ct eunit tar
