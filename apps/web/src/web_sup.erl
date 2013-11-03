@@ -23,6 +23,8 @@ init([]) ->
 
     users:init(),
 
+    wf:info("dtl: ~p",[record_info(fields, dtl)]),
+
     Pid = spawn(fun () -> wf:reg(lobby), chat_room([],0) end),
 
     {ok, {{one_for_one, 5, 10}, []}}.
