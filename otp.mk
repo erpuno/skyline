@@ -1,8 +1,9 @@
 empty :=
 space := $(empty) $(empty)
 REBAR ?= $(or $(shell which rebar 2>/dev/null),./rebar)
-SRC_APP_DIR_ROOTS ?= apps deps
-ERL_LIBS := $(subst $(space),:,$(SRC_APP_DIR_ROOTS))
+ROOTS ?= apps deps
+ERL_LIBS := $(subst $(space),:,$(ROOTS))
+PLT_NAME=.dialyzer.plt
 
 compile: get-deps static-link
 get-deps compile clean update-deps:
@@ -12,7 +13,6 @@ get-deps compile clean update-deps:
 $(RUN_DIR) $(LOG_DIR):
 	mkdir -p $(RUN_DIR)
 	mkdir -p $(LOG_DIR)
-	mkdir -p kai
 console:  .applist
 	ERL_LIBS=$(ERL_LIBS) erl $(ERL_ARGS) -eval '[ok = application:ensure_started(A, permanent) || A <- $(shell cat .applist)]'
 start: $(RUN_DIR) $(LOG_DIR)
@@ -23,5 +23,9 @@ release:
 	relx
 stop:
 	kill -9 `ps ax -o pid= -o command=|grep $(RELEASE)|grep $(COOKIE)|awk '{print $$1}'`
+$(PLT_NAME):
+	ERL_LIBS=$(ERL_LIBS) dialyzer --build_plt --output_plt $(PLT_NAME) --apps $(APPS) 
+dialyze: $(PLT_NAME)
+	dialyzer apps/*/ebin deps/*/ebin --plt $(PLT_NAME) --no_native -Werror_handling -Wunderspecs -Wrace_conditions
 
-.PHONY: get-deps compile clean console start attach release update-deps
+.PHONY: get-deps compile clean console start attach release update-deps dialyze

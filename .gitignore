@@ -1,5 +1,8 @@
 node
 ebin
+.applist
+.rebarinfo
+.dialyzer.plt
 *.dets
 *.gz
 *.dump
