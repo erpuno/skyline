@@ -36,16 +36,9 @@ JavaScript Prerequisites
 LXC
 ---
 
-    $ rebar get-deps
-    $ rebar compile
-    $ ./nitrogen_static.sh
-    $ ./release.sh
-    $ ./release_sync.sh
-    $ ./styles.sh
-    $ ./javascript.sh
-    $ ./start.sh
-
-    $ ./attach.sh
+    $ make
+    $ make start
+    $ make attach
     > application:which_applications().
     
 Xen
@@ -56,13 +49,11 @@ Xen
     $ sudo brctl addbr docker0
     $ sudo ip addr add 172.16.42.1/24 dev docker0
 
-    $ rebar get-deps
-    $ rebar compile
-    $ ./nitrogen_static.sh
+    $ make
     $ rebar ling-build-image
 
     $ truncate -s 100m disk
-    $ sudo xl create -c domain_config
+    $ sudo xl create -c xen.config
     > application:start(web).
 
 
