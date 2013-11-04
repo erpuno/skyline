@@ -11,7 +11,7 @@ compile: get-deps static-link
 delete-deps get-deps compile clean update-deps:
 	rebar $@
 .applist:
-	./envgen.erl $(APPS) > $@
+	./depman.erl $(APPS) > $@
 $(RUN_DIR) $(LOG_DIR):
 	mkdir -p $(RUN_DIR)
 	mkdir -p $(LOG_DIR)
