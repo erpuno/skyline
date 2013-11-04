@@ -8,7 +8,7 @@ ERL_LIBS := $(subst $(space),:,$(ROOTS))
 PLT_NAME := .dialyzer.plt
 relx  := "{release,{$(RELEASE),$(VER)},[$(subst $(space),$(comma),$(APPS))]}.\\n{include_erts,true}.\
 \\n{extended_start_script,true}.\\n{generate_start_script,true}.\\n{sys_config,$(SYS)}.\
-\\n{overlay,[{mkdir,\"log/sasl\"},{copy,$(VM),\"releases/\{\{rel_vsn\}\}/vm.args\"}]}."
+\\n{vm_args,$(VM)}.\\n{overlay,[{mkdir,\"log/sasl\"}]}."
 
 test: eunit ct
 compile: get-deps static-link
