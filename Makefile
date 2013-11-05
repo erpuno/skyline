@@ -1,9 +1,9 @@
 RELEASE := skyline
 COOKIE  := node_runner
 APPS    := web amqp_client avz cowboy erlydtl gproc kai kvs lager mimetypes mqs n2o oauth rabbit_common ranch sync
-VER     := \"1.0.0\"
-VM      := \"rels/web/files/vm.args\"
-SYS     := \"rels/web/files/sys.config\"
+VER     := 1.0.0
+VM      := rels/web/files/vm.args
+SYS     := rels/web/files/sys.config
 ERL_ARGS     := -args_file $(VM) -config $(SYS)
 RUN_DIR      ?= ./rels/web/devbox
 LOG_DIR      ?= ./rels/web/devbox/logs
@@ -15,7 +15,6 @@ MCE          := apps/web/priv/static/tinymce
 LESSJS       := apps/web/priv/static/less
 
 default: compile static-link
-
 static-link:
 	rm -rf $(N2O)
 	rm -rf $(FILES)
