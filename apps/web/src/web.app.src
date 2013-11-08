@@ -3,7 +3,7 @@
   {description, "Synrc Web Site"},
   {vsn, "1"},
   {registered, []},
-  {applications, [kernel, stdlib]},
+  {applications, [kernel, stdlib,n2o]},
   {mod, { web_app, []}},
   {env, []}
  ]}.

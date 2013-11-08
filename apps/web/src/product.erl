@@ -9,7 +9,7 @@
 -define(PAGE_SIZE, 4).
 
 main() -> 
-   #dtl{file="prod",  ext="dtl",bindings=[{title,<<"product">>},{body, body()}]}.
+   #dtl{file=wf:cache(mode),  ext="dtl",bindings=[{title,<<"product">>},{body, body()}]}.
 
 body() ->
 %  Qid = wf:qs(<<"id">>),
@@ -101,7 +101,7 @@ blog_post()-> % feed entry
     #footer{class=["blog-footer", "row-fluid"], body=[
           #panel{class=[span4, "blog-categories"], body=[#i{class=["icon-pushpin"]}, #link{body= <<" consectetur">>}]},
           #panel{class=[span4, "blog-tags"], body=[#i{class=["icon-tags"]}, #link{body= <<" fugiat, nulla, pariatur">>}]},
-          #panel{class=[span4, "blog-more"], body=[#i{class=["icon-link"]}, #link{body= <<" read more">>}]}
+          #panel{class=[span4, "blog-more"], body=[#i{class=["icon-link"]}, #link{body= <<" read more">>, url="/feed"}]}
     ]}
   ]}.
 

@@ -8,7 +8,7 @@ main() ->
          undefined -> wf:redirect("login");
          _ -> Title = "Title",
               Body = "Body",
-              [ #dtl{file = "prod", ext="dtl", bindings=[{title,Title},{body,Body}]} ] end.
+              [ #dtl{file = wf:cache(mode), ext="dtl", bindings=[{title,Title},{body,Body}]} ] end.
 
 body() -> [].
 

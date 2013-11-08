@@ -22,6 +22,8 @@ init([]) ->
 
     Pid = spawn(fun () -> wf:reg(lobby), chat_room([],0) end),
 
+    wf:cache(mode,wf:config(n2o,mode,"prod")),
+
     {ok, {{one_for_one, 5, 10}, []}}.
 
 dispatch_rules() ->

@@ -4,7 +4,7 @@
 -include_lib("kvs/include/users.hrl").
 
 main() -> 
-  [ #dtl{file = "prod", ext="dtl", bindings=[{title,<<"Login">>},{body,body()}]} ].
+  [ #dtl{file = wf:cache(mode), ext="dtl", bindings=[{title,<<"Login">>},{body,body()}]} ].
 
 items() ->
     Link1 = {[{name, "Amazon"}, {url, "http://amazon.com"}]},

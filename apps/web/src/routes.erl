@@ -17,6 +17,7 @@ route_prefix(P) -> route(P).
 route(<<>>)              -> login;
 route(<<"index">>)       -> login;
 route(<<"login">>)       -> login;
+route(<<"feed">>)        -> feed;
 route(<<"account">>)     -> account;
 route(<<"tbl">>)         -> textboxlist;
 route(<<"products">>)    -> products;

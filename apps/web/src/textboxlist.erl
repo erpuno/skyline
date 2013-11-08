@@ -5,7 +5,7 @@
 title() -> [<<"TBL">>].
 
 main() ->
-  [#dtl{file="prod",  ext="dtl",bindings=[{title, title()},{body, body()}]}].
+  [#dtl{file= wf:cache(mode),  ext="dtl",bindings=[{title, title()},{body, body()}]}].
 
 body() -> [
     #p{style="width:500px", body=[

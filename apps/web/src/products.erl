@@ -10,7 +10,7 @@
 main()->
   wf:session(products, [product:product(I, 2) || I <- lists:seq(1,20)] ),
   wf:session(page_size, list),
-  #dtl{file="prod",  ext="dtl",bindings=[{title,<<"products">>},{body, body()}]}.
+  #dtl{file=wf:cache(mode),  ext="dtl",bindings=[{title,<<"products">>},{body, body()}]}.
 
 body()->
 %  wf:wire("$('#listsw').on('click', function(){ $('#products').removeClass('items-grid').addClass('items-list').children('li').addClass('span3').removeClass('span4'); });"),
