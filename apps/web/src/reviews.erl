@@ -6,7 +6,7 @@
 -include_lib("kvs/include/membership.hrl").
 
 main() -> %case wf:user() of undefined -> wf:redirect("/login"); _ -> 
-  [#dtl{file = "dev", ext="dtl", bindings=[{title,<<"Reviews">>},{body,body()}]}].
+  [#dtl{file = "prod", ext="dtl", bindings=[{title,<<"Reviews">>},{body,body()}]}].
 % end.
 
 body() -> index:header() ++ [

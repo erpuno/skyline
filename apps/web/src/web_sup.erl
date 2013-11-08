@@ -3,7 +3,6 @@
 -export([start_link/0, init/1]).
 -compile(export_all).
 -include_lib ("n2o/include/wf.hrl").
--include("users.hrl").
 -define(APP, web).
 
 %% ===================================================================
@@ -20,10 +19,6 @@ start_link() ->
 init([]) ->
     {ok, _} = cowboy:start_http(http, 100, [{port, 8000}],
                                            [{env, [{dispatch, dispatch_rules()}]}]),
-
-    users:init(),
-
-    wf:info("dtl: ~p",[record_info(fields, dtl)]),
 
     Pid = spawn(fun () -> wf:reg(lobby), chat_room([],0) end),
 

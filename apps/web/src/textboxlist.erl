@@ -1,17 +1,17 @@
--module(tblist).
+-module(textboxlist).
 -compile(export_all).
 -include_lib("n2o/include/wf.hrl").
 
 title() -> [<<"TBL">>].
 
 main() ->
-  [#dtl{file="dev",  ext="dtl",bindings=[{title, title()},{body, body()}]}].
+  [#dtl{file="prod",  ext="dtl",bindings=[{title, title()},{body, body()}]}].
 
 body() -> [
     #p{style="width:500px", body=[
-%        #label{body="Enter tags" },
-%        #textboxlist{id=first, autocomplete=false},
-%        #button{id=submit, class=[btn], body= <<"Submit">>, postback={submit, first}, source=[first]}
+        #label{body="Enter tags" },
+        #textboxlist{id=first, autocomplete=false},
+        #button{id=submit, class=[btn], body= <<"Submit">>, postback={submit, first}, source=[first]}
     ]},
     #p{body=[
       #label{body="What's your favorite programming language?"},

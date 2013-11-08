@@ -16,5 +16,5 @@ get(Resource,[])    -> kvs:all(Resource);
 get(Resource,Id)    -> kvs:get(Resource,Id).
 delete(Resource,Id) -> kvs:remove(Resource,Id).
 put(Resource,User)  -> kvs:put(User).
-exists(Resource,Id) -> kvs:get(Resource,Id) =:= {ok,_}.
+exists(Resource,Id) -> case kvs:get(Resource,Id) of {ok,_} -> true; _ -> false end.
 post(Resource,Data) -> kvs:add((wf:to_atom("kvs_"++wf:to_list(Resource))):unmap(Data,constructor(Resource))).

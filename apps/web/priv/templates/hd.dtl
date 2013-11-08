@@ -13,9 +13,9 @@
                     <li><a href="/chat"><i class="icon-comment"></i><span id="onlinenumber" class="badge badge-info">{{online}}</span></a></li>
                     <li><a href="/chat?mode=mail"><i class="icon-envelope"></i><span class="badge badge-info">21</span></a></li>
                     <li><a href="javascript:void(0);"><i class="icon-search"></i></a></li>
-                    <li><a href="/login">Home</a></li>
+                    <li><a href="/">Home</a></li>
                     <li><a href="/products">Games</a></li>
-                    <li><a href="javascript:void(0);">Review</a></li>
+                    <li><a href="/reviews">Review</a></li>
                     {{account}}
                 </ul>
                 </div>
