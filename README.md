@@ -8,20 +8,13 @@ Feel free to use it in your projects.
 
 ![Login](http://synrc.com/lj/N2O+Bootstrap.png)
 
-CSS
----
+Optoinal Prerequisites
+======================
 
-* Twitter Bootstrap (LESS)
-* Skyline (LESS)
-
-JavaScript
-----------
-
-* Node 0.8 minimal
-* Uglify.js tool
-* Less.js tool
-* BERT.js
-* Bullet.js
+For developing rich applications usually you need to plug
+JavaScript controls and write custom CSS using LESS.
+For that purposes Skyline introduces you an modern asset arhitecture
+based on node tools.
 
 JavaScript Prerequisites
 -----------------------
@@ -33,8 +26,16 @@ JavaScript Prerequisites
     $ sudo apt-get install npm
     $ sudo npm install uglify-js -g
 
-LXC
----
+If you want just try Skyline you don't need to install node tools.
+You need it only when you developing you own CSS/JavaScript derivatives.
+
+Install Scenarios
+=================
+
+UNIX/LXC
+--------
+
+Use this scenation on your server/desktop/notebook.
 
     $ make
     $ make start
@@ -43,6 +44,8 @@ LXC
     
 Xen
 ---
+
+Use this scenario to try Xen deployment.
 
     $ sudo apt-get install xen-hypervisor-amd64
     $ echo XENTOOLSTACK=xl > /etc/default/xen
