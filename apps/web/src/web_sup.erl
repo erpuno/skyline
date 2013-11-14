@@ -31,9 +31,6 @@ dispatch_rules() ->
         [{'_', [
             {"/static/[...]", cowboy_static, [{directory, {priv_dir, ?APP, [<<"static">>]}},
                                                 {mimetypes, {fun mimetypes:path_to_mimes/2, default}}]},
-            {"/rest/:bucket", n2o_rest, []},
-            {"/rest/:bucket/:key", n2o_rest, []},
-            {"/rest/:bucket/:key/[...]", n2o_rest, []},
             {"/ws/[...]", bullet_handler, [{handler, n2o_bullet}]},
             {'_', n2o_cowboy, []}
     ]}]).
