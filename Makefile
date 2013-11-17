@@ -26,8 +26,8 @@ static-link:
 	mkdir -p $(shell dirname $(FILES))
 	ln -sf ../../../../deps/n2o/priv/static/tinymce $(MCE)
 	ln -sf ../../../../deps/n2o/priv/static/n2o $(FILES)
-	ln -sf ../../../../deps/n2o/priv/static/bootstrap $(BOOTSTRAP)
-	ln -sf ../../../../deps/n2o/priv/static/font-awesome $(FONTAWESOME)
+	ln -sf ../../../../deps/twitter_btstrp $(BOOTSTRAP)
+	ln -sf ../../../../deps/font_awesome $(FONTAWESOME)
 	ln -sf ../../../../deps/n2o/priv/static/less $(LESSJS)
 
 include otp.mk
