@@ -30,6 +30,6 @@ create_script() {
 check_uglifyjs
 
 create_script deps/n2o/priv/static/bootstrap/js apps/web/priv/static/js/bootstrap.min.js "/"
-create_script deps/n2o/priv/static/n2o apps/web/priv/static/js/all.min.js "/|all.js|zepto.js"
+create_script deps/n2o/priv/static/n2o apps/web/priv/static/js/all.min.js "/|all.js|zepto.js|minified.js"
 
 echo $?
