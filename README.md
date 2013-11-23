@@ -8,6 +8,13 @@ Feel free to use it in your projects.
 
 ![Login](http://synrc.com/lj/N2O+Bootstrap.png)
 
+Prerequisites
+=============
+
+* Erlang R16: sudo apt-get install erlang
+* Rebar: https://github.com/rebar/rebar
+* iNotify Tools: sudo apt-get install inotify-tools
+
 Optoinal Prerequisites
 ======================
 
