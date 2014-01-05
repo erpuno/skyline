@@ -1,6 +1,6 @@
 RELEASE := skyline
 COOKIE  := node_runner
-APPS    := web amqp_client avz cowboy erlydtl gproc kai kvs lager mimetypes mqs n2o oauth rabbit_common ranch sync eper
+APPS    := web amqp_client avz cowboy erlydtl gproc kai kvs lager mimetypes mqs n2o oauth rabbit_common ranch sync
 VER     := 1.0.0
 VM      := rels/web/files/vm.args
 SYS     := rels/web/files/sys.config
