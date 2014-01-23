@@ -15,7 +15,7 @@ Prerequisites
 * Rebar: https://github.com/rebar/rebar
 * iNotify Tools: sudo apt-get install inotify-tools
 
-Optoinal Prerequisites
+Optional Prerequisites
 ======================
 
 For developing rich applications usually you need to plug
