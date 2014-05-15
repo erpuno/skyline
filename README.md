@@ -1,10 +1,9 @@
-Skyline: N2O Promo Example
-==========================
+Skyline: N2O Sample Website
+===========================
 
-This is App Store demo website.
-It is made with Nitrogen DSL and based on [N2O](https://github.com/5HT/n2o).
+Skyline was made with Nitrogen DSL and based on [N2O](https://github.com/5HT/n2o).
 It is a demo how to use N2O in real-life applications.
-Feel free to use it in your projects.
+Feel free to use it in your projects. It is provided as is in public domain.
 
 ![Login](http://synrc.com/lj/N2O+Bootstrap.png)
 

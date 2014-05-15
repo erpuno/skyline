@@ -12,7 +12,6 @@
   {{body}}
   <script>{{script}}</script>
   <div id="n2ostatus" style="display:block"></div>
-  <script src="/static/n2o/jquery.js"></script>
   <script src="/static/n2o/bert.js"></script>
   <script src="/static/n2o/bullet.js"></script>
   <script src="/static/n2o/n2o.js"></script>
@@ -31,6 +30,5 @@
   <script src="/static/bootstrap/js/bootstrap-select.js"></script>
   <script src="/static/bootstrap/js/bootstrap-upload.js"></script>
   <script src="/static/bootstrap/js/jquery-scrolltofixed.js"></script>
-  <script src="/static/tinymce/jquery.tinymce.min.js"></script>
 </body>
 </html>

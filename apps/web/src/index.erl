@@ -3,21 +3,20 @@
 -include_lib("n2o/include/wf.hrl").
 -include_lib("kvs/include/user.hrl").
 
-log_modules() -> [].
+log_modules() -> [index,login,chat].
 
-main() -> 
-    case wf:user() of
-         undefined -> wf:redirect("login");
-         _ -> Title = "Title",
-              Body = "Body",
-              [ #dtl{file = wf:cache(mode), ext="dtl", bindings=[{title,Title},{body,Body}]} ] end.
+main() ->  [ #dtl{file = wf:cache(mode), ext="dtl", bindings=[{title,<<"Index">>},{body,body()}]} ].
 
-body() -> [].
+body() ->
+    index:header()
+    ++ [#panel{style="font-size:38pt;height:200px;text-align: center;margin-top:200px;",
+                body="Hello, N2O!"}]
+    ++ index:footer().
 
 account() ->
     #li{body=[
         case wf:user() of
-             undefined -> #link{id=login1, body= <<"Log in">>, postback=to_login, delegate=login};
+             undefined -> #link{id=login1, body= <<"Login">>, postback=to_login, delegate=login};
              User -> #link{class=["dropdown-toggle", "avatar"], url="/account", body=[
                            case User#user.avatar of 
                                 undefined -> "";
@@ -41,4 +40,6 @@ footer() -> [ #dtl{file = "tl", ext="dtl", bindings=[]} ].
 
 api_event(Name,Tag,Term) -> error_logger:info_msg("Index Name ~p, Tag ~p, Term ~p",[Name,Tag,Term]), event(change_me).
 event({counter,C}) -> wf:update(onlinenumber,wf:to_list(C));
-event(Event) -> error_logger:info_msg("Event: ~p", [Event]).
+event(Event) -> 
+    wf:info(?MODULE,"Context: ~p",[wf_context:context()]),
+    error_logger:info_msg("Event: ~p", [Event]).

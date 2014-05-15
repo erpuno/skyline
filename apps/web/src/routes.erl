@@ -14,12 +14,11 @@ route_prefix(<<"/ws/",P/binary>>) -> route(P);
 route_prefix(<<"/",P/binary>>) -> route(P);
 route_prefix(P) -> route(P).
 
-route(<<>>)              -> login;
-route(<<"index">>)       -> login;
+route(<<>>)              -> index;
+route(<<"index">>)       -> index;
 route(<<"login">>)       -> login;
 route(<<"feed">>)        -> feed;
 route(<<"account">>)     -> account;
-route(<<"tbl">>)         -> textboxlist;
 route(<<"products">>)    -> products;
 route(<<"product">>)     -> product;
 route(<<"reviews">>)     -> reviews;

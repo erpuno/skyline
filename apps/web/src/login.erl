@@ -13,5 +13,6 @@ main() ->
                                               {buttons,avz:buttons(?METHODS)}]} ].
 
 event({counter,C}) -> wf:update(onlinenumber,wf:to_list(C));
-event(X) -> avz:event(X).
+event(X) -> 
+    avz:event(X).
 api_event(X,Y,Z) -> avz:api_event(X,Y,Z).

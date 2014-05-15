@@ -1,9 +1,9 @@
 {application, web,
  [
-  {description, "Synrc Web Site"},
+  {description, "SKY VXZ Skyline N2O Demo"},
   {vsn, "1"},
   {registered, []},
-  {applications, [kernel, stdlib,n2o]},
+  {applications, [kernel, stdlib, n2o]},
   {mod, { web_app, []}},
   {env, []}
  ]}.

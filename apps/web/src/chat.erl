@@ -34,11 +34,10 @@ body() ->
     ]},
     #panel{class=["row-fluid"], body=[
       #panel{class=[span3], body=[
-        #h4{body= <<"Your Chats:">>},
-        #list{class=[unstyled, "chat-rooms"], body=[
-          #li{body=#link{body= <<"doxtop">>}},
-          #li{body=#link{body= <<"maxim">>}},
-          #li{body=#link{body= <<"Lobby Conference">>}} ]} ]},
+        #h4{body= "Online Users:" },
+        #list{class=[unstyled, "chat-rooms"], body=[ 
+          #li{body=#link{body= io_lib:format("~p",[Z])}} || {X,Y,Z} <- qlc:e(gproc:table()), X=={p,l,broadcast} 
+           ]} ]},
       #panel{class=[span8], body=[
         #panel{id=history, class=[history], body=[
             case wf:user() of undefined -> message("System","You are not logged in. Anonymous mode!");
@@ -59,7 +58,13 @@ body() ->
   ] ++ index:footer().
 
 
-event({inc,Pid}) -> wf:info("Inc"), Pid ! inc;
+event({inc,Pid}) -> 
+    {Headers,Req} = wf:headers(?REQ),
+    Host = lists:keyfind(<<"host">>,1,Headers),
+    wf:info(?MODULE,"Headers: ~p",[Headers]),
+    wf:info(?MODULE,"Host: ~p",[Host]),
+    wf:info("Inc"),
+    Pid ! inc;
 
 event(init) ->
     Self = self(),
@@ -67,8 +72,6 @@ event(init) ->
     wf:reg(room2),
     wf:send(lobby,{top,5,Self}),
     Terms = wf:render(receive Top -> [ message(U,M) || {U,M} <- Top] end),
-%    error_logger:info_msg("Top 10: ~p",[Terms]),
-%    error_logger:info_msg("User: ~p",[wf:user()]),
     wf:insert_top(<<"history">>, #panel{body=[Terms]}),
     wf:wire("$('#history').scrollTop = $('#history').scrollHeight;");
 event(chat) -> wf:redirect("chat");
@@ -77,12 +80,9 @@ event(hello) -> wf:redirect("login");
 event(<<"PING">>) -> ok;
 
 event({chat,Pid}) ->
-%%    wf:wire(#jq{target=n2ostatus,method=[show,select],args=[]}),
-%    error_logger:info_msg("User: ~p",[wf:user()]),
     Username = case wf:user() of undefined -> "anonymous"; A -> A#user.id end,
     Message = wf:q(message),
     Terms = [ message("Systen","Message added"), #button{postback=hello} ],
-%    wf:update(history, [#span{body="hello"},#br{}]),
     wf:wire("$('#message').focus(); $('#message').select(); "),
     Pid ! {message, Username, Message}.
 
@@ -97,8 +97,6 @@ chat_loop() ->
             error_logger:info_msg("Comet received : ~p",[{Username,Message}]),
             Terms = message(Username,Message),
             wf:insert_top(<<"history">>, Terms),
-%            wf:wire(#jq{target=history,property=scrollTop,right=#jq{target=history,property=scrollHeight}}),
-%            wf:wire("$('#history').scrollTop = $('#history').scrollHeight;"),
             wf:send(lobby,{add,{Username,Message}}),
             wf:flush(room);
         Unknown -> error_logger:info_msg("Unknown Looper Message ~p in Pid: ~p",[Unknown,self()])
