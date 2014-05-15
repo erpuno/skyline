@@ -18,12 +18,11 @@ Prerequisites
 Init Database
 -------------
 
-    > kvs:join().
-    
-And open in browser
--------------------
+In Erlang Shell perform
 
-* LXC: [http://localhost:8000](http://localhost:8000)
+    > kvs:join().
+
+And open in browser [http://localhost:8000](http://localhost:8000)
 
 Credits
 -------

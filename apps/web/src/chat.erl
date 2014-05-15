@@ -68,7 +68,7 @@ event(init) ->
     wf:send(lobby,{top,5,Self}),
     Terms = wf:render(receive Top -> [ message(U,M) || {U,M} <- Top] end),
 %    error_logger:info_msg("Top 10: ~p",[Terms]),
-    error_logger:info_msg("User: ~p",[wf:user()]),
+%    error_logger:info_msg("User: ~p",[wf:user()]),
     wf:insert_top(<<"history">>, #panel{body=[Terms]}),
     wf:wire("$('#history').scrollTop = $('#history').scrollHeight;");
 event(chat) -> wf:redirect("chat");
@@ -78,7 +78,7 @@ event(<<"PING">>) -> ok;
 
 event({chat,Pid}) ->
 %%    wf:wire(#jq{target=n2ostatus,method=[show,select],args=[]}),
-    error_logger:info_msg("User: ~p",[wf:user()]),
+%    error_logger:info_msg("User: ~p",[wf:user()]),
     Username = case wf:user() of undefined -> "anonymous"; A -> A#user.id end,
     Message = wf:q(message),
     Terms = [ message("Systen","Message added"), #button{postback=hello} ],
