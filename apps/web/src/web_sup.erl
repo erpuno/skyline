@@ -29,8 +29,8 @@ init([]) ->
 dispatch_rules() ->
     cowboy_router:compile(
         [{'_', [
-            {"/static/[...]", cowboy_static, [{directory, {priv_dir, ?APP, [<<"static">>]}},
-                                                {mimetypes, {fun mimetypes:path_to_mimes/2, default}}]},
+            {"/static/[...]", cowboy_static,
+                {priv_dir, ?APP, <<"static">>,[{mimetypes,cow_mimetypes,all}]}},
             {"/ws/[...]", bullet_handler, [{handler, n2o_bullet}]},
             {'_', n2o_cowboy, []}
     ]}]).

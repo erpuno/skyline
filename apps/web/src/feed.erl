@@ -1,8 +1,9 @@
 -module(feed).
 -compile(export_all).
 -include_lib("n2o/include/wf.hrl").
--include_lib("kvs/include/products.hrl").
--include_lib("kvs/include/feeds.hrl").
+-include_lib("kvs/include/product.hrl").
+-include_lib("kvs/include/comment.hrl").
+-include_lib("kvs/include/feed.hrl").
 -include("records.hrl").
 
 -define(PAGE_SIZE, 4).

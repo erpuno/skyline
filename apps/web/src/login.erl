@@ -2,7 +2,7 @@
 -compile(export_all).
 -include_lib("avz/include/avz.hrl").
 -include_lib("n2o/include/wf.hrl").
--include_lib("kvs/include/users.hrl").
+-include_lib("kvs/include/user.hrl").
 
 main() ->
   avz:callbacks(?METHODS),

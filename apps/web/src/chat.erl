@@ -1,7 +1,7 @@
 -module(chat).
 -compile(export_all).
 -include_lib("n2o/include/wf.hrl").
--include_lib("kvs/include/users.hrl").
+-include_lib("kvs/include/user.hrl").
 
 main() -> 
   [ #dtl{file = wf:cache(mode), ext="dtl", bindings=[{title,<<"Login">>},{body,body()}]} ].
@@ -67,7 +67,7 @@ event(init) ->
     wf:send(lobby,{top,5,Self}),
     Terms = wf:render(receive Top -> [ message(U,M) || {U,M} <- Top] end),
     error_logger:info_msg("Top 10: ~p",[Terms]),
-    wf:insert_top(<<"history">>, Terms),
+    wf:insert_top(<<"history">>, #panel{body=[Terms]}),
     wf:wire("$('#history').scrollTop = $('#history').scrollHeight;");
 event(chat) -> wf:redirect("chat");
 event({counter,C}) -> wf:update(onlinenumber,wf:to_list(C));
@@ -75,7 +75,7 @@ event(hello) -> wf:redirect("login");
 event(<<"PING">>) -> ok;
 
 event({chat,Pid}) ->
-    wf:wire(#jq{target=n2ostatus,method=[show,select],args=[]}),
+%%    wf:wire(#jq{target=n2ostatus,method=[show,select],args=[]}),
     error_logger:info_msg("Chat Pid: ~p",[Pid]),
     Username = case wf:user() of undefined -> "anonymous"; A -> A#user.display_name end,
     Message = wf:q(message),
@@ -95,7 +95,7 @@ chat_loop() ->
             error_logger:info_msg("Comet received : ~p",[{Username,Message}]),
             Terms = message(Username,Message),
             wf:insert_top(<<"history">>, Terms),
-            wf:wire(#jq{target=history,property=scrollTop,right=#jq{target=history,property=scrollHeight}}),
+%            wf:wire(#jq{target=history,property=scrollTop,right=#jq{target=history,property=scrollHeight}}),
 %            wf:wire("$('#history').scrollTop = $('#history').scrollHeight;"),
             wf:send(lobby,{add,{Username,Message}}),
             wf:flush(room);

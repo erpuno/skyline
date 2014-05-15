@@ -12,6 +12,7 @@
   {{body}}
   <script>{{script}}</script>
   <div id="n2ostatus" style="display:none"></div>
+  <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="/static/js/all.min.js"></script>
   <script src="/static/js/bootstrap.min.js"></script>
 </body>

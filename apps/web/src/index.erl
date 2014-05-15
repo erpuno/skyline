@@ -1,7 +1,9 @@
 -module(index).
 -compile(export_all).
 -include_lib("n2o/include/wf.hrl").
--include_lib("kvs/include/users.hrl").
+-include_lib("kvs/include/user.hrl").
+
+log_modules() -> [].
 
 main() -> 
     case wf:user() of

@@ -1,9 +1,8 @@
 -module(reviews).
 -compile(export_all).
--include_lib("n2o/include/wf.hrl").
--include_lib("kvs/include/users.hrl").
--include_lib("kvs/include/feeds.hrl").
--include_lib("kvs/include/membership.hrl").
+-include_lib("web/include/wf.hrl").
+-include_lib("kvs/include/user.hrl").
+-include_lib("kvs/include/feed.hrl").
 
 main() -> [#dtl{file = wf:cache(mode), ext="dtl", bindings=[{title,<<"Reviews">>},{body,body()}]}].
 

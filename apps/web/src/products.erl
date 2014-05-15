@@ -1,8 +1,8 @@
 -module(products).
 -compile(export_all).
--include_lib("n2o/include/wf.hrl").
--include_lib("kvs/include/users.hrl").
--include_lib("kvs/include/products.hrl").
+-include_lib("web/include/wf.hrl").
+-include_lib("kvs/include/user.hrl").
+-include_lib("kvs/include/product.hrl").
 -include("records.hrl").
 
 -define(PAGE_SIZE, case wf:session(page_size) of list -> 6; _ -> 8 end).
