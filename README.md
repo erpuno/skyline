@@ -13,7 +13,7 @@ Prerequisites
 
 * Erlang R16: sudo apt-get install erlang
 * Rebar: https://github.com/rebar/rebar
-* iNotify Tools (Linux): sudo apt-get install inotify-tools
+* iNotify Tools (Linux only): sudo apt-get install inotify-tools
 
 Init Database
 -------------
