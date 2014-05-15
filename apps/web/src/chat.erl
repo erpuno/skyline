@@ -12,6 +12,7 @@ items() ->
     Link3 = {[{name, "Microsoft"}, {url, "http://microsoft.com"}]},
     RenderVars = {items, [Link1, Link2, Link3]}.
 
+message(undefined,What) -> message("Anonymous",What);
 message(Who,What) ->
     error_logger:info_msg("~p",[What]),
   #panel{class=["media"],body=[
@@ -66,7 +67,8 @@ event(init) ->
     wf:reg(room2),
     wf:send(lobby,{top,5,Self}),
     Terms = wf:render(receive Top -> [ message(U,M) || {U,M} <- Top] end),
-    error_logger:info_msg("Top 10: ~p",[Terms]),
+%    error_logger:info_msg("Top 10: ~p",[Terms]),
+    error_logger:info_msg("User: ~p",[wf:user()]),
     wf:insert_top(<<"history">>, #panel{body=[Terms]}),
     wf:wire("$('#history').scrollTop = $('#history').scrollHeight;");
 event(chat) -> wf:redirect("chat");
@@ -76,8 +78,8 @@ event(<<"PING">>) -> ok;
 
 event({chat,Pid}) ->
 %%    wf:wire(#jq{target=n2ostatus,method=[show,select],args=[]}),
-    error_logger:info_msg("Chat Pid: ~p",[Pid]),
-    Username = case wf:user() of undefined -> "anonymous"; A -> A#user.display_name end,
+    error_logger:info_msg("User: ~p",[wf:user()]),
+    Username = case wf:user() of undefined -> "anonymous"; A -> A#user.id end,
     Message = wf:q(message),
     Terms = [ message("Systen","Message added"), #button{postback=hello} ],
 %    wf:update(history, [#span{body="hello"},#br{}]),
