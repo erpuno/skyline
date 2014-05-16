@@ -2,28 +2,17 @@
 -behaviour(supervisor).
 -export([start_link/0, init/1]).
 -compile(export_all).
--include_lib ("n2o/include/wf.hrl").
+-include_lib("n2o/include/wf.hrl").
 -define(APP, web).
 
-%% ===================================================================
-%% API functions
-%% ===================================================================
-
-start_link() ->
-    supervisor:start_link({local, ?MODULE}, ?MODULE, []).
-
-%% ===================================================================
-%% Supervisor callbacks
-%% ===================================================================
+start_link() -> supervisor:start_link({local, ?MODULE}, ?MODULE, []).
 
 init([]) ->
     {ok, _} = cowboy:start_http(http, 100, [{port, 8000}],
                                            [{env, [{dispatch, dispatch_rules()}]}]),
 
     Pid = spawn(fun () -> wf:reg(lobby), chat_room([],0) end),
-
     wf:cache(mode,wf:config(n2o,mode,"prod")),
-
     {ok, {{one_for_one, 5, 10}, []}}.
 
 dispatch_rules() ->

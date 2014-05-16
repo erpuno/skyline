@@ -80,12 +80,6 @@ body() ->
 
   ]}}}
 
-%  #panel{class=["container"], body=[
-%    #panel{class=["row-fluid"], body=[
-%      #panel{class=[span4, "product-view"], body=#product_figure{product=P}},
-%      #panel{class=[span8], body=#list{class=[thumbnails], body=feed()} }
-%    ]}
-%  ]}
   ]++index:footer().
 
 blog_post()-> % feed entry

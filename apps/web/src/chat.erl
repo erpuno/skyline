@@ -6,12 +6,6 @@
 main() -> 
   [ #dtl{file = wf:cache(mode), ext="dtl", bindings=[{title,<<"Login">>},{body,body()}]} ].
 
-items() ->
-    Link1 = {[{name, "Amazon"}, {url, "http://amazon.com"}]},
-    Link2 = {[{name, "Google"}, {url, "http://google.com"}]},
-    Link3 = {[{name, "Microsoft"}, {url, "http://microsoft.com"}]},
-    RenderVars = {items, [Link1, Link2, Link3]}.
-
 message(undefined,What) -> message("Anonymous",What);
 message(Who,What) ->
     error_logger:info_msg("~p",[What]),
@@ -23,10 +17,7 @@ message(Who,What) ->
                 #span{body=wf:js_escape(What)} ]} ]}.
 
 body() ->
-%    wf:wire(#wire{actions=#jq{target="ok",method=[method],trigger="self",type="type"}}),
-    {ok,Pid} = wf:comet(fun() -> chat_loop() end),
-    {ok,Pid2} = wf:async("looper",fun() -> loop(0) end),
-    error_logger:info_msg("comet: ~p", [Pid2]),
+    {ok,Pid} = wf:async("looper",fun() -> chat_loop() end),
     index:header() ++ [
   #panel{class=["container-fluid", chat], body=[
     #panel{class=["row-fluid"], body=[
@@ -50,10 +41,7 @@ body() ->
         #button{id=send,body="Send",class=["btn","btn-primary","btn-large","btn-inverse"],postback={chat,Pid},source=[message]}
       ]}
     ]}
-  ]},
-
-    #span   { id=counter,body="0" },
-    #button { id=increment, body="Send", postback={inc,Pid2} }
+  ]}
 
   ] ++ index:footer().
 
@@ -69,15 +57,10 @@ event({inc,Pid}) ->
 event(init) ->
     Self = self(),
     wf:reg(room),
-    wf:reg(room2),
     wf:send(lobby,{top,5,Self}),
     Terms = wf:render(receive Top -> [ message(U,M) || {U,M} <- Top] end),
     wf:insert_top(<<"history">>, #panel{body=[Terms]}),
     wf:wire("$('#history').scrollTop = $('#history').scrollHeight;");
-event(chat) -> wf:redirect("chat");
-event({counter,C}) -> wf:update(onlinenumber,wf:to_list(C));
-event(hello) -> wf:redirect("login");
-event(<<"PING">>) -> ok;
 
 event({chat,Pid}) ->
     Username = case wf:user() of undefined -> "anonymous"; A -> A#user.id end,
@@ -85,11 +68,6 @@ event({chat,Pid}) ->
     Terms = [ message("Systen","Message added"), #button{postback=hello} ],
     wf:wire("$('#message').focus(); $('#message').select(); "),
     Pid ! {message, Username, Message}.
-
-    loop(Counter) ->
-        wf:info("loop ok"),
-        receive inc -> wf:info("F"),wf:update(counter, #span { body=wf:to_list(Counter) }), wf:flush(room2);
-                U -> wf:info("U:~p",[U]) end, loop(Counter+1).
 
 chat_loop() ->
     receive
