@@ -14,3 +14,6 @@ section(Body, Icon) ->
     #panel{class=[span1], body=#i{class=[Icon, "icon-2x"]}},
     #panel{class=[span11, "dashboard-unit"], body=Body}
   ]}.
+
+broadcast_hello() ->
+    spawn(fun()-> wf:wire(#alert{text="Hello, There!"}), wf:flush(room) end).
