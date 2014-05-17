@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 uglifyjs=`which uglifyjs`
-uglifijs_args='-nc'
+uglifyjs_args='-nc'
 
 check_uglifyjs() {
         if [ "$uglifyjs" == "" ] ; then
