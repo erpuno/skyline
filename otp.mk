@@ -18,8 +18,9 @@ relx     := "{release,{$(RELEASE),\"$(VER)\"},[$(RELEASE)]}.\\n{include_erts,tru
 test: eunit ct
 compile: get-deps static-link
 clean:
-	rm .applist
-delete-deps get-deps compile clean update-deps:
+	rm -f .applist
+	rebar $@
+delete-deps get-deps compile update-deps:
 	rebar $@
 .applist:
 	$(eval APPS := $(subst deps/,,$(subst apps/,,$(shell find apps deps -maxdepth 1 -mindepth 1 -type d))))
