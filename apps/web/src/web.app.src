@@ -3,7 +3,7 @@
   {description, "SKY VXZ Skyline N2O Demo"},
   {vsn, "1"},
   {registered, []},
-  {applications, [kernel, stdlib, n2o]},
+  {applications, [kernel, stdlib, xmerl, erlydtl, cowboy, n2o, kvs]},
   {mod, { web_app, []}},
   {env, []}
  ]}.
