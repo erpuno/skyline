@@ -8,7 +8,7 @@
 start_link() -> supervisor:start_link({local, ?MODULE}, ?MODULE, []).
 
 init([]) ->
-    {ok, _} = cowboy:start_http(http, 100, [{port, 8000}],
+    {ok, _} = cowboy:start_http(http, 100, [{port, 8001}],
                                            [{env, [{dispatch, dispatch_rules()}]}]),
 
     Pid = spawn(fun () -> wf:reg(lobby), chat_room([],0) end),
