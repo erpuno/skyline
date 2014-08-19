@@ -14,6 +14,16 @@ Prerequisites
 * Rebar: https://github.com/rebar/rebar
 * iNotify Tools (Linux only): sudo apt-get install inotify-tools
 
+Startup
+-------------
+make
+cd deps/sh
+gcc c_src/fdlink.c -o fdlink
+mkdir priv
+mv fdlink priv/
+cd ../../
+make console
+
 Init Database
 -------------
 
