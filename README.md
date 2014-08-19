@@ -16,8 +16,9 @@ Prerequisites
 
 Startup
 -------------
-make
-make console
+
+    make
+    make console
 
 Init Database
 -------------
