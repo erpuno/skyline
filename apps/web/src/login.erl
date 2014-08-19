@@ -1,4 +1,4 @@
--module(login).
+  -module(login).
 -compile(export_all).
 -include_lib("avz/include/avz.hrl").
 -include_lib("n2o/include/wf.hrl").
