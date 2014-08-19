@@ -21,7 +21,7 @@ In Erlang Shell perform
 
     > kvs:join().
 
-And open in browser [http://localhost:8000](http://localhost:8000)
+And open in browser [http://localhost:8001](http://localhost:8001)
 
 Credits
 -------
