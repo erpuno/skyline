@@ -5,7 +5,7 @@ Skyline was made with Nitrogen DSL and based on [N2O](https://github.com/5HT/n2o
 It is a demo how to use N2O in real-life applications.
 Feel free to use it in your projects. It is provided as is in public domain.
 
-![Login](http://synrc.com/lj/N2O+Bootstrap.png)
+![Login](http://synrc.com/images/N2O+Bootstrap.png)
 
 Prerequisites
 =============
