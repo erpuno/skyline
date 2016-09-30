@@ -2,6 +2,8 @@
 -compile(export_all).
 -include_lib("n2o/include/wf.hrl").
 -include_lib("kvs/include/user.hrl").
+-include_lib("nitro/include/nitro.hrl").
+
 
 log_modules() -> [index,login,chat].
 

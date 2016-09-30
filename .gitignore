@@ -17,3 +17,7 @@ _rel
 kai
 log
 rels
+.idea/
+apps/web/.rebar/
+rebar
+skyline.iml

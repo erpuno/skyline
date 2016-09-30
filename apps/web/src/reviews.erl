@@ -3,6 +3,7 @@
 -include_lib("web/include/wf.hrl").
 -include_lib("kvs/include/user.hrl").
 -include_lib("kvs/include/feed.hrl").
+-include_lib("nitro/include/nitro.hrl").
 
 main() -> [#dtl{file = wf:cache(mode), ext="dtl", bindings=[{title,<<"Reviews">>},{body,body()}]}].
 
