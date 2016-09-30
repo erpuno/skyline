@@ -2,6 +2,8 @@
 -compile(export_all).
 -include_lib("n2o/include/wf.hrl").
 -include_lib("kvs/include/user.hrl").
+-include_lib("nitro/include/nitro.hrl").
+
 
 main() -> 
 case wf:user() of undefined -> wf:redirect("/login"); _ -> [#dtl{file = wf:cache(mode),  ext="dtl",bindings=[{title,<<"Account">>},{body,body()}]}] end.
@@ -27,7 +29,7 @@ profile_info(U) ->
         #panel{class=[span4, "dashboard-img-wrapper"], body=
         #panel{class=["dashboard-img"], body=
           #image{class=[], alt="",
-            image = case U#user.avatar of undefined -> undefined;
+            image = case U#user.images of undefined -> undefined;
                                           Avatar -> re:replace(Avatar, <<"_normal">>, <<"">>, [{return, list}]) ++
                                                     "?sz=180&width=180&height=180&s=180" end,
             width= <<"180px">>, height= <<"180px">> }} },

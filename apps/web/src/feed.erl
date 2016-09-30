@@ -4,6 +4,8 @@
 -include_lib("kvs/include/product.hrl").
 -include_lib("kvs/include/comment.hrl").
 -include_lib("kvs/include/feed.hrl").
+-include_lib("nitro/include/nitro.hrl").
+
 -include("records.hrl").
 
 -define(PAGE_SIZE, 4).
